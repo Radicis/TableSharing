@@ -5,14 +5,14 @@
  */
 
 var app = require('../app');
+var config = require('../config/config');
 var debug = require('debug')('assignment:server');
 var http = require('http');
 
 /**
  * Get port from environment and store in Express.
  */
-
-var port = normalizePort(process.env.PORT || '3000');
+var port = config.port;
 app.set('port', port);
 
 /**
@@ -86,5 +86,5 @@ function onListening() {
   var bind = typeof addr === 'string'
     ? 'pipe ' + addr
     : 'port ' + addr.port;
-  debug('Listening on ' + bind);
+  console.log('Listening on ' + bind);
 }
