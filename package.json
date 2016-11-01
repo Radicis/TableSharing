@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "test": "./node_modules/.bin/mocha --reporter spec"
+    "test": "mocha --timeout 10000"
   },
   "dependencies": {
     "body-parser": "~1.15.1",
@@ -14,5 +14,10 @@
     "mongoose": "^4.6.5",
     "morgan": "^1.7.0",
     "q": "^1.4.1"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "chai-http": "^2.0.1",
+    "mocha": "^2.4.5"
   }
 }

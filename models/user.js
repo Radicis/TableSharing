@@ -1,29 +1,31 @@
-// get an instance of mongoose and mongoose.Schema
 var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
 
-// set up a mongoose model and pass it using module.exports
 var UserSchema = mongoose.Schema({
     name: {
         type: String,
-        required: true
+        default: 'foo'
     },
     password: {
-        type:String,
-        required: true
-    },
-    created:{
-        type:Date,
-        default: Date.now
-    },
-    pic: {
         type: String,
-        default: false
+        default: 'bar'
     },
     admin: {
-      type: Boolean,
-      default: false
+        type: Boolean,
+        default: false
     }
 });
 
 var User = module.exports = mongoose.model('User', UserSchema);
+
+module.exports.getUsers = function(callback, limit){
+    User.find(callback).limit(limit);
+};
+
+module.exports.getUserById = function(id, callback){
+    User.findById(id, callback);
+};
+
+module.exports.addUser = function(user, callback){
+    console.log('Creating new user..');
+    User.create(user, callback);
+};

@@ -2,28 +2,21 @@ var express = require('express');
 var router = express.Router();
 var User   = require('../models/user');
 var jwt    = require('jsonwebtoken'); // used to create, sign, and verify tokens
+var config = require('../config/config');
 
 router.get('/setup', function(req, res) {
-
     // create a sample user
-    var nick = new User({
-        name: 'User',
-        password: 'password',
-        admin: true
+    var newUser = new User({
+        name: 'user',
+        password: 'password'
     });
 
     // save the sample user
-    nick.save(function(err) {
+    User.addUser(newUser, function(err) {
         if (err) throw err;
-
         console.log('User saved successfully');
-        res.json({ success: true });
+        res.json(newUser);
     });
-});
-
-// route to return all users
-router.get('/', function(req, res) {
-
 });
 
 // Authenticates a user based on a username and password
@@ -47,7 +40,7 @@ router.post('/authenticate', function(req, res){
 
                 // if user is found and password is right
                 // create a token
-                var token = jwt.sign(user, router.get('superSecret'), {
+                var token = jwt.sign(user, config.secret, {
                     //expiresInMinutes: 1440 // expires in 24 hours
                 });
 
@@ -58,7 +51,6 @@ router.post('/authenticate', function(req, res){
                     token: token
                 });
             }
-
         }
     });
 });

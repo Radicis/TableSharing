@@ -3,16 +3,12 @@ var path = require('path');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
 
-var routes = require('./routes/index');
-var users = require('./routes/users');
-var auth = require('./routes/auth');
-
 var config = require('./config/config');
 
-//Connect to Mongo
+//Connect to MongoDb
 var mongoose = require('mongoose');
 mongoose.connect(config.database);
-mongoose.Promise = require('q');
+//mongoose.Promise = require('q');
 
 var app = express();
 
@@ -21,11 +17,11 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(express.static(__dirname+'/client'));
-app.set('superSecret', config.secret); // secret variable
+app.set('superSecret', "hello"); // secret variable
 
-// Include routes
-app.use('/', routes);
-app.use('/users', users);
-app.use('/auth', auth);
+// Routes
+app.use('/', require('./routes/index'));
+app.use('/users', require('./routes/users'));
+app.use('/auth', require('./routes/auth'));
 
 module.exports = app;
