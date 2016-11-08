@@ -1,0 +1,7 @@
+<div class="container" ng-init="getAllTables()">
+    <div class="row" ng-repeat="table in tables">
+        <div class="co-md-12">
+            <a href="#/timetables/{{table._id}}">{{table.name}}</a> by <a href="#/users/table.owner._id">{{table.owner.name}}</a>
+        </div>
+    </div>
+</div>

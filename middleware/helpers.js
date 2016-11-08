@@ -8,15 +8,15 @@ module.exports.ParseIp = function(ipString) {
     return clientIp === "1" ? 'Localhost' : clientIp;
 };
 
-//
+// Checks is a token was passed and if it is valid
 module.exports.validToken = function(req, res, next) {
     // check header or url parameters or post parameters for token
     var token = req.body.token || req.query.token || req.headers['x-access-token'];
 
-    // decode token
+    // if a token is passed then decode token
     if (token) {
 
-        // verifies secret and checks exp
+        // verifies token by hashing with secret
         jwt.verify(token, config.secret, function(err, decoded) {
             if (err) {
                 return res.json({ success: false, message: 'Failed to authenticate token.' });

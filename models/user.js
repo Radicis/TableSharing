@@ -9,6 +9,18 @@ var UserSchema = mongoose.Schema({
         type: String,
         default: 'bar'
     },
+    created: {
+        type:Date,
+        default: Date.now
+    },
+    active: {
+        type: Boolean,
+        default: true
+    },
+    profilePic: {
+      type: String,
+      default: false
+    },
     admin: {
         type: Boolean,
         default: false

@@ -4,6 +4,7 @@ var User   = require('../models/user');
 var jwt    = require('jsonwebtoken'); // used to create, sign, and verify tokens
 var config = require('../config/config');
 
+// Temporary method to create a test user
 router.get('/setup', function(req, res) {
     // create a sample user
     var newUser = new User({
