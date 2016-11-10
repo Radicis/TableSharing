@@ -1,4 +1,4 @@
-timetableModule.controller('TimetableController', function($scope, $routeParams, TimetableService) {
+timetableModule.controller('TimetableController', function($scope, $routeParams, TimetableService, AuthenticationService) {
 
     $scope.getAllTables = function(){
       TimetableService.getAll().then(function(tables){

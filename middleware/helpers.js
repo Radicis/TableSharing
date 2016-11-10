@@ -24,7 +24,7 @@ module.exports.validToken = function(req, res, next) {
                 // if everything is good, save to request for use in other routes
                 req.decoded = decoded;
                 next();
-            }
+            };
         });
 
     } else {
@@ -35,5 +35,5 @@ module.exports.validToken = function(req, res, next) {
             success: false,
             message: 'No token provided.'
         });
-    }
+    };
 };

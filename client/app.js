@@ -1,6 +1,16 @@
-angular.module('TableShare', [
+var tableShare = angular.module('TableShare', [
     'ngRoute',
-    'MainRoutes',
+    'ui.bootstrap',
+        'ngAnimate',
     'Timetables',
+    'Authentication',
     'Users'
-]);
+]
+)
+//
+// .config(['$httpProvider', function($httpProvider) {
+//     $httpProvider.interceptors.push('APIInterceptor');
+// }])
+
+    ;
+
