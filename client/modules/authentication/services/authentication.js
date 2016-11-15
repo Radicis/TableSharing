@@ -1,4 +1,4 @@
-authenticationModule.service('AuthenticationService', function($http, $q, $window) {
+authenticationModule.service('AuthenticationService', function($http, $q, $window, $location) {
 
     this.login = function (username, password) {
         console.log("Trying login...");
@@ -19,11 +19,20 @@ authenticationModule.service('AuthenticationService', function($http, $q, $windo
 
     // Return the stored token or boolean false
     this.getToken = function(){
+        console.log("Getting token..");
         if($window.localStorage['jwtToken'] === 'undefined'){
             return false;
         }
         return $window.localStorage['jwtToken'];
     };
+
+    // Middlewaye to chekc users permissions on a route
+    this.checkPermissions = function(){
+        if(this.getToken()){
+            return true;
+        }
+        $location.path(routeForUnauthorizedAccess);
+    }
 
 });
 

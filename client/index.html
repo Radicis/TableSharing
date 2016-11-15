@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="css/style.css" />
 </head>
 
-<body ng-app="TableShare" ng-controller="HomeController">
+<body ng-app="TableShare" ng-controller="AuthenticationController">
 
 <nav class="navbar navbar-default">
     <div class="container">
@@ -24,7 +24,7 @@
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="#/timetables">Browse</a></li>
                 <li><a href="#/categories">Categories</a></li>
-                <li><button ng-click="openLogin(100)">Login</button></li>
+                <li><a ng-click="openLogin(100)">Login</a></li>
                 <li><a href="#/timetables/add" class="glyphicon glyphicon-pencil"></a></li>
             </ul>
         </div><!--/.nav-collapse -->

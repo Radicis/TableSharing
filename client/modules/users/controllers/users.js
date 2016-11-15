@@ -1,4 +1,4 @@
-usersModule.controller('UserController', function($scope, $location, $routeParams, Questions, Category) {
+usersModule.controller('UserController', function($scope, $location, $routeParams) {
 
 
 });

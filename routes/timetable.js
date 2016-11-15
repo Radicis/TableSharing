@@ -42,5 +42,16 @@ router.get('/:_id', function(req, res){
     });
 });
 
+// Update timetable by unique id
+// Ensure valid token and match user ID to owner ID before saving
+router.put('/:_id', function(req, res){
+    // Timetable.getById(req.params._id, function(err, table){
+    //     if(err){
+    //         throw err;
+    //     }
+    //     res.json(table);
+    // });
+});
+
 
 module.exports = router;

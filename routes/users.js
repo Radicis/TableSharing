@@ -3,7 +3,7 @@ var router = express.Router();
 var User   = require('../models/user');
 var middleware = require('../middleware/helpers');
 
-// Automatically apply the `requiretoken` middleware to all
+
 // routes starting with `/users` to enforce login before allowing access
 router.all("/*", middleware.validToken, function(req, res, next) {
   next(); // if the middleware allowed us to get here,

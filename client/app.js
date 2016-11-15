@@ -1,7 +1,7 @@
 var tableShare = angular.module('TableShare', [
     'ngRoute',
     'ui.bootstrap',
-        'ngAnimate',
+    'ngAnimate',
     'Timetables',
     'Authentication',
     'Users'
@@ -13,4 +13,6 @@ var tableShare = angular.module('TableShare', [
 // }])
 
     ;
+
+var routeForUnauthorizedAccess = "/unauthorised";
 
