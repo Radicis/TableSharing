@@ -20,6 +20,7 @@
     "angular": "^1.5.8",
     "angular-route": "^1.5.8",
     "angular-bootstrap": "^2.2.0",
-    "angular-animate": "^1.5.8"
+    "angular-animate": "^1.5.8",
+    "angular-bootstrap-calendar": "^0.26.1"
   }
 }

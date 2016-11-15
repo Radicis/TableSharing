@@ -1,7 +1,22 @@
 <div class="container" ng-init="getTable()">
     <div class="row">
         <div class="co-md-12">
-            {{table.name}} by {{table.owner.name}}
+            <mwl-calendar
+                    view="calendarView"
+                    view-date="viewDate"
+                    events="events",
+                    day-view-start="09:00"
+                    day-view-end="17:59",
+                    view-title="calendarTitle"
+                    on-event-click="eventClicked(calendarEvent)"
+                    on-event-times-changed="calendarEvent.startsAt = calendarNewEventStart; calendarEvent.endsAt = calendarNewEventEnd"
+                    cell-is-open="true">
+            </mwl-calendar>
+
+            <!--
+             <daypilot-calendar id="week" config="config" events="events"></daypilot-calendar>
+             -->
+
         </div>
     </div>
 </div>
