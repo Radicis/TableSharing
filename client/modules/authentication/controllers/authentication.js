@@ -1,26 +1,9 @@
-authenticationModule.controller('AuthenticationController', function($scope, $uibModal,  $window, $routeParams, TimetableService, AuthenticationService) {
+authenticationModule.controller('AuthenticationController', function($scope, $window, $routeParams, TimetableService, AuthenticationService) {
 
-    $scope.openLogin = function (size) {
+    $scope.openLogin = function () {
 
-        console.log("Opening login modal");
+        AuthenticationService.openLogin();
 
-        var modalInstance = $uibModal.open({
-            animation: true,
-            templateUrl: 'modules/authentication/views/login.html',
-            controller: 'AuthenticationController',
-            size: size,
-            resolve: {
-                items: function () {
-                    return $scope.items;
-                }
-            }
-        });
-
-        modalInstance.result.then(function (token) {
-
-        }, function () {
-            console.log('Modal dismissed at: ' + new Date());
-        });
     };
 
 

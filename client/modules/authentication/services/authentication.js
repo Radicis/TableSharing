@@ -1,4 +1,27 @@
-authenticationModule.service('AuthenticationService', function($http, $q, $window, $location) {
+authenticationModule.service('AuthenticationService', function($http, $q, $window, $location, $uibModal) {
+
+    this.openLogin = function () {
+
+        console.log("Opening login modal");
+
+        var modalInstance = $uibModal.open({
+            animation: true,
+            templateUrl: 'modules/authentication/views/login.html',
+            controller: 'AuthenticationController',
+            size: 100,
+            resolve: {
+                items: function () {
+                    return null;
+                }
+            }
+        });
+
+        modalInstance.result.then(function (token) {
+
+        }, function () {
+            console.log('Modal dismissed at: ' + new Date());
+        });
+    };
 
     this.login = function (username, password) {
         console.log("Trying login...");

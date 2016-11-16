@@ -1,4 +1,5 @@
 timetableModule.service('TimetableService', function($http, $q) {
+
     this.getAll = function () {
         // Initialize the defferred promise variable
         var def = $q.defer();
