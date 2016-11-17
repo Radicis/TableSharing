@@ -2,7 +2,7 @@ var tableShare = angular.module('TableShare', [
     'ngRoute',
     'ui.bootstrap',
     'ngAnimate',
-    'daypilot',
+    'ui.calendar',
     'Timetables',
     'Authentication',
     'Users'

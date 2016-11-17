@@ -1,15 +1,11 @@
 <div class="modal-body">
     <div class="loginmodal-container">
-        <h1>Login to Your Account</h1><br>
+        <h1>Edit Event</h1><br>
         <form ng-submit="login()">
-            <input type="text" name="formUsername" ng-model="formUsername" placeholder="Username">
+            <input type="text" name="formEventTitle" ng-model="formEventTitle" placeholder="Title">
             <input type="password" name="formPassword" ng-model="formPassword" placeholder="Password">
 
-            <input type="submit" name="login" class="login loginmodal-submit" value="Login">
+            <input type="submit" name="save" class="login loginmodal-submit" value="Save">
         </form>
-
-        <div class="login-help">
-            <a href="#">Register</a> - <a href="#">Forgot Password</a>
-        </div>
     </div>
 </div>

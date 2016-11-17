@@ -1,29 +1,6 @@
 eventsModule.service('EventService', function($http, $q, $uibModal) {
 
-    this.getEventsByTableId = function (tableId) {
-        // var def = $q.defer();
-        // $http.get('/api/events/' + tableId).success(function (response) {
-        //     def.resolve(response);
-        // }).error(function (error) {
-        //     console.log("Error: " + error);
-        //     def.reject(null);
-        // });
-        // return def.promise;
-
-        var events = [
-            {
-                start: new DayPilot.Date("2016-11-16T10:00:00"),
-                end: new DayPilot.Date("2016-11-16T11:00:00"),
-                id: DayPilot.guid(),
-                text: "First Event"
-            }
-     ];
-
-        return events;
-
-    };
-
-    this.editEvent = function (event) {
+    this.editEventModal = function (event) {
 
         console.log("Opening event edit modal");
 
@@ -46,6 +23,19 @@ eventsModule.service('EventService', function($http, $q, $uibModal) {
         });
     };
 
+    this.getEventsByTableId = function (tableId) {
+        // var def = $q.defer();
+        // $http.get('/api/events/' + tableId).success(function (response) {
+        //     def.resolve(response);
+        // }).error(function (error) {
+        //     console.log("Error: " + error);
+        //     def.reject(null);
+        // });
+        // return def.promise;
+        //return events;
+
+    };
+
     this.addEvent = function(event){
 
         $http.post('/api/events', event).success(function (response) {
@@ -60,7 +50,7 @@ eventsModule.service('EventService', function($http, $q, $uibModal) {
     };
 
     this.editEvent = function(event){
-
+        var def = $q.defer();
         $http.put('/api/events', event).success(function (response) {
             // When this request succeeds resolve the promise
             def.resolve(response);
@@ -73,7 +63,7 @@ eventsModule.service('EventService', function($http, $q, $uibModal) {
     };
 
     this.deleteEvent = function(event){
-
+        var def = $q.defer();
         $http.delete('/api/events', event).success(function (response) {
             // When this request succeeds resolve the promise
             def.resolve(response);

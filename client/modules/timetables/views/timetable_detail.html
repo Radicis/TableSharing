@@ -1,11 +1,10 @@
 <div class="container" ng-init="getTable()">
+    <div class="alert-success calAlert" ng-show="alertMessage != undefined && alertMessage != ''">
+        <h4>Message is: {{alertMessage}}</h4>
+    </div>
     <div class="row">
         <div class="co-md-12">
-
-            <button class="btn btn-default" ng-click="addEvent()">Add</button>
-
-            <daypilot-calendar id="week" config="config" events="events"></daypilot-calendar>
-
+            <div ui-calendar="uiConfig.calendar" class="span8 calendar" ng-model="eventSources"></div>
         </div>
     </div>
 </div>
