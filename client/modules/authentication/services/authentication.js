@@ -1,10 +1,10 @@
-authenticationModule.service('AuthenticationService', function($http, $q, $window, $location, $uibModal) {
+authenticationModule.service('AuthenticationService', function($rootScope, $http, $q, $window, $location, $uibModal) {
 
     this.openLogin = function () {
 
         console.log("Opening login modal");
 
-        var modalInstance = $uibModal.open({
+        $rootScope.modalInstance = $uibModal.open({
             animation: true,
             templateUrl: 'modules/authentication/views/login.html',
             controller: 'AuthenticationController',
@@ -16,10 +16,33 @@ authenticationModule.service('AuthenticationService', function($http, $q, $windo
             }
         });
 
-        modalInstance.result.then(function (token) {
-
+        $rootScope.modalInstance.result.then(function (token) {
+            $rootScope.modalInstance.dismiss();
         }, function () {
-            console.log('Modal dismissed at: ' + new Date());
+            console.log('Login Modal dismissed');
+        });
+    };
+
+    this.openRegister = function () {
+        $rootScope.modalInstance.dismiss();
+        console.log("Opening register modal");
+
+        $rootScope.modalInstance = $uibModal.open({
+            animation: true,
+            templateUrl: 'modules/authentication/views/register.html',
+            controller: 'AuthenticationController',
+            size: 100,
+            resolve: {
+                items: function () {
+                    return null;
+                }
+            }
+        });
+
+        $rootScope.modalInstance.result.then(function (token) {
+            $rootScope.modalInstance.dismiss();
+        }, function () {
+            console.log('Register Modal dismissed');
         });
     };
 

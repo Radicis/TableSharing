@@ -57,7 +57,7 @@ eventsModule.service('EventService', function($http, $q, $uibModal) {
 
         var modalInstance = $uibModal.open({
             animation: true,
-            templateUrl: '/modules/timetables/events/views/edit.html',
+            templateUrl: '/modules/timetables/events/views/add.html',
             controller: 'EventController',
             size: 100,
             resolve: {

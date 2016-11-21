@@ -6,11 +6,6 @@ var TimetableSchema = mongoose.Schema({
         default: 'foo',
         required: true
     },
-    password: {
-        type: String,
-        default: 'bar',
-        required: true
-    },
     created: {
         type:Date,
         default: Date.now

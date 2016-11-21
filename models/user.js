@@ -21,7 +21,7 @@ var UserSchema = mongoose.Schema({
       type: String,
       default: false
     },
-    admin: {
+    superUser: {
         type: Boolean,
         default: false
     }

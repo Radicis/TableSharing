@@ -24,5 +24,6 @@ app.use('/api', require('./routes/index'));
 app.use('/api/users', require('./routes/users'));
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/timetables', require('./routes/timetable'));
+app.use('/api/events', require('./routes/event'));
 
 module.exports = app;

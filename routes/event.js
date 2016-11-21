@@ -2,12 +2,12 @@ var express = require('express');
 var router = express.Router();
 var User   = require('../models/user');
 var Timetable = require('../models/timetable');
+var Event = require('../models/timetable');
 var middleware = require('../middleware/helpers');
-
 
 // Get listing of all timetables
 router.get('/', function(req, res) {
-    Timetable.getAll(function(err, table){
+    Event.getAll(function(err, table){
         if(err){
             throw err;
         }
@@ -17,32 +17,25 @@ router.get('/', function(req, res) {
 
 // Get timetable by unique id
 router.get('/:_id', function(req, res){
-    Timetable.getById(req.params._id, function(err, table){
+    Event.getById(req.params._id, function(err, event){
         if(err){
             throw err;
         }
-        res.json(table);
+        res.json(event);
     });
 });
 
-// Update timetable by unique id
-// Ensure valid token and match user ID to owner ID before saving
-router.put('/:_id', function(req, res){
-    // Timetable.getById(req.params._id, function(err, table){
-    //     if(err){
-    //         throw err;
-    //     }
-    //     res.json(table);
-    // });
-});
-
 router.post('/add', function(req, res){
-    //create timetable
+    //create event
 });
 
+router.put('/:_id', function(req, res){
+   // edit event
+});
 
 router.delete('/:_id', function(req, res){
-    // delete timetable
+    // delete event
 });
+
 
 module.exports = router;

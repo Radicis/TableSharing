@@ -3,7 +3,6 @@ var router = express.Router();
 var User   = require('../models/user');
 var middleware = require('../middleware/helpers');
 
-
 // routes starting with `/users` to enforce login before allowing access
 router.all("/*", middleware.validToken, function(req, res, next) {
   next(); // if the middleware allowed us to get here,
@@ -30,5 +29,8 @@ router.get('/:_id', function(req, res){
     });
 });
 
+router.put('/:_id', function(req, res){
+    // update user info
+});
 
 module.exports = router;

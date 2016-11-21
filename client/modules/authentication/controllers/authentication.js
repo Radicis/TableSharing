@@ -1,9 +1,15 @@
 authenticationModule.controller('AuthenticationController', function($scope, $window, $routeParams, TimetableService, AuthenticationService) {
 
     $scope.openLogin = function () {
-
         AuthenticationService.openLogin();
+    };
 
+    $scope.openRegister = function () {
+        AuthenticationService.openRegister();
+    };
+
+    $scope.addTable = function(){
+        TimetableService.addTimetableModal();
     };
 
 
