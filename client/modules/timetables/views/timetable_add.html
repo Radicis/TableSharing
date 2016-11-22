@@ -1,8 +1,8 @@
 <div class="modal-body">
     <div class="loginmodal-container">
-        <h1>Login to Your Account</h1><br>
-        <form ng-submit="create()">
-            <input type="text" name="formTitle" ng-model="timetable.title" placeholder="title">
+        <h1>Crate new Timetable</h1><br>
+        <form ng-submit="createTimetable()">
+            <input type="text" name="formTitle" ng-model="timetable.title" placeholder="Title">
 
             <select ng-model="timetable.startDay">
                 <option value="">- Starting day -</option>
@@ -20,7 +20,7 @@
                 </option>
             </select>
 
-            <select ng-model="timetable.startTime">
+            <select ng-model="timetable.startHour">
                 <option value="">- Starting Hour -</option>
                 <option ng-repeat="hour in hours"
                         value="{{hour.value}}">
@@ -28,7 +28,7 @@
                 </option>
             </select>
 
-            <select ng-model="timetable.endTime">
+            <select ng-model="timetable.endHour">
                 <option value="">- Ending Hour -</option>
                 <option ng-repeat="hour in hours"
                         value="{{hour.value}}">

@@ -1,9 +1,32 @@
 <div class="modal-body">
     <div class="loginmodal-container">
         <h1>Edit Event</h1><br>
-        <form ng-submit="login()">
+        <form ng-submit="update()">
             <input type="text" name="formEventTitle" ng-model="formEventTitle" placeholder="Title">
-            <input type="password" name="formPassword" ng-model="formPassword" placeholder="Password">
+
+            <select ng-model="event.day">
+                <option value="">- Day -</option>
+                <option ng-repeat="day in days"
+                        value="{{day.value}}">
+                    {{day.name}}
+                </option>
+            </select>
+
+            <select ng-model="event.startTime">
+                <option value="">- Start Time -</option>
+                <option ng-repeat="hour in hours"
+                        value="{{hour.value}}">
+                    {{hour.name}}
+                </option>
+            </select>
+
+            <select ng-model="event.endTime">
+                <option value="">- End Time -</option>
+                <option ng-repeat="hour in hours"
+                        value="{{hour.value}}">
+                    {{hour.name}}
+                </option>
+            </select>
 
             <input type="submit" name="save" class="login loginmodal-submit" value="Save">
         </form>

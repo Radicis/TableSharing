@@ -1,4 +1,4 @@
-timetableModule.service('TimetableService', function($http, $q, $uibModal) {
+timetableModule.service('TimetableService', function($http, $q, $uibModal, AuthenticationService) {
 
     this.getAll = function () {
         // Initialize the defferred promise variable
@@ -51,6 +51,22 @@ timetableModule.service('TimetableService', function($http, $q, $uibModal) {
             console.log('Modal dismissed at: ' + new Date());
         });
     };
+
+    this.createTimetable = function(timetable){
+        console.log("cretaing in service");
+
+        timetable.owner = AuthenticationService.getUserId();
+
+        var def = $q.defer();
+        $http.post('/api/timetables/add', timetable).success(function (response) {
+            console.log("cretaing in service, success");
+            def.resolve(response._id);
+        }).error(function (error) {
+            console.log("Error: " + error);
+            def.reject(null);
+        });
+        return def.promise;
+    }
 
 
 

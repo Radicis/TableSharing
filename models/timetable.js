@@ -1,10 +1,25 @@
 var mongoose = require('mongoose');
 
 var TimetableSchema = mongoose.Schema({
-    name: {
+    title: {
         type: String,
-        default: 'foo',
         required: true
+    },
+    startDay: {
+        type: Number,
+        default: 1
+    },
+    endDay: {
+        type: Number,
+        default: 5
+    },
+    startHour: {
+        type: Number,
+        default: 9
+    },
+    endHour: {
+        type: Number,
+        default: 18
     },
     created: {
         type:Date,

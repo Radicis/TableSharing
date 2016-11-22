@@ -31,6 +31,7 @@ router.post('/authenticate', function(req, res){
                 // Return JSON including token
                 res.json({
                     success: true,
+                    userID: user._id,
                     message: 'Enjoy your token!',
                     token: token
                 });

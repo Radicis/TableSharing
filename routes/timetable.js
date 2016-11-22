@@ -37,7 +37,19 @@ router.put('/:_id', function(req, res){
 });
 
 router.post('/add', function(req, res){
-    //create timetable
+    console.log("in express route");
+    var timetable = req.body;
+    Timetable.add(timetable, function(err, table){
+        if(err){
+            console.log(err);
+            res.json(err);
+        }
+        else{
+            console.log(table);
+            res.json(table);
+        }
+
+    })
 });
 
 

@@ -17,11 +17,11 @@ authenticationModule.controller('AuthenticationController', function($scope, $wi
         var email = $scope.formEmail;
         var password = $scope.formPassword;
 
-        AuthenticationService.login(email, password).then(function(token){
-            $scope.token = token;
-            console.log("Got token: " + token);
-            AuthenticationService.saveToken(token);
-            AuthenticationService.setLoggedIn(true);
+        AuthenticationService.login(email, password).then(function(response){
+            var token = response.token;
+            var userID = response.userID;
+            console.log("Got token: " + token + " and userID: " + userID);
+            AuthenticationService.saveToken(token, userID);
             $window.location.href = '/';
         });
     };

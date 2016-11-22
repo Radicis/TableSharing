@@ -17,17 +17,19 @@ authenticationModule.service('AuthenticationService', function($rootScope, $http
         });
 
         $rootScope.modalInstance.result.then(function (token) {
-            this.saveToken(token);
             $rootScope.modalInstance.dismiss();
         }, function () {
             console.log('Login Modal dismissed');
         });
     };
 
+
     // Store the provided token string in local storage
-    this.saveToken = function(token) {
+    this.saveToken = function(token, userID) {
         $window.localStorage['jwtToken'] = token;
+        $window.localStorage['userID'] = userID;
     };
+
 
     // Return the stored token or boolean false
     this.getToken = function(){
@@ -35,6 +37,14 @@ authenticationModule.service('AuthenticationService', function($rootScope, $http
             return false;
         }
         return $window.localStorage['jwtToken'];
+    };
+
+    // Return the stored userID or boolean false
+    this.getUserId = function(){
+        if($window.localStorage['userID'] === 'undefined'){
+            return false;
+        }
+        return $window.localStorage['userID'];
     };
 
     this.clearToken = function(){
@@ -79,7 +89,7 @@ authenticationModule.service('AuthenticationService', function($rootScope, $http
         console.log("Trying login...");
         var def = $q.defer();
         $http.post('/api/auth/authenticate', {'email': email, 'password':password}).success(function (response) {
-            def.resolve(response.token);
+            def.resolve(response);
         }).error(function (error) {
             console.log("Error: " + error);
             def.reject(null);

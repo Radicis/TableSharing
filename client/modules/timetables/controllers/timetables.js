@@ -1,4 +1,4 @@
-timetableModule.controller('TimetableController', function($scope, $routeParams, TimetableService, EventService) {
+timetableModule.controller('TimetableController', function($scope, $window, $routeParams, TimetableService, EventService) {
     var date = new Date();
     var d = date.getDate();
     var m = date.getMonth();
@@ -45,7 +45,6 @@ timetableModule.controller('TimetableController', function($scope, $routeParams,
         TimetableService.getTableById(id).then(function(table){
             $scope.table = table;
             $scope.getEventsByTableId(id);
-            console.log($scope.events);
             $scope.initTable();
         });
     };
@@ -55,6 +54,14 @@ timetableModule.controller('TimetableController', function($scope, $routeParams,
         // EventService.getEventsByTableId(id).then(function(events){
         //     $scope.events = events;
         // });
+    };
+
+    $scope.createTimetable = function(){
+        var timetable = $scope.timetable;
+
+        TimetableService.createTimetable(timetable).then(function(id){
+            $window.location.href = '/#/timetables/' + id;
+        });
     };
 
     $scope.initTable = function(){
@@ -82,15 +89,15 @@ timetableModule.controller('TimetableController', function($scope, $routeParams,
                 defaultView: "agendaWeek",
                 nowIndicator: true,
                 allDaySlot: false,
-                minTime: '09:00:00',
-                maxTime: '18:00:00',
-                scrollTime: '09:00:00',
-                firstDay: 1,
+                minTime: $scope.table.startHour + ':00:00',
+                maxTime: $scope.table.endHour + ':00:00',
+                scrollTime: $scope.table.startHour + ':00:00',
+                firstDay: $scope.table.startDay,
                 allDayText: '',
                 hiddenDays: [0, 6],
                 header:{
                     left: 'agendaWeek, month',
-                    center: '',
+                    center: 'tite',
                     right: 'today prev,next'
                 },
 

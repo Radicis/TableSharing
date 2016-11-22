@@ -21,6 +21,10 @@ var UserSchema = mongoose.Schema({
       type: String,
       default: false
     },
+    subscribedTo:{
+        type: [String],
+        required: false
+    },
     superUser: {
         type: Boolean,
         default: false
