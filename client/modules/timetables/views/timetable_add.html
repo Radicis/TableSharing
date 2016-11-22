@@ -1,1 +1,42 @@
-Create timetable
+<div class="modal-body">
+    <div class="loginmodal-container">
+        <h1>Login to Your Account</h1><br>
+        <form ng-submit="create()">
+            <input type="text" name="formTitle" ng-model="timetable.title" placeholder="title">
+
+            <select ng-model="timetable.startDay">
+                <option value="">- Starting day -</option>
+                <option ng-repeat="day in days"
+                        value="{{day.value}}">
+                    {{day.name}}
+                </option>
+            </select>
+
+            <select ng-model="timetable.endDay">
+                <option value="">- Ending day -</option>
+                <option ng-repeat="day in days"
+                        value="{{day.value}}">
+                    {{day.name}}
+                </option>
+            </select>
+
+            <select ng-model="timetable.startTime">
+                <option value="">- Starting Hour -</option>
+                <option ng-repeat="hour in hours"
+                        value="{{hour.value}}">
+                    {{hour.name}}
+                </option>
+            </select>
+
+            <select ng-model="timetable.endTime">
+                <option value="">- Ending Hour -</option>
+                <option ng-repeat="hour in hours"
+                        value="{{hour.value}}">
+                    {{hour.name}}
+                </option>
+            </select>
+
+            <input type="submit" name="login" class="login loginmodal-submit" value="Login">
+        </form>
+    </div>
+</div>

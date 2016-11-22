@@ -2,7 +2,7 @@ authenticationModule.service('AuthenticationService', function($rootScope, $http
 
     this.openLogin = function () {
 
-        console.log("Opening login modal");
+        if($rootScope.modalInstance) $rootScope.modalInstance.dismiss();
 
         $rootScope.modalInstance = $uibModal.open({
             animation: true,
@@ -17,15 +17,32 @@ authenticationModule.service('AuthenticationService', function($rootScope, $http
         });
 
         $rootScope.modalInstance.result.then(function (token) {
+            this.saveToken(token);
             $rootScope.modalInstance.dismiss();
         }, function () {
             console.log('Login Modal dismissed');
         });
     };
 
+    // Store the provided token string in local storage
+    this.saveToken = function(token) {
+        $window.localStorage['jwtToken'] = token;
+    };
+
+    // Return the stored token or boolean false
+    this.getToken = function(){
+        if($window.localStorage['jwtToken'] === 'undefined'){
+            return false;
+        }
+        return $window.localStorage['jwtToken'];
+    };
+
+    this.clearToken = function(){
+        $window.localStorage.clear();
+    };
+
     this.openRegister = function () {
         $rootScope.modalInstance.dismiss();
-        console.log("Opening register modal");
 
         $rootScope.modalInstance = $uibModal.open({
             animation: true,
@@ -39,17 +56,29 @@ authenticationModule.service('AuthenticationService', function($rootScope, $http
             }
         });
 
-        $rootScope.modalInstance.result.then(function (token) {
+        $rootScope.modalInstance.result.then(function () {
             $rootScope.modalInstance.dismiss();
         }, function () {
             console.log('Register Modal dismissed');
         });
     };
 
-    this.login = function (username, password) {
+    this.register = function(email, password){
+        console.log("Registering user...");
+        var def = $q.defer();
+        $http.post('/api/auth/register', {'email': email, 'password':password}).success(function (response) {
+            def.resolve(response);
+        }).error(function (error) {
+            console.log(error);
+            def.reject(null);
+        });
+        return def.promise;
+    };
+
+    this.login = function (email, password) {
         console.log("Trying login...");
         var def = $q.defer();
-        $http.post('/api/auth/authenticate', {'username': username, 'password':password}).success(function (response) {
+        $http.post('/api/auth/authenticate', {'email': email, 'password':password}).success(function (response) {
             def.resolve(response.token);
         }).error(function (error) {
             console.log("Error: " + error);
@@ -58,27 +87,17 @@ authenticationModule.service('AuthenticationService', function($rootScope, $http
         return def.promise;
     };
 
-    // Store the provided token string in local storage
-    this.saveToken = function(token) {
-        $window.localStorage['jwtToken'] = token;
-    };
-
-    // Return the stored token or boolean false
-    this.getToken = function(){
-        console.log("Getting token..");
-        if($window.localStorage['jwtToken'] === 'undefined'){
-            return false;
-        }
-        return $window.localStorage['jwtToken'];
-    };
-
-    // Middlewaye to chekc users permissions on a route
+    // Middleware to check users permissions on a route
     this.checkPermissions = function(){
         if(this.getToken()){
             return true;
         }
         $location.path(routeForUnauthorizedAccess);
-    }
+    };
+
+    this.isLoggedIn = function(){
+        return this.getToken();
+    };
 
 });
 

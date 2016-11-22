@@ -6,6 +6,33 @@ timetableModule.controller('TimetableController', function($scope, $routeParams,
 
     $scope.eventSources = [];
 
+    $scope.days = [
+        {name: 'Sunday', value: 0},
+        {name: 'Monday', value: 1},
+        {name: 'Tuesday', value:2},
+        {name: 'Wednesday', value: 3},
+        {name: 'Thursday', value: 4},
+        {name: 'Friday', value: 5},
+        {name: 'Saturday', value: 6}
+    ];
+
+    $scope.hours = [
+        {name: '7am', value: 7},
+        {name: '8am', value: 8},
+        {name: '9am', value: 9},
+        {name: '10am', value: 10},
+        {name: '11am', value: 11},
+        {name: '12pm', value: 12},
+        {name: '1pm', value: 13},
+        {name: '2pm', value: 14},
+        {name: '3pm', value: 15},
+        {name: '4pm', value: 16},
+        {name: '5pm', value:17},
+        {name: '6pm', value:18},
+        {name: '7pm', value:19},
+        {name: '8pm', value:20}
+    ];
+
     $scope.getAllTables = function(){
         TimetableService.getAll().then(function(tables){
             $scope.tables = tables;
@@ -77,13 +104,12 @@ timetableModule.controller('TimetableController', function($scope, $routeParams,
 
     /* alert on Drop */
     $scope.alertOnDrop = function(event, delta, revertFunc, jsEvent, ui, view){
-        $scope.alertMessage = ('Event Droped to make dayDelta ' + delta);
+        $scope.alertMessage = ('Event Dropped to make dayDelta ' + delta);
     };
     /* alert on Resize */
     $scope.alertOnResize = function(event, delta, revertFunc, jsEvent, ui, view ){
         $scope.alertMessage = ('Event Resized to make dayDelta ' + delta);
     };
-
 
     $scope.addEvent = function() {
         EventService.addEventModal();

@@ -1,6 +1,6 @@
 tableShare
-    .controller('HomeController', function($scope) {
+    .controller('HomeController', function($rootScope) {
 
-
+        $rootScope.isLoggedIn = false;
 
 });

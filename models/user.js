@@ -1,13 +1,13 @@
 var mongoose = require('mongoose');
 
 var UserSchema = mongoose.Schema({
-    name: {
+    email: {
         type: String,
-        default: 'foo'
+        required: true
     },
     password: {
         type: String,
-        default: 'bar'
+        required: true
     },
     created: {
         type:Date,

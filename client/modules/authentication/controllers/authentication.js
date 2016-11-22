@@ -12,18 +12,39 @@ authenticationModule.controller('AuthenticationController', function($scope, $wi
         TimetableService.addTimetableModal();
     };
 
-
     $scope.login = function(){
 
-        var username = $scope.formUsername;
+        var email = $scope.formEmail;
         var password = $scope.formPassword;
 
-        AuthenticationService.login(username, password).then(function(token){
+        AuthenticationService.login(email, password).then(function(token){
             $scope.token = token;
             console.log("Got token: " + token);
             AuthenticationService.saveToken(token);
-            return token;
+            AuthenticationService.setLoggedIn(true);
+            $window.location.href = '/';
         });
+    };
+
+    $scope.logout = function(){
+      AuthenticationService.clearToken();
+        $window.location.href = '/';
+    };
+
+    $scope.register = function(){
+
+        var email = $scope.formEmail;
+        var password = $scope.formPassword;
+
+        AuthenticationService.register(email, password).then(function(response){
+            AuthenticationService.login(response.email, response.password).then(function(){
+                $window.location.href = '/';
+            });
+        });
+    };
+
+    $scope.isLoggedIn = function(){
+        return AuthenticationService.isLoggedIn();
     };
 
 });

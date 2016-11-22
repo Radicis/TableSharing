@@ -40,9 +40,14 @@ router.post('/authenticate', function(req, res){
 });
 
 router.post('/register', function(req, res){
-
-    // Create user
-
+    var user = req.body;
+    User.addUser(user, function(err, user){
+        if(err){
+            throw err;
+        }
+        res.json(user);
+    });
 });
+
 
 module.exports = router;
