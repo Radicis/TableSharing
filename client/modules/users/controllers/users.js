@@ -4,7 +4,6 @@ usersModule.controller('UserController', function($scope, UserService, $routePar
         var id = $routeParams._id;
         UserService.getProfileById(id).then(function(user){
             $scope.user = user;
-            console.log($scope.user);
         });
     }
 

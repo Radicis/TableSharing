@@ -30,6 +30,11 @@ var TimetableSchema = mongoose.Schema({
       ref: 'User',
       required: true
     },
+    subscribed:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: false
+    }],
     active: {
         type: Boolean,
         default: true
@@ -37,6 +42,7 @@ var TimetableSchema = mongoose.Schema({
 });
 
 var Timetable = module.exports = mongoose.model('Timetable', TimetableSchema);
+
 
 module.exports.getAll = function(callback, limit){
     console.log("Getting all tables");
@@ -49,7 +55,7 @@ module.exports.getAll = function(callback, limit){
 module.exports.getById = function(id, callback){
     console.log("Getting by id");
     Timetable.findOne({_id: id})
-        .populate('owner')
+        .populate('owner').populate('subscribed')
         .exec(callback);
 };
 

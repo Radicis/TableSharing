@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+var Timetable = require('../models/timetable');
 
 var UserSchema = mongoose.Schema({
     email: {
@@ -52,5 +53,8 @@ module.exports.addUser = function(user, callback){
 
 module.exports.subscribeToTable = function(userID, table, callback){
     console.log('Subscribing user to table..');
+    // Add userID to subscribed suers for this table
+    Timetable.findByIdAndUpdate(table._id, {$push: {'subscribed': userID}});
+    // Add table to users subscried tables
     User.findByIdAndUpdate(userID,{$push: {"subscribed": table}}, callback);
 };

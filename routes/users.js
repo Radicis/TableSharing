@@ -47,6 +47,6 @@ router.post('/subscribe', function(req, res){
         }
     });
 
-})
+});
 
 module.exports = router;
