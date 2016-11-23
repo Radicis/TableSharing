@@ -1,9 +1,10 @@
-timetableModule.controller('TimetableController', function($scope, $window, $routeParams, TimetableService, EventService) {
+timetableModule.controller('TimetableController', function($scope, $window, $routeParams, TimetableService, EventService, AuthenticationService, UserService) {
     var date = new Date();
     var d = date.getDate();
     var m = date.getMonth();
     var y = date.getFullYear();
 
+    $scope.table = null;
     $scope.eventSources = [];
 
     $scope.days = [
@@ -59,8 +60,11 @@ timetableModule.controller('TimetableController', function($scope, $window, $rou
     $scope.createTimetable = function(){
         var timetable = $scope.timetable;
 
-        TimetableService.createTimetable(timetable).then(function(id){
-            $window.location.href = '/#/timetables/' + id;
+        TimetableService.createTimetable(timetable).then(function(table){
+            var userID = AuthenticationService.getUserId();
+            UserService.subscribeToTable(userID, table).then(function(){
+                $window.location.href = '/#/timetables/' + table._id;
+            })
         });
     };
 

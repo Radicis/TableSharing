@@ -8,7 +8,7 @@ timetableModule
             controller: 'TimetableController',
             templateUrl: '/modules/timetables/views/timetable_detail.html'
         })
-        .when('/timetables/edit/:id', {
+        .when('/timetables/edit/:_id', {
             controller: 'TimetableController',
             templateUrl: '/modules/timetables/views/timetable_edit.html'
         })

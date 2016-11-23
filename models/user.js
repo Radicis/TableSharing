@@ -21,10 +21,11 @@ var UserSchema = mongoose.Schema({
       type: String,
       default: false
     },
-    subscribedTo:{
-        type: [String],
+    subscribed:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Timetable',
         required: false
-    },
+    }],
     superUser: {
         type: Boolean,
         default: false
@@ -38,10 +39,18 @@ module.exports.getUsers = function(callback, limit){
 };
 
 module.exports.getUserById = function(id, callback){
-    User.findById(id, callback);
+    console.log("Getting user by id");
+    User.findOne({_id: id})
+        .populate('subscribed')
+        .exec(callback);
 };
 
 module.exports.addUser = function(user, callback){
     console.log('Creating new user..');
     User.create(user, callback);
+};
+
+module.exports.subscribeToTable = function(userID, table, callback){
+    console.log('Subscribing user to table..');
+    User.findByIdAndUpdate(userID,{$push: {"subscribed": table}}, callback);
 };

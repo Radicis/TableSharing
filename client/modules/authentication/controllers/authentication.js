@@ -47,4 +47,5 @@ authenticationModule.controller('AuthenticationController', function($scope, $wi
         return AuthenticationService.isLoggedIn();
     };
 
+
 });

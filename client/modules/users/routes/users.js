@@ -10,7 +10,7 @@ usersModule
                 }
             }
         })
-            .when('/users/:id', {
+            .when('/users/:_id', {
                 controller: 'UserController',
                 templateUrl: '/modules/users/views/user_detail.html'
             })
@@ -18,7 +18,7 @@ usersModule
                 controller: 'UserController',
                 templateUrl: '/modules/users/views/user_add.html'
             })
-            .when('/users/edit/:id', {
+            .when('/users/edit/:_id', {
                 controller: 'UserController',
                 templateUrl: '/modules/users/views/user_edit.html'
             })

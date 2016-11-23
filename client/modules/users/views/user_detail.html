@@ -1,0 +1,14 @@
+<div class="container" ng-init="getUserById()">
+    <div class="row">
+        <col-md-12>
+            <p>Email: {{user.email}}</p>
+            <p>Created: {{user.created}}</p>
+            <ul>
+                <li ng-repeat="table in user.subscribed">
+                    <a href="#/timetables/{{table._id}}">{{table.title}}</a>
+                </li>
+            </ul>
+
+        </col-md-12>
+    </div>
+</div>

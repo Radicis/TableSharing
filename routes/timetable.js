@@ -37,7 +37,6 @@ router.put('/:_id', function(req, res){
 });
 
 router.post('/add', function(req, res){
-    console.log("in express route");
     var timetable = req.body;
     Timetable.add(timetable, function(err, table){
         if(err){
@@ -45,10 +44,8 @@ router.post('/add', function(req, res){
             res.json(err);
         }
         else{
-            console.log(table);
             res.json(table);
         }
-
     })
 });
 
