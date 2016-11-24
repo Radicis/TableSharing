@@ -1,4 +1,4 @@
-timetableModule.service('TimetableService', function($http, $q, $uibModal, AuthenticationService) {
+timetableModule.service('TimetableService', function($http, $rootScope, $q, $uibModal, AuthenticationService) {
 
     this.getAll = function () {
         // Initialize the defferred promise variable
@@ -33,7 +33,7 @@ timetableModule.service('TimetableService', function($http, $q, $uibModal, Authe
 
         console.log("Opening timetable add modal");
 
-        var modalInstance = $uibModal.open({
+        $rootScope.modalInstance = $uibModal.open({
             animation: true,
             templateUrl: '/modules/timetables/views/timetable_add.html',
             controller: 'TimetableController',
@@ -45,8 +45,8 @@ timetableModule.service('TimetableService', function($http, $q, $uibModal, Authe
             }
         });
 
-        modalInstance.result.then(function () {
-            console.log("Modal did stuff");
+        $rootScope.modalInstance.result.then(function () {
+            $rootScope.modalInstance.dismiss();
         }, function () {
             console.log('Modal dismissed at: ' + new Date());
         });

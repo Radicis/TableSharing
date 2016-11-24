@@ -13,6 +13,10 @@ var TimetableSchema = mongoose.Schema({
         type: Number,
         default: 5
     },
+    hiddenDays: {
+        type: [Number],
+        default: [0,6]
+    },
     startHour: {
         type: Number,
         default: 9

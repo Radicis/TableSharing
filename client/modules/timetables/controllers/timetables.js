@@ -58,14 +58,29 @@ timetableModule.controller('TimetableController', function($scope, $window, $rou
     };
 
     $scope.createTimetable = function(){
-        var timetable = $scope.timetable;
 
-        TimetableService.createTimetable(timetable).then(function(table){
+        $scope.timetable.hiddenDays = calculateHiddenDays($scope.timetable.startDay, $scope.timetable.endDay);
+
+        TimetableService.createTimetable($scope.timetable).then(function(table){
             var userID = AuthenticationService.getUserId();
             UserService.subscribeToTable(userID, table).then(function(){
                 $window.location.href = '/#/timetables/' + table._id;
             })
         });
+    };
+
+    var calculateHiddenDays = function(startDay, endDay){
+        var allDays = [0,1,2,3,4,5,6];
+        var hiddenDays = [];
+
+        for(var i=0; i<allDays.length; i++){
+            if(allDays[i]<startDay || allDays[i]>endDay){
+                hiddenDays.push(allDays[i]);
+            }
+        }
+
+        return hiddenDays;
+
     };
 
     $scope.initTable = function(){
@@ -83,6 +98,8 @@ timetableModule.controller('TimetableController', function($scope, $window, $rou
         $scope.eventSources.push($scope.personalEvents);
         $scope.eventSources.push($scope.events);
 
+        console.log($scope.table);
+
         // Calendar configuration
         $scope.uiConfig = {
             calendar:{
@@ -98,7 +115,7 @@ timetableModule.controller('TimetableController', function($scope, $window, $rou
                 scrollTime: $scope.table.startHour + ':00:00',
                 firstDay: $scope.table.startDay,
                 allDayText: '',
-                hiddenDays: [0, 6],
+                hiddenDays: $scope.table.hiddenDays,
                 header:{
                     left: 'agendaWeek, month',
                     center: 'tite',
