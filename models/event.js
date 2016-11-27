@@ -62,6 +62,10 @@ module.exports.add = function(event, callback){
 
 module.exports.update = function(event, callback){
     console.log("Updating event..");
-    console.log(event);
     Event.findOneAndUpdate(event._id, event, callback);
+};
+
+module.exports.delete = function(event, callback){
+    console.log("Deleting event..");
+    Event.delete(event, callback);
 };

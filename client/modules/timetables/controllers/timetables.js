@@ -105,8 +105,13 @@ timetableModule.controller('TimetableController', function($scope, ngToast, $roo
             // Calendar configuration
             $scope.uiConfig = {
                 calendar:{
-                    columnFormat: 'ddd M/D',
-                    height: 442,
+                    theme: false,
+                    //weekends: false, // Hide weekends
+                    columnFormat: {
+                        week: 'ddd' // Only show day of the week names
+                    },
+                    header: false, // Hide buttons/titles
+                    height: 500,
                     slotDuration: '00:30:00',
                     editable: true,
                     defaultView: "agendaWeek",
@@ -118,58 +123,53 @@ timetableModule.controller('TimetableController', function($scope, ngToast, $roo
                     firstDay: $scope.table.startDay,
                     allDayText: '',
                     //hiddenDays: $scope.table.hiddenDays,
-                    header:{
-                        left: 'agendaWeek, month',
-                        center: 'tite',
-                        right: 'today prev,next'
-                    },
+                    // header:{
+                    //     left: 'agendaWeek, month',
+                    //     center: 'tite',
+                    //     right: 'today prev,next'
+                    // },
 
                     eventClick: $scope.editEvent,
-                    eventDrop: $scope.alertOnDrop,
-                    eventResize: $scope.alertOnResize
+                    eventDrop: $scope.move,
+                    eventResize: $scope.resize
                 }
             };
         });
 
     };
 
-    /* Render Tooltip */
-    $scope.eventRender = function( event, element, view ) {
-        element.attr({'tooltip': event.title,
-            'tooltip-append-to-body': true});
-        $compile(element)($scope);
-    };
-
     /* alert on Drop */
-    $scope.alertOnDrop = function(event, delta, revertFunc, jsEvent, ui, view){
+    $scope.move = function(event){
 
         EventService.editEvent(event).then(function(event){
-            $scope.events.push(event);
+            ngToast.create(event.title + ' updated');
         });
 
-        ngToast.create('Event updated');
     };
     /* alert on Resize */
-    $scope.alertOnResize = function(event, delta, revertFunc, jsEvent, ui, view ){
-        ngToast.create('Event updated');
+    $scope.resize = function(event){
+        EventService.editEvent(event).then(function(event){
+            ngToast.create(event.title + ' updated');
+        });
+
     };
 
     $scope.addEvent = function() {
+
         var event = {
-                title: 'Test Event',
+                title: 'New Event',
                 start:   new Date(y, m, d, $scope.table.startHour, 0),
                 parentTable: $scope.table._id,
                 end: new Date(y, m, d, $scope.table.startHour + 1, 0)
         };
 
         EventService.addEvent(event).then(function(event){
-            console.log(event);
             $scope.events.push(event);
         });
 
     };
 
-    $scope.editEvent = function(event, delta, revertFunc, jsEvent, ui, view ) {
+    $scope.editEvent = function(event) {
         EventService.editEventModal(event);
     };
 

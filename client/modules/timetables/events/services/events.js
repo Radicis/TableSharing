@@ -74,7 +74,7 @@ eventsModule.service('EventService', function($http, $q, $uibModal, $rootScope) 
         var modifyEvent = {
             _id: event._id,
             start: event.start,
-            end: event.end,
+            end: event.end
         };
         // event.start = event.start.toDate();
         // event.end = event.end.toDate();

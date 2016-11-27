@@ -13,7 +13,8 @@ var middleware = require('../middleware/helpers');
 router.get('/', function(req, res) {
     User.getUsers(function(err, users){
         if(err){
-            throw err;
+            console.log(err);
+            res.json(err);
         }
         res.json(users);
     });
@@ -23,7 +24,8 @@ router.get('/', function(req, res) {
 router.get('/:_id', function(req, res){
     User.getUserById(req.params._id, function(err, user){
         if(err){
-            throw err;
+            console.log(err);
+            res.json(err);
         }
         res.json(user);
     });
@@ -41,6 +43,7 @@ router.post('/subscribe', function(req, res){
     User.subscribeToTable(userID, table, function(err, response){
         if(err){
             console.log(err);
+            res.json(err);
         }
         else{
             res.json(response);

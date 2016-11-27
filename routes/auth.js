@@ -12,7 +12,10 @@ router.post('/authenticate', function(req, res){
         name: req.body.username
     }, function(err, user) {
 
-        if (err) throw err;
+        if (err){
+            console.log(err);
+            res.json(err);
+        }
         // If matching name is not found then throw error
         if (!user) {
             res.json({success: false, message: 'Authentication failed. User not found.'});
@@ -44,7 +47,8 @@ router.post('/register', function(req, res){
     var user = req.body;
     User.addUser(user, function(err, user){
         if(err){
-            throw err;
+            console.log(err);
+            res.json(err);
         }
         res.json(user);
     });

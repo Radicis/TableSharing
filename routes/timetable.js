@@ -9,7 +9,8 @@ var middleware = require('../middleware/helpers');
 router.get('/', function(req, res) {
     Timetable.getAll(function(err, table){
         if(err){
-            throw err;
+            console.log(err);
+            res.json(err);
         }
         res.json(table);
     });
@@ -19,7 +20,8 @@ router.get('/', function(req, res) {
 router.get('/:_id', function(req, res){
     Timetable.getById(req.params._id, function(err, table){
         if(err){
-            throw err;
+            console.log(err);
+            res.json(err);
         }
         res.json(table);
     });

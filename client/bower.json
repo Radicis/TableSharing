@@ -16,11 +16,11 @@
     "tests"
   ],
   "dependencies": {
-    "bootstrap": "^3.3.7",
+    "bootstrap": "latest",
     "angular": "latest",
-    "angular-route": "^1.5.8",
-    "angular-bootstrap": "^2.2.0",
-    "angular-animate": "^1.5.8",
-    "angular-ui-calendar": "latest"
+    "angular-route": "latest",
+    "angular-bootstrap": "latest",
+    "angular-animate": "latest",
+    "angular-ui-calendar": "*"
   }
 }
