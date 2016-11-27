@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="bower_components/angular-bootstrap/ui-bootstrap-csp.css" />
     <link rel="stylesheet" href="bower_components/fullcalendar/dist/fullcalendar.css"/>
+    <link rel="stylesheet" href="bower_components/ngToast/dist/ngToast.min.css"/>
     <link rel="stylesheet" href="css/style.css" />
 </head>
 
@@ -27,12 +28,12 @@
                 <li><a href="#/categories">Categories</a></li>
                 <li ng-if="!isLoggedIn()"><a href="" ng-click="openLogin(100)">Login</a></li>
                 <li ng-if="isLoggedIn()"><a href="" ng-click="logout()" >Log Out</a></li>
-                <li><a href="" ng-click="addTable()" class="glyphicon glyphicon-pencil"></a></li>
+                <li ng-if="isLoggedIn()"><a href="" ng-click="addTable()" class="glyphicon glyphicon-pencil"></a></li>
             </ul>
         </div><!--/.nav-collapse -->
     </div>
 </nav>
-
+<toast></toast>
 <div class="container" >
     <div class="row">
         <div class="col-md-12">
@@ -48,7 +49,9 @@
 <script src="/bower_components/bootstrap/dist/js/bootstrap.js"></script>
 <script src="/bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
 <script src="/bower_components/angular-animate/angular-animate.js"></script>
-
+<script src="bower_components/angular-sanitize/angular-sanitize.min.js"></script>
+<script src="/bower_components/ngToast/dist/ngToast.min.js"></script>
+<script src="/bower_components/moment/min/moment.min.js"></script>
 <script type="text/javascript" src="bower_components/moment/min/moment.min.js"></script>
 <script type="text/javascript" src="bower_components/angular-ui-calendar/src/calendar.js"></script>
 <script type="text/javascript" src="bower_components/fullcalendar/dist/fullcalendar.min.js"></script>

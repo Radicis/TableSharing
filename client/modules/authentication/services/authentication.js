@@ -8,18 +8,7 @@ authenticationModule.service('AuthenticationService', function($rootScope, $http
             animation: true,
             templateUrl: 'modules/authentication/views/login.html',
             controller: 'AuthenticationController',
-            size: 100,
-            resolve: {
-                items: function () {
-                    return null;
-                }
-            }
-        });
-
-        $rootScope.modalInstance.result.then(function (token) {
-            $rootScope.modalInstance.dismiss();
-        }, function () {
-            console.log('Login Modal dismissed');
+            size: 100
         });
     };
 
@@ -58,18 +47,7 @@ authenticationModule.service('AuthenticationService', function($rootScope, $http
             animation: true,
             templateUrl: 'modules/authentication/views/register.html',
             controller: 'AuthenticationController',
-            size: 100,
-            resolve: {
-                items: function () {
-                    return null;
-                }
-            }
-        });
-
-        $rootScope.modalInstance.result.then(function () {
-            $rootScope.modalInstance.dismiss();
-        }, function () {
-            console.log('Register Modal dismissed');
+            size: 100
         });
     };
 
@@ -86,7 +64,6 @@ authenticationModule.service('AuthenticationService', function($rootScope, $http
     };
 
     this.login = function (email, password) {
-        console.log("Trying login...");
         var def = $q.defer();
         $http.post('/api/auth/authenticate', {'email': email, 'password':password}).success(function (response) {
             def.resolve(response);

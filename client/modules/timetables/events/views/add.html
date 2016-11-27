@@ -1,10 +1,10 @@
 <div class="modal-body">
     <div class="loginmodal-container">
         <h1>Create Event</h1><br>
-        <form ng-submit="create()">
-            <input type="text" name="formEventTitle" ng-model="formEventTitle" placeholder="Title">
+        <form ng-submit="createEvent()">
+            <input type="text" name="formEventTitle" ng-model="newEvent.title" placeholder="Title">
 
-            <select ng-model="event.day">
+            <select ng-model="newEvent.day">
                 <option value="">- Day -</option>
                 <option ng-repeat="day in days"
                         value="{{day.value}}">
@@ -12,7 +12,9 @@
                 </option>
             </select>
 
-            <select ng-model="event.startTime">
+            <input type="text" ng-model="newEvent.location" placeholder="Location">
+
+            <select ng-model="newEvent.startHour">
                 <option value="">- Start Time -</option>
                 <option ng-repeat="hour in hours"
                         value="{{hour.value}}">
@@ -20,8 +22,7 @@
                 </option>
             </select>
 
-
-            <select ng-model="event.endTime">
+            <select ng-model="newEvent.endHour">
                 <option value="">- End Time -</option>
                 <option ng-repeat="hour in hours"
                         value="{{hour.value}}">

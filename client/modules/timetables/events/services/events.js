@@ -1,4 +1,4 @@
-eventsModule.service('EventService', function($http, $q, $uibModal) {
+eventsModule.service('EventService', function($http, $q, $uibModal, $rootScope) {
 
     var date = new Date();
     var d = date.getDate();
@@ -6,77 +6,57 @@ eventsModule.service('EventService', function($http, $q, $uibModal) {
     var y = date.getFullYear();
 
     this.getEventsByTableId = function (tableId) {
-        // var def = $q.defer();
-        // $http.get('/api/events/' + tableId).success(function (response) {
-        //     def.resolve(response);
-        // }).error(function (error) {
-        //     console.log("Error: " + error);
-        //     def.reject(null);
-        // });
-        // return def.promise;
-        //return events;
-        /* event source that contains custom events on the scope */
-        var events = [
-            {title: 'All Day Event',start: new Date(y, m, 1)},
-            {title: 'Long Event',start: new Date(y, m, d - 5),end: new Date(y, m, d - 2)},
-            {id: 999,title: 'Repeating Event',start: new Date(y, m, d - 3, 16, 0),allDay: false},
-            {id: 999,title: 'Repeating Event',start: new Date(y, m, d + 4, 16, 0),allDay: false},
-            {title: 'Birthday Party',start: new Date(y, m, d + 1, 10, 0),end: new Date(y, m, d + 1, 10, 30),allDay: false}
-        ];
 
-        return events;
+        var def = $q.defer();
+
+        console.log("Getting events for tableId: " + tableId);
+
+        $http.get('/api/events/' + tableId).success(function (response) {
+            def.resolve(response);
+        }).error(function (error) {
+            console.log("Error: " + error);
+            def.reject(null);
+        });
+
+        return def.promise;
 
     };
 
     this.editEventModal = function (event) {
 
-        console.log("Opening event edit modal");
-
-        var modalInstance = $uibModal.open({
+        if($rootScope.modalInstance) $rootScope.modalInstance.dismiss();
+        $rootScope.modalInstance = $uibModal.open({
             animation: true,
             templateUrl: '/modules/timetables/events/views/edit.html',
             controller: 'EventController',
             size: 100,
             resolve: {
-                items: function () {
-                    return null;
+                event: function(){
+                    return event;
                 }
             }
         });
-
-        modalInstance.result.then(function () {
-            console.log("Modal did stuff");
-        }, function () {
-            console.log('Modal dismissed at: ' + new Date());
-        });
     };
 
-    this.addEventModal = function (event) {
+    this.addEventModal = function (parentTableId) {
+        if($rootScope.modalInstance) $rootScope.modalInstance.dismiss();
 
-        console.log("Opening event add modal");
-
-        var modalInstance = $uibModal.open({
+        $rootScope.modalInstance = $uibModal.open({
             animation: true,
             templateUrl: '/modules/timetables/events/views/add.html',
             controller: 'EventController',
             size: 100,
             resolve: {
-                items: function () {
-                    return null;
+                parentTableId: function(){
+                    return parentTableId;
                 }
             }
-        });
-
-        modalInstance.result.then(function () {
-            console.log("Modal did stuff");
-        }, function () {
-            console.log('Modal dismissed at: ' + new Date());
         });
     };
 
 
     this.addEvent = function(event){
-
+        var def = $q.defer();
         $http.post('/api/events', event).success(function (response) {
             // When this request succeeds resolve the promise
             def.resolve(response);
@@ -86,11 +66,22 @@ eventsModule.service('EventService', function($http, $q, $uibModal) {
             // Reject the promise so it does not return incorrect data to the controller
             def.reject(null);
         });
+        return def.promise;
     };
 
     this.editEvent = function(event){
+        console.log("Updating event in service..");
+        var modifyEvent = {
+            _id: event._id,
+            start: event.start,
+            end: event.end,
+        };
+        // event.start = event.start.toDate();
+        // event.end = event.end.toDate();
+        // event.source = null;
+        // console.log(event);
         var def = $q.defer();
-        $http.put('/api/events', event).success(function (response) {
+        $http.put('/api/events', modifyEvent).success(function (response) {
             // When this request succeeds resolve the promise
             def.resolve(response);
         }).error(function (error) {
@@ -99,6 +90,7 @@ eventsModule.service('EventService', function($http, $q, $uibModal) {
             // Reject the promise so it does not return incorrect data to the controller
             def.reject(null);
         });
+        return def.promise;
     };
 
     this.deleteEvent = function(event){
@@ -112,6 +104,7 @@ eventsModule.service('EventService', function($http, $q, $uibModal) {
             // Reject the promise so it does not return incorrect data to the controller
             def.reject(null);
         });
+        return def.promise;
     };
 
 });

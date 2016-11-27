@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 
 var EventSchema = mongoose.Schema({
-    name: {
+    title: {
         type: String,
         default: 'New Event',
         required: true
@@ -11,20 +11,28 @@ var EventSchema = mongoose.Schema({
         default: 'Room 1',
         required: true
     },
-    startDate: {
+    start: {
         type:Date,
         default: Date.now(),
         required: true
     },
-    endDate: {
+    end: {
         type:Date,
         default: Date.now(),
         required: true
+    },
+    allDay: {
+        type: Boolean,
+        default:false
     },
     parentTable: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Table',
         required: false
+    },
+    repeat:{
+        type: Boolean,
+        default: true
     },
     owner: {
         type: mongoose.Schema.Types.ObjectId,
@@ -33,24 +41,27 @@ var EventSchema = mongoose.Schema({
     }
 });
 
-var Event = module.exports = mongoose.model('Timetable', EventSchema);
+var Event = module.exports = mongoose.model('Event', EventSchema);
 
 module.exports.getAll = function(callback, limit){
     console.log("Getting all events");
     Event.find().limit(limit)
         .populate('owner') // space delimited path names
         .exec(callback);
-    //.limit(limit);
 };
 
-module.exports.getById = function(id, callback){
-    console.log("Getting by id");
-    Event.findOne({_id: id})
-        .populate('owner')
-        .exec(callback);
+module.exports.getByTableId = function(id, callback){
+    console.log("Getting by table id");
+    Event.find({parentTable: id}).exec(callback);
 };
 
-module.exports.add = function(table, callback){
+module.exports.add = function(event, callback){
     console.log('Creating new event..');
-    Event.create(table, callback);
+    Event.create(event, callback);
+};
+
+module.exports.update = function(event, callback){
+    console.log("Updating event..");
+    console.log(event);
+    Event.findOneAndUpdate(event._id, event, callback);
 };

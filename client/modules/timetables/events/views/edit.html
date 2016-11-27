@@ -2,7 +2,7 @@
     <div class="loginmodal-container">
         <h1>Edit Event</h1><br>
         <form ng-submit="update()">
-            <input type="text" name="formEventTitle" ng-model="formEventTitle" placeholder="Title">
+            <input type="text"  ng-model="event.title" placeholder="Title">
 
             <select ng-model="event.day">
                 <option value="">- Day -</option>
@@ -11,6 +11,8 @@
                     {{day.name}}
                 </option>
             </select>
+
+            <input type="text" ng-model="event.location" placeholder="Location">
 
             <select ng-model="event.startTime">
                 <option value="">- Start Time -</option>

@@ -30,25 +30,13 @@ timetableModule.service('TimetableService', function($http, $rootScope, $q, $uib
     };
 
     this.addTimetableModal = function () {
-
-        console.log("Opening timetable add modal");
+        if($rootScope.modalInstance) $rootScope.modalInstance.dismiss();
 
         $rootScope.modalInstance = $uibModal.open({
             animation: true,
             templateUrl: '/modules/timetables/views/timetable_add.html',
             controller: 'TimetableController',
-            size: 100,
-            resolve: {
-                items: function () {
-                    return null;
-                }
-            }
-        });
-
-        $rootScope.modalInstance.result.then(function () {
-            $rootScope.modalInstance.dismiss();
-        }, function () {
-            console.log('Modal dismissed at: ' + new Date());
+            size: 100
         });
     };
 
@@ -65,9 +53,4 @@ timetableModule.service('TimetableService', function($http, $rootScope, $q, $uib
         });
         return def.promise;
     }
-
-
-
-
-
 });

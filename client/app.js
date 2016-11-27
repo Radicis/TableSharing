@@ -5,7 +5,8 @@ var tableShare = angular.module('TableShare', [
     'ui.calendar',
     'Timetables',
     'Authentication',
-    'Users'
+    'Users',
+        'ngToast'
 ]
 )
 //

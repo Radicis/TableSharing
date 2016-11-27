@@ -1,4 +1,4 @@
-timetableModule.controller('TimetableController', function($scope, $window, $routeParams, TimetableService, EventService, AuthenticationService, UserService) {
+timetableModule.controller('TimetableController', function($scope, ngToast, $rootScope, $window, $routeParams, TimetableService, EventService, AuthenticationService, UserService) {
     var date = new Date();
     var d = date.getDate();
     var m = date.getMonth();
@@ -6,6 +6,7 @@ timetableModule.controller('TimetableController', function($scope, $window, $rou
 
     $scope.table = null;
     $scope.eventSources = [];
+    $scope.events = [];
 
     $scope.days = [
         {name: 'Sunday', value: 0},
@@ -51,7 +52,6 @@ timetableModule.controller('TimetableController', function($scope, $window, $rou
     };
 
     $scope.getEventsByTableId = function(id){
-        $scope.events = EventService.getEventsByTableId(id);
         // EventService.getEventsByTableId(id).then(function(events){
         //     $scope.events = events;
         // });
@@ -64,24 +64,25 @@ timetableModule.controller('TimetableController', function($scope, $window, $rou
         TimetableService.createTimetable($scope.timetable).then(function(table){
             var userID = AuthenticationService.getUserId();
             UserService.subscribeToTable(userID, table).then(function(){
+                if($rootScope.modalInstance) $rootScope.modalInstance.dismiss();
                 $window.location.href = '/#/timetables/' + table._id;
+                ngToast.create('Timetable Created');
             })
         });
     };
 
-    var calculateHiddenDays = function(startDay, endDay){
-        var allDays = [0,1,2,3,4,5,6];
-        var hiddenDays = [];
-
-        for(var i=0; i<allDays.length; i++){
-            if(allDays[i]<startDay || allDays[i]>endDay){
-                hiddenDays.push(allDays[i]);
-            }
-        }
-
-        return hiddenDays;
-
-    };
+    // var calculateHiddenDays = function(startDay, endDay){
+    //     var allDays = [0,1,2,3,4,5,6];
+    //     var hiddenDays = [];
+    //
+    //     for(var i=0; i<allDays.length; i++){
+    //         if(allDays[i]<startDay || allDays[i]>endDay){
+    //             hiddenDays.push(allDays[i]);
+    //         }
+    //     }
+    //
+    //     return hiddenDays.length==0 ? hiddenDays : null;
+    // };
 
     $scope.initTable = function(){
         $scope.personalEvents = {
@@ -96,55 +97,80 @@ timetableModule.controller('TimetableController', function($scope, $window, $rou
 
         /* event sources array*/
         $scope.eventSources.push($scope.personalEvents);
-        $scope.eventSources.push($scope.events);
 
-        console.log($scope.table);
+        EventService.getEventsByTableId($scope.table._id).then(function(events){
+            $scope.events = events;
+            $scope.eventSources.push($scope.events);
 
-        // Calendar configuration
-        $scope.uiConfig = {
-            calendar:{
-                columnFormat: 'ddd M/D',
-                height: 442,
-                slotDuration: '00:30:00',
-                editable: true,
-                defaultView: "agendaWeek",
-                nowIndicator: true,
-                allDaySlot: false,
-                minTime: $scope.table.startHour + ':00:00',
-                maxTime: $scope.table.endHour + ':00:00',
-                scrollTime: $scope.table.startHour + ':00:00',
-                firstDay: $scope.table.startDay,
-                allDayText: '',
-                hiddenDays: $scope.table.hiddenDays,
-                header:{
-                    left: 'agendaWeek, month',
-                    center: 'tite',
-                    right: 'today prev,next'
-                },
+            // Calendar configuration
+            $scope.uiConfig = {
+                calendar:{
+                    columnFormat: 'ddd M/D',
+                    height: 442,
+                    slotDuration: '00:30:00',
+                    editable: true,
+                    defaultView: "agendaWeek",
+                    nowIndicator: true,
+                    allDaySlot: false,
+                    minTime: $scope.table.startHour + ':00:00',
+                    maxTime: $scope.table.endHour + ':00:00',
+                    scrollTime: $scope.table.startHour + ':00:00',
+                    firstDay: $scope.table.startDay,
+                    allDayText: '',
+                    //hiddenDays: $scope.table.hiddenDays,
+                    header:{
+                        left: 'agendaWeek, month',
+                        center: 'tite',
+                        right: 'today prev,next'
+                    },
 
-                eventClick: $scope.editEvent,
-                eventDrop: $scope.alertOnDrop,
-                eventResize: $scope.alertOnResize
-            }
-        };
+                    eventClick: $scope.editEvent,
+                    eventDrop: $scope.alertOnDrop,
+                    eventResize: $scope.alertOnResize
+                }
+            };
+        });
 
+    };
+
+    /* Render Tooltip */
+    $scope.eventRender = function( event, element, view ) {
+        element.attr({'tooltip': event.title,
+            'tooltip-append-to-body': true});
+        $compile(element)($scope);
     };
 
     /* alert on Drop */
     $scope.alertOnDrop = function(event, delta, revertFunc, jsEvent, ui, view){
-        $scope.alertMessage = ('Event Dropped to make dayDelta ' + delta);
+
+        EventService.editEvent(event).then(function(event){
+            $scope.events.push(event);
+        });
+
+        ngToast.create('Event updated');
     };
     /* alert on Resize */
     $scope.alertOnResize = function(event, delta, revertFunc, jsEvent, ui, view ){
-        $scope.alertMessage = ('Event Resized to make dayDelta ' + delta);
+        ngToast.create('Event updated');
     };
 
     $scope.addEvent = function() {
-        EventService.addEventModal();
+        var event = {
+                title: 'Test Event',
+                start:   new Date(y, m, d, $scope.table.startHour, 0),
+                parentTable: $scope.table._id,
+                end: new Date(y, m, d, $scope.table.startHour + 1, 0)
+        };
+
+        EventService.addEvent(event).then(function(event){
+            console.log(event);
+            $scope.events.push(event);
+        });
+
     };
 
-    $scope.editEvent = function() {
-        EventService.editEventModal();
+    $scope.editEvent = function(event, delta, revertFunc, jsEvent, ui, view ) {
+        EventService.editEventModal(event);
     };
 
 });

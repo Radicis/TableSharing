@@ -1,5 +1,4 @@
-eventsModule.controller('EventController', function($scope) {
-
+eventsModule.controller('EventController', function($scope, EventService, parentTableId, $rootScope, ngToast) {
 
     $scope.days = [
         {name: 'Sunday', value: 0},
@@ -27,6 +26,33 @@ eventsModule.controller('EventController', function($scope) {
         {name: '7pm', value:19},
         {name: '8pm', value:20}
     ];
+
+    $scope.createEvent = function(){
+        $scope.newEvent.parentTable = parentTableId;
+
+        // var date = new Date();
+        // var d = date.getDate();
+        // var m = date.getMonth();
+        // var y = date.getFullYear();
+
+
+
+        // var calendarDay =
+        //
+        // $scope.newEvent.start =  new Date(date.getFullYear(),date.getMonth(), calendarDay, $scope.newEvent.startHour, 0, 0);
+        // $scope.newEvent.end =  new Date(date.getFullYear(), date.getMonth(), calendarDay, $scope.newEvent.endHour, 0, 0);
+
+
+
+        EventService.addEvent($scope.newEvent).then(function(event){
+            if($rootScope.modalInstance) $rootScope.modalInstance.dismiss();
+            ngToast.create(event.title + ' created');
+        });
+    };
+
+    $scope.updateEvent = function(){
+        // foo
+    }
 
 });
   
