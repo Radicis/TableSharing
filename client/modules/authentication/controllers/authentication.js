@@ -28,7 +28,6 @@ authenticationModule.controller('AuthenticationController', function($scope, $wi
 
     $scope.logout = function(){
       AuthenticationService.clearToken();
-        $window.location.href = '/';
     };
 
     $scope.register = function(){

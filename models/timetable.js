@@ -65,5 +65,6 @@ module.exports.getById = function(id, callback){
 
 module.exports.add = function(table, callback){
     console.log('Creating new timetable..');
+    console.log(table);
     Timetable.create(table, callback);
 };

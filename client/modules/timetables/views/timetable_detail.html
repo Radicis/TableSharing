@@ -7,7 +7,19 @@
 
 
         <ul class="floatingContainer">
-            <li ng-show="isOwner()" class="floatingButton" ng-click="addEvent()"><i class="glyphicon glyphicon-pencil"></i></li>
-            <li class="floatingButton" ng-click="shareEvent()"><i class="glyphicon glyphicon-retweet"></i></li>
-            <li class="floatingButton" ng-click="subscribe()"><i class="glyphicon glyphicon-heart"></i></li>
+            <li title="Add Event" ng-show="isOwner()" class="floatingButton" ng-click="addEvent()">
+                <i class="glyphicon glyphicon-plus"></i>
+            </li>
+            <li title="Share" class="floatingButton"  ng-click="shareEvent()">
+                <i class="glyphicon glyphicon-retweet"></i>
+            </li>
+            <li ng-if="isLoggedIn()" title="Subscribe" class="floatingButton" ng-click="subscribe()">
+                <i class="glyphicon glyphicon-heart"></i>
+            </li>
+            <li title="Edit Timetable" ng-show="isOwner()" class="floatingButton" ng-click="editTimetable()">
+                <i class="glyphicon glyphicon-pencil"></i>
+            </li>
+            <li ng-if="!isLoggedIn()" title="Login" class="floatingButton" ng-click="openLogin()">
+                <i class="glyphicon glyphicon-user"></i>
+            </li>
         </ul>

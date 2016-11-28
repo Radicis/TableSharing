@@ -9,6 +9,13 @@ eventsModule.controller('EventController', function($scope, EventService, event,
     $scope.event._id = event._id;
     $scope.event.parentTable=  event.parentTable;
 
+    $scope.colours = [
+        {name: "Red", value: "#982F2F"},
+        {name: "Blue", value: "#337ab7"},
+        {name: "Green", value: "#B6D37E"},
+        {name: "Yellow", value: "#FFFF9A"}
+    ];
+
     $scope.createEvent = function(){
 
          EventService.addEvent($scope.event).then(function(event){

@@ -1,1 +1,47 @@
-Editing...
+<div class="modal-body">
+    <div class="loginmodal-container">
+        <h1>Edit Timetable</h1><br>
+        <form ng-submit="updateTimetable()">
+            <input type="text" name="formTitle" ng-model="table.title" placeholder="Title">
+
+            <select ng-model="table.startDay">
+                <option value="">- Starting day -</option>
+                <option ng-repeat="day in days"
+                        value="{{day.value}}">
+                    {{day.name}}
+                </option>
+            </select>
+
+            <select ng-model="table.endDay">
+                <option value="">- Ending day -</option>
+                <option ng-repeat="day in days"
+                        value="{{day.value}}">
+                    {{day.name}}
+                </option>
+            </select>
+
+            <select ng-model="table.startHour">
+                <option value="">- Starting Hour -</option>
+                <option ng-repeat="hour in hours"
+                        value="{{hour.value}}">
+                    {{hour.name}}
+                </option>
+            </select>
+
+            <select ng-model="table.endHour">
+                <option value="">- Ending Hour -</option>
+                <option ng-repeat="hour in hours"
+                        value="{{hour.value}}">
+                    {{hour.name}}
+                </option>
+            </select>
+
+            <input type="submit" name="login" class="login loginmodal-submit" value="Create">
+        </form>
+
+        <div class="login-help deleteEvent">
+            <a href='' ng-click="delete()">Delete Timetable</a>
+        </div>
+    </div>
+
+</div>

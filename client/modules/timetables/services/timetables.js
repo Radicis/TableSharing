@@ -52,5 +52,8 @@ timetableModule.service('TimetableService', function($http, $rootScope, $q, $uib
             def.reject(null);
         });
         return def.promise;
-    }
+    };
+
+
+
 });

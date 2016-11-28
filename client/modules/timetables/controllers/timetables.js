@@ -1,10 +1,11 @@
-timetableModule.controller('TimetableController', function($scope, ngToast, $rootScope, $window, $routeParams, TimetableService, EventService, AuthenticationService, UserService) {
+timetableModule.controller('TimetableController', function($scope, ngToast, $uibModal, $rootScope, $window, $routeParams, TimetableService, EventService, AuthenticationService, UserService) {
     var date = new Date();
     var d = date.getDate();
     var m = date.getMonth();
     var y = date.getFullYear();
 
     $scope.table = {};
+    $scope.newTable = {};
     $scope.eventSources = [];
     $scope.events = [];
 
@@ -66,9 +67,11 @@ timetableModule.controller('TimetableController', function($scope, ngToast, $roo
 
     $scope.createTimetable = function(){
 
-        $scope.timetable.hiddenDays = calculateHiddenDays($scope.timetable.startDay, $scope.timetable.endDay);
+        $scope.newTable.hiddenDays = calculateHiddenDays($scope.newTable.startDay, $scope.newTable.endDay);
 
-        TimetableService.createTimetable($scope.timetable).then(function(table){
+        console.log($scope.newTable);
+
+        TimetableService.createTimetable($scope.newTable).then(function(table){
             var userID = AuthenticationService.getUserId();
             UserService.subscribeToTable(userID, table).then(function(){
                 if($rootScope.modalInstance) $rootScope.modalInstance.dismiss();
@@ -164,22 +167,31 @@ timetableModule.controller('TimetableController', function($scope, ngToast, $roo
 
     };
 
-    $scope.addPersonalEvent = function() {
-
-        var event = {
-            title: 'New Event',
-            start:   new Date(y, m, d, $scope.table.startHour + 1, 0),
-            owner: AuthenticationService.getUserId(),
-            end: new Date(y, m, d, $scope.table.startHour + 2, 0),
-            location: 'Room 1'
-        };
-
-        EventService.addPersonalEventModal(event, $scope.events);
-
-    };
-
     $scope.editEvent = function(event) {
         EventService.editEventModal(event, $scope.events);
     };
+
+    $scope.editTimetable = function(){
+        if($rootScope.modalInstance) $rootScope.modalInstance.dismiss();
+
+        $rootScope.modalInstance = $uibModal.open({
+            animation: true,
+            templateUrl: '/modules/timetables/views/timetable_edit.html',
+           scope: $scope,
+            size: 100
+        });
+    };
+
+    $scope.shareEvent = function(){
+        if($rootScope.modalInstance) $rootScope.modalInstance.dismiss();
+
+        $rootScope.modalInstance = $uibModal.open({
+            animation: true,
+            templateUrl: '/modules/timetables/views/timetable_share.html',
+            scope: $scope, //passed current scope to the modal
+            size: 100
+        });
+    };
+
 
 });

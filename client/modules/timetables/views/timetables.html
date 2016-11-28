@@ -1,7 +1,12 @@
 <div class="container" ng-init="getAllTables()">
+    <div class="row">
+        <h1>Recent Timetables</h1>
+    </div>
     <div class="row" ng-repeat="table in tables">
         <div class="co-md-12">
-            <a href="#/timetables/{{table._id}}">{{table.title}}</a> by <a href="#/users/{{table.owner._id}}">{{table.owner.email}}</a>
+            <a href="#/timetables/{{table._id}}">{{table.title}}</a> by
+            <a href="#/users/{{table.owner._id}}">{{table.owner.email}}</a> -
+            {{table.created | date: yyyy-MM-dd}}
         </div>
     </div>
 </div>

@@ -1,8 +1,17 @@
-a{
-    text-decoration:none;
+.col-lg-12 a{
+    text-decoration:none !important;
+
 }
 a:hover{
     text-decoration:none;
+}
+
+body{
+    color:#fefefe;
+}
+
+input{
+    color:#222;
 }
 
 /****** LOGIN MODAL ******/
@@ -15,6 +24,10 @@ a:hover{
 .modal-body {
     padding: 0px;
     border-radius: 2px;
+}
+
+.loginmodal-container h1{
+    color:#222
 }
 
 .loginmodal-container {
@@ -79,7 +92,7 @@ a:hover{
     border: 0px;
     color: #fff;
     text-shadow: 0 1px rgba(0,0,0,0.1);
-    background-color: #4d90fe;
+    background-color: #85942D;
     padding: 17px 0px;
     font-size: 14px;
     /* background-image: -webkit-gradient(linear, 0 0, 0 100%,   from(#4d90fe), to(#4787ed)); */
@@ -89,7 +102,7 @@ a:hover{
     /* border: 1px solid #2f5bb7; */
     border: 0px;
     text-shadow: 0 1px rgba(0,0,0,0.3);
-    background-color: #357ae8;
+    background-color: #5C6A0F;
     /* background-image: -webkit-gradient(linear, 0 0, 0 100%,   from(#4d90fe), to(#357ae8)); */
 }
 
@@ -209,11 +222,11 @@ a:hover{
     padding:10px;
     padding-top:15px;
     font-size:25px;
-    background-color:deepskyblue;
+    background-color:#85942D;
     -webkit-box-shadow: 2px 2px 2px 0px rgba(0,0,0,0.75);
     -moz-box-shadow: 2px 2px 2px 0px rgba(0,0,0,0.75);
     box-shadow: 2px 2px 2px 0px rgba(0,0,0,0.75);
-    color: #555;
+    color: #fefefe;
     text-align:center;
     border-radius: 50px;
     border:1px solid #eee;
@@ -226,10 +239,10 @@ a:hover{
     -webkit-box-shadow: 0px 0px 0px 0px rgba(0,0,0,0.75);
     -moz-box-shadow: 0px 0px 0px 0px rgba(0,0,0,0.75);
     box-shadow: 0px 0px 0px 0px rgba(0,0,0,0.75);
-    box-shadow: inset 0px 0px 10px 0px #ABABAB,5px 5px 5px 1px #DDDDDD;
-    -webkit-box-shadow: inset 0px 0px 10px 0px #ABABAB,5px 5px 5px 1px #DDDDDD;
-    -moz-box-shadow: inset 0px 0px 10px 0px #ABABAB,5px 5px 5px 1px #DDDDDD;
-    -o-box-shadow: inset 0px 0px 10px 0px #ABABAB,5px 5px 5px 1px #DDDDDD;
+    box-shadow: inset 0px 0px 10px 0px #ABABAB,5px 5px 5px 1px #333;
+    -webkit-box-shadow: inset 0px 0px 10px 0px #ABABAB,5px 5px 5px 1px #333;
+    -moz-box-shadow: inset 0px 0px 10px 0px #ABABAB,5px 5px 5px 1px #333;
+    -o-box-shadow: inset 0px 0px 10px 0px #ABABAB,5px 5px 5px 1px #333;
     color:#fefefe;
 }
 
@@ -245,7 +258,8 @@ a:hover{
     margin-right:60px;
 }
 
-.timetable{
-
-
+.ng-toast.ng-toast--right .ng-toast__list {
+    left: auto;
+    right: 100px;
 }
+
