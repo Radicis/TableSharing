@@ -4,7 +4,7 @@ timetableModule.controller('TimetableController', function($scope, ngToast, $roo
     var m = date.getMonth();
     var y = date.getFullYear();
 
-    $scope.table = null;
+    $scope.table = {};
     $scope.eventSources = [];
     $scope.events = [];
 
@@ -78,8 +78,13 @@ timetableModule.controller('TimetableController', function($scope, ngToast, $roo
         });
     };
 
+    $scope.isOwner = function(){
+        if($scope.table.owner) return AuthenticationService.getUserId() === $scope.table.owner._id;
+    };
+
 
     $scope.initTable = function(){
+
 
         EventService.getEventsByTableId($scope.table._id).then(function(events){
             console.log(events);
@@ -96,14 +101,14 @@ timetableModule.controller('TimetableController', function($scope, ngToast, $roo
                 // Calendar configuration
                 $scope.uiConfig = {
                     calendar:{
-                        theme: false,
+                        theme: true,
                         columnFormat: {
                             week: 'ddd' // Only show day of the week names
                         },
                         header: false, // Hide buttons/titles
-                        height: 500,
-                        slotDuration: '00:30:00',
-                        editable: true,
+                        contentHeight: 'auto',
+                        slotDuration: '00:20:00',
+                        editable: $scope.isOwner(),
                         defaultView: "agendaWeek",
                         nowIndicator: true,
                         allDaySlot: false,

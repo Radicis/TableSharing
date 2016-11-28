@@ -2,15 +2,18 @@
     <div class="row">
         <div class="co-md-12">
             <h3>{{table.title}}</h3>
-            </div>
+        </div>
+        </div>
     <div class="row">
-        <div class="co-md-12">
+        <div class="co-md-12 timetable">
             <div ui-calendar="uiConfig.calendar" class="span8 calendar" ng-model="eventSources"></div>
         </div>
     </div>
-    <button ng-click="addEvent()">Add Event</button>
-    <div class="alert-success calAlert" ng-show="alertMessage != undefined && alertMessage != ''">
-        <h4>Message is: {{alertMessage}}</h4>
-    </div>
+
+        <ul class="floatingContainer">
+            <li ng-show="isOwner()" class="floatingButton" ng-click="addEvent()"><i class="glyphicon glyphicon-pencil"></i></li>
+            <li class="floatingButton" ng-click="shareEvent()"><i class="glyphicon glyphicon-retweet"></i></li>
+            <li class="floatingButton" ng-click="subscribe()"><i class="glyphicon glyphicon-heart"></i></li>
+        </ul>
+
 </div>
-    </div>
