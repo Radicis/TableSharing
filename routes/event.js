@@ -47,6 +47,17 @@ router.put('/', function(req, res){
     })
 });
 
+router.put('/move', function(req, res){
+    var event = req.body;
+    Event.updateTime(event, function(err, event){
+        if(err){
+            console.log(err);
+            res.json(err);
+        }
+        res.json(event);
+    })
+});
+
 router.delete('/', function(req, res){
     var event = req.body;
     Event.delete(event, function(err, event){

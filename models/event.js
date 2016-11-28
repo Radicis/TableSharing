@@ -61,8 +61,14 @@ module.exports.add = function(event, callback){
 };
 
 module.exports.update = function(event, callback){
-    console.log("Updating event..");
-    Event.findOneAndUpdate(event._id, event, callback);
+    console.log("Updating event id: " + event._id);
+    Event.findOneAndUpdate({_id:event._id}, {title:event.title, location:event.location}, { new: true }, callback);
+};
+
+module.exports.updateTime = function(event, callback){
+    console.log("Updating event id: " + event._id);
+    console.log(event);
+    Event.findOneAndUpdate({_id:event._id}, {start:event.start, end:event.end}, { new: true }, callback);
 };
 
 module.exports.delete = function(event, callback){

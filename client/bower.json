@@ -21,6 +21,7 @@
     "angular-route": "latest",
     "angular-bootstrap": "latest",
     "angular-animate": "latest",
-    "angular-ui-calendar": "*"
+    "angular-ui-calendar": "*",
+    "ngToast": "ngtoast#^2.0.0"
   }
 }

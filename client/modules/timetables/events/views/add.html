@@ -2,33 +2,9 @@
     <div class="loginmodal-container">
         <h1>Create Event</h1><br>
         <form ng-submit="createEvent()">
-            <input type="text" name="formEventTitle" ng-model="newEvent.title" placeholder="Title">
+            <input type="text" name="formEventTitle" ng-model="event.title" placeholder="Title">
 
-            <select ng-model="newEvent.day">
-                <option value="">- Day -</option>
-                <option ng-repeat="day in days"
-                        value="{{day.value}}">
-                    {{day.name}}
-                </option>
-            </select>
-
-            <input type="text" ng-model="newEvent.location" placeholder="Location">
-
-            <select ng-model="newEvent.startHour">
-                <option value="">- Start Time -</option>
-                <option ng-repeat="hour in hours"
-                        value="{{hour.value}}">
-                    {{hour.name}}
-                </option>
-            </select>
-
-            <select ng-model="newEvent.endHour">
-                <option value="">- End Time -</option>
-                <option ng-repeat="hour in hours"
-                        value="{{hour.value}}">
-                    {{hour.name}}
-                </option>
-            </select>
+            <input type="text" ng-model="event.location" placeholder="Location">
 
             <input type="submit" name="save" class="login loginmodal-submit" value="Add">
         </form>

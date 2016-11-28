@@ -65,6 +65,7 @@ authenticationModule.service('AuthenticationService', function($rootScope, $http
 
     this.login = function (email, password) {
         var def = $q.defer();
+        console.log("Logging in..");
         $http.post('/api/auth/authenticate', {'email': email, 'password':password}).success(function (response) {
             def.resolve(response);
         }).error(function (error) {

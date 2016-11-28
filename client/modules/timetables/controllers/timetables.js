@@ -59,7 +59,7 @@ timetableModule.controller('TimetableController', function($scope, ngToast, $roo
 
     $scope.createTimetable = function(){
 
-        $scope.timetable.hiddenDays = calculateHiddenDays($scope.timetable.startDay, $scope.timetable.endDay);
+        //$scope.timetable.hiddenDays = calculateHiddenDays($scope.timetable.startDay, $scope.timetable.endDay);
 
         TimetableService.createTimetable($scope.timetable).then(function(table){
             var userID = AuthenticationService.getUserId();
@@ -140,15 +140,14 @@ timetableModule.controller('TimetableController', function($scope, ngToast, $roo
 
     /* alert on Drop */
     $scope.move = function(event){
-
-        EventService.editEvent(event).then(function(event){
+        EventService.editEventTime(event).then(function(event){
             ngToast.create(event.title + ' updated');
         });
 
     };
     /* alert on Resize */
     $scope.resize = function(event){
-        EventService.editEvent(event).then(function(event){
+        EventService.editEventTime(event).then(function(event){
             ngToast.create(event.title + ' updated');
         });
 
@@ -160,17 +159,16 @@ timetableModule.controller('TimetableController', function($scope, ngToast, $roo
                 title: 'New Event',
                 start:   new Date(y, m, d, $scope.table.startHour, 0),
                 parentTable: $scope.table._id,
-                end: new Date(y, m, d, $scope.table.startHour + 1, 0)
+                end: new Date(y, m, d, $scope.table.startHour + 1, 0),
+                location: 'Room 1'
         };
 
-        EventService.addEvent(event).then(function(event){
-            $scope.events.push(event);
-        });
+        EventService.addEventModal(event, $scope.events);
 
     };
 
     $scope.editEvent = function(event) {
-        EventService.editEventModal(event);
+        EventService.editEventModal(event, $scope.events);
     };
 
 });

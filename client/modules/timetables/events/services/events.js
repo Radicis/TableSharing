@@ -19,12 +19,12 @@ eventsModule.service('EventService', function($http, $q, $uibModal, $rootScope) 
         });
 
         return def.promise;
-
     };
 
-    this.editEventModal = function (event) {
+    this.editEventModal = function (event, events) {
 
         if($rootScope.modalInstance) $rootScope.modalInstance.dismiss();
+
         $rootScope.modalInstance = $uibModal.open({
             animation: true,
             templateUrl: '/modules/timetables/events/views/edit.html',
@@ -33,12 +33,15 @@ eventsModule.service('EventService', function($http, $q, $uibModal, $rootScope) 
             resolve: {
                 event: function(){
                     return event;
+                },
+                events: function(){
+                    return events;
                 }
             }
         });
     };
 
-    this.addEventModal = function (parentTableId) {
+    this.addEventModal = function (event, events) {
         if($rootScope.modalInstance) $rootScope.modalInstance.dismiss();
 
         $rootScope.modalInstance = $uibModal.open({
@@ -47,8 +50,11 @@ eventsModule.service('EventService', function($http, $q, $uibModal, $rootScope) 
             controller: 'EventController',
             size: 100,
             resolve: {
-                parentTableId: function(){
-                    return parentTableId;
+                event: function(){
+                    return event;
+                },
+                events: function(){
+                    return events;
                 }
             }
         });
@@ -69,19 +75,35 @@ eventsModule.service('EventService', function($http, $q, $uibModal, $rootScope) 
         return def.promise;
     };
 
-    this.editEvent = function(event){
-        console.log("Updating event in service..");
+    this.editEventTime = function(event){
         var modifyEvent = {
             _id: event._id,
             start: event.start,
             end: event.end
         };
-        // event.start = event.start.toDate();
-        // event.end = event.end.toDate();
-        // event.source = null;
-        // console.log(event);
+
         var def = $q.defer();
-        $http.put('/api/events', modifyEvent).success(function (response) {
+        $http.put('/api/events/move', modifyEvent).success(function (response) {
+            // When this request succeeds resolve the promise
+            def.resolve(response);
+        }).error(function (error) {
+            // If the http request fails then log an error to the console
+            console.log("Error: " + error);
+            // Reject the promise so it does not return incorrect data to the controller
+            def.reject(null);
+        });
+        return def.promise;
+    };
+
+    this.editEvent = function(event){
+        var modifyEvent = {
+            _id: event._id,
+            title: event.title,
+            location: event.location
+        };
+
+        var def = $q.defer();
+        $http.put('/api/events/', modifyEvent).success(function (response) {
             // When this request succeeds resolve the promise
             def.resolve(response);
         }).error(function (error) {

@@ -156,3 +156,11 @@
     margin-left: 12px !important;
     padding: 5px! important;
 }
+
+
+/* Custom Calendar styles */
+
+.fc-location{
+    font-size:0.8em;
+    opacity: 0.7;
+}
