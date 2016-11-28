@@ -15,41 +15,74 @@
 <body ng-app="TableShare" ng-controller="AuthenticationController">
 
 
-<div id="wrapper">
+  <!--
+  User Profile Sidebar by @keenthemes
+  A component of Metronic Theme - #1 Selling Bootstrap 3 Admin Theme in Themeforest: http://j.mp/metronictheme
+  Licensed under MIT
+  -->
 
-    <!-- Sidebar -->
-    <div id="sidebar-wrapper">
-        <ul class="sidebar-nav">
-            <li class="sidebar-brand">
-                <a href="#">
-                    TableShare
-                </a>
-            </li>
-            <li><a href="#/timetables">Browse</a></li>
-            <li ng-if="!isLoggedIn()"><a href="" ng-click="openLogin(100)">Login</a></li>
-            <li ng-if="isLoggedIn()"><a href="" ng-click="logout()" >Log Out</a></li>
-            <li ng-if="isLoggedIn()"><a href="" ng-click="addTable()" class="glyphicon glyphicon-pencil"></a></li>
-        </ul>
-        </ul>
-    </div>
-    <!-- /#sidebar-wrapper -->
-
-    <!-- Page Content -->
-    <div id="page-content-wrapper">
-        <toast></toast>
-        <div class="container-fluid" >
-            <div class="row">
-                <div class="col-md-12">
-                    <div ng-view></div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- /#page-content-wrapper -->
-
-</div>
-<!-- /#wrapper -->
-
+  <div class="container">
+      <div class="row profile">
+  		<div class="col-md-3">
+  			<div class="profile-sidebar">
+  				<!-- SIDEBAR USERPIC -->
+  				<div class="profile-userpic">
+  					<img src="https://avatars0.githubusercontent.com/u/8942721?v=3&s=460" class="img-responsive" alt="">
+  				</div>
+  				<!-- END SIDEBAR USERPIC -->
+  				<!-- SIDEBAR USER TITLE -->
+  				<div class="profile-usertitle">
+  					<div class="profile-usertitle-name">
+  						{{user.username}}
+  					</div>
+  					<div class="profile-usertitle-job">
+  						{{user.email}}
+  					</div>
+  				</div>
+  				<!-- END SIDEBAR USER TITLE -->
+  				<!-- SIDEBAR BUTTONS -->
+  				<div class="profile-userbuttons">
+  					<button type="button" class="btn btn-success btn-sm">Follow</button>
+  					<button type="button" class="btn btn-danger btn-sm">Message</button>
+  				</div>
+  				<!-- END SIDEBAR BUTTONS -->
+  				<!-- SIDEBAR MENU -->
+  				<div class="profile-usermenu">
+  					<ul class="nav">
+  						<li class="active">
+  							<a href="#">
+  							<i class="glyphicon glyphicon-home"></i>
+  							Overview </a>
+  						</li>
+  						<li>
+  							<a href="#">
+  							<i class="glyphicon glyphicon-user"></i>
+  							Account Settings </a>
+  						</li>
+  						<li>
+  							<a href="#" target="_blank">
+  							<i class="glyphicon glyphicon-ok"></i>
+  							Tasks </a>
+  						</li>
+  						<li>
+  							<a href="#">
+  							<i class="glyphicon glyphicon-flag"></i>
+  							Help </a>
+  						</li>
+  					</ul>
+  				</div>
+  				<!-- END MENU -->
+  			</div>
+  		</div>
+  		<div class="col-md-9">
+              <div class="profile-content">
+  			          <div ng-view></div>
+              </div>
+  		</div>
+  	</div>
+  </div>
+  <br>
+  <br>
 
 
 <script src="/bower_components/jquery/dist/jquery.js"></script>
