@@ -7,8 +7,10 @@ eventsModule.controller('EventController', function($scope, EventService, event,
     $scope.event.start = event.start;
     $scope.event.end = event.end;
     $scope.event._id = event._id;
+    $scope.event.parentTable=  event.parentTable;
 
     $scope.createEvent = function(){
+
          EventService.addEvent($scope.event).then(function(event){
             if($rootScope.modalInstance) $rootScope.modalInstance.dismiss();
             events.push(event);
@@ -30,6 +32,20 @@ eventsModule.controller('EventController', function($scope, EventService, event,
             ngToast.create(event.title + ' updated');
         });
     };
+
+    $scope.delete = function(){
+        console.log('Deleting event.');
+        EventService.deleteEvent($scope.event._id).then(function(){
+            if($rootScope.modalInstance) $rootScope.modalInstance.dismiss();
+            $.each(events, function(i){
+                if(events[i]._id === event._id) {
+                    events.splice(i,1);
+                    return false;
+                }
+            });
+            ngToast.create(event.title + ' deleted');
+        })
+    }
 
 
 });

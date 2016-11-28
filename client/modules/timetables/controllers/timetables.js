@@ -46,20 +46,27 @@ timetableModule.controller('TimetableController', function($scope, ngToast, $roo
         console.log("Getting table by id in controller");
         TimetableService.getTableById(id).then(function(table){
             $scope.table = table;
-            $scope.getEventsByTableId(id);
             $scope.initTable();
         });
     };
 
-    $scope.getEventsByTableId = function(id){
-        // EventService.getEventsByTableId(id).then(function(events){
-        //     $scope.events = events;
-        // });
+    var calculateHiddenDays = function(startDay, endDay){
+        console.log("Hidden days for: " + startDay + " and " + endDay);
+        var allDays = [0,1,2,3,4,5,6];
+        var hiddenDays = [];
+
+        for(var i=0; i<allDays.length; i++){
+            if(allDays[i]<startDay || allDays[i]>endDay){
+                hiddenDays.push(allDays[i]);
+            }
+        }
+
+        return hiddenDays.length0=0 ? null : hiddenDays;
     };
 
     $scope.createTimetable = function(){
 
-        //$scope.timetable.hiddenDays = calculateHiddenDays($scope.timetable.startDay, $scope.timetable.endDay);
+        $scope.timetable.hiddenDays = calculateHiddenDays($scope.timetable.startDay, $scope.timetable.endDay);
 
         TimetableService.createTimetable($scope.timetable).then(function(table){
             var userID = AuthenticationService.getUserId();
@@ -71,70 +78,55 @@ timetableModule.controller('TimetableController', function($scope, ngToast, $roo
         });
     };
 
-    // var calculateHiddenDays = function(startDay, endDay){
-    //     var allDays = [0,1,2,3,4,5,6];
-    //     var hiddenDays = [];
-    //
-    //     for(var i=0; i<allDays.length; i++){
-    //         if(allDays[i]<startDay || allDays[i]>endDay){
-    //             hiddenDays.push(allDays[i]);
-    //         }
-    //     }
-    //
-    //     return hiddenDays.length==0 ? hiddenDays : null;
-    // };
 
     $scope.initTable = function(){
-        $scope.personalEvents = {
-            color: '#f00',
-            textColor: 'yellow',
-            events: [
-                {type:'party',title: 'Lunch',start: new Date(y, m, d, 12, 0),end: new Date(y, m, d, 14, 0),allDay: false},
-                {type:'party',title: 'Lunch 2',start: new Date(y, m, d, 12, 0),end: new Date(y, m, d, 14, 0),allDay: false},
-                {type:'party',title: 'Click for Google',start: new Date(y, m, 28),end: new Date(y, m, 29),url: 'http://google.com/'}
-            ]
-        };
-
-        /* event sources array*/
-        $scope.eventSources.push($scope.personalEvents);
 
         EventService.getEventsByTableId($scope.table._id).then(function(events){
+            console.log(events);
             $scope.events = events;
             $scope.eventSources.push($scope.events);
 
-            // Calendar configuration
-            $scope.uiConfig = {
-                calendar:{
-                    theme: false,
-                    //weekends: false, // Hide weekends
-                    columnFormat: {
-                        week: 'ddd' // Only show day of the week names
-                    },
-                    header: false, // Hide buttons/titles
-                    height: 500,
-                    slotDuration: '00:30:00',
-                    editable: true,
-                    defaultView: "agendaWeek",
-                    nowIndicator: true,
-                    allDaySlot: false,
-                    minTime: $scope.table.startHour + ':00:00',
-                    maxTime: $scope.table.endHour + ':00:00',
-                    scrollTime: $scope.table.startHour + ':00:00',
-                    firstDay: $scope.table.startDay,
-                    allDayText: '',
-                    //hiddenDays: $scope.table.hiddenDays,
-                    // header:{
-                    //     left: 'agendaWeek, month',
-                    //     center: 'tite',
-                    //     right: 'today prev,next'
-                    // },
 
-                    eventClick: $scope.editEvent,
-                    eventDrop: $scope.move,
-                    eventResize: $scope.resize
-                }
-            };
-        });
+            // EventService.getPersonalEvents(AuthenticationService.getUserId()).then(function(events){
+            //     $scope.personalEvents = events;
+            //
+            //     /* event sources array*/
+            //     $scope.eventSources.push($scope.personalEvents);
+
+                // Calendar configuration
+                $scope.uiConfig = {
+                    calendar:{
+                        theme: false,
+                        columnFormat: {
+                            week: 'ddd' // Only show day of the week names
+                        },
+                        header: false, // Hide buttons/titles
+                        height: 500,
+                        slotDuration: '00:30:00',
+                        editable: true,
+                        defaultView: "agendaWeek",
+                        nowIndicator: true,
+                        allDaySlot: false,
+                        minTime: $scope.table.startHour + ':00:00',
+                        maxTime: $scope.table.endHour + ':00:00',
+                        scrollTime: $scope.table.startHour + ':00:00',
+                        firstDay: $scope.table.startDay,
+                        allDayText: '',
+                        hiddenDays: $scope.table.hiddenDays,
+                        // header:{
+                        //     left: 'agendaWeek, month',
+                        //     center: 'tite',
+                        //     right: 'today prev,next'
+                        // },
+
+                        eventClick: $scope.editEvent,
+                        eventDrop: $scope.move,
+                        eventResize: $scope.resize
+                    }
+                };
+            });
+
+       // });
 
     };
 
@@ -157,13 +149,27 @@ timetableModule.controller('TimetableController', function($scope, ngToast, $roo
 
         var event = {
                 title: 'New Event',
-                start:   new Date(y, m, d, $scope.table.startHour, 0),
+                start:   new Date(y, m, d, $scope.table.startHour + 1, 0),
                 parentTable: $scope.table._id,
-                end: new Date(y, m, d, $scope.table.startHour + 1, 0),
+                end: new Date(y, m, d, $scope.table.startHour + 2, 0),
                 location: 'Room 1'
         };
 
         EventService.addEventModal(event, $scope.events);
+
+    };
+
+    $scope.addPersonalEvent = function() {
+
+        var event = {
+            title: 'New Event',
+            start:   new Date(y, m, d, $scope.table.startHour + 1, 0),
+            owner: AuthenticationService.getUserId(),
+            end: new Date(y, m, d, $scope.table.startHour + 2, 0),
+            location: 'Room 1'
+        };
+
+        EventService.addPersonalEventModal(event, $scope.events);
 
     };
 

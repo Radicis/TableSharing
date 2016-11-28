@@ -21,6 +21,7 @@ eventsModule.service('EventService', function($http, $q, $uibModal, $rootScope) 
         return def.promise;
     };
 
+
     this.editEventModal = function (event, events) {
 
         if($rootScope.modalInstance) $rootScope.modalInstance.dismiss();
@@ -115,9 +116,9 @@ eventsModule.service('EventService', function($http, $q, $uibModal, $rootScope) 
         return def.promise;
     };
 
-    this.deleteEvent = function(event){
+    this.deleteEvent = function(eventId){
         var def = $q.defer();
-        $http.delete('/api/events', event).success(function (response) {
+        $http.delete('/api/events/' + eventId).success(function (response) {
             // When this request succeeds resolve the promise
             def.resolve(response);
         }).error(function (error) {

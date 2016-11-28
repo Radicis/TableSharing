@@ -158,6 +158,12 @@
 }
 
 
+.deleteEvent a{
+    color:#ff0000 !important;
+    float:right;
+}
+
+
 /* Custom Calendar styles */
 
 .fc-location{

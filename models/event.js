@@ -30,6 +30,10 @@ var EventSchema = mongoose.Schema({
         ref: 'Table',
         required: false
     },
+    hiddenDays: {
+        type :[Number],
+        required: false
+    },
     repeat:{
         type: Boolean,
         default: true
@@ -55,6 +59,11 @@ module.exports.getByTableId = function(id, callback){
     Event.find({parentTable: id}).exec(callback);
 };
 
+module.exports.getByUserId = function(id, callback){
+    console.log("Getting by user id");
+    Event.find({owner: id}).exec(callback);
+};
+
 module.exports.add = function(event, callback){
     console.log('Creating new event..');
     Event.create(event, callback);
@@ -71,7 +80,7 @@ module.exports.updateTime = function(event, callback){
     Event.findOneAndUpdate({_id:event._id}, {start:event.start, end:event.end}, { new: true }, callback);
 };
 
-module.exports.delete = function(event, callback){
+module.exports.delete = function(eventId, callback){
     console.log("Deleting event..");
-    Event.delete(event, callback);
+    Event.findOneAndRemove({_id: eventId}, callback);
 };

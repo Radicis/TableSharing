@@ -15,15 +15,26 @@ router.get('/', function(req, res) {
     });
 });
 
-// Get timetable by unique id
+
 router.get('/:parentTable', function(req, res){
     Event.getByTableId(req.params.parentTable, function(err, event){
         if(err){
-            throw err;
+            console.log(err);
+            res.json(err);
         }
         res.json(event);
     });
 });
+//
+// router.get('/personal/:userId', function(req, res){
+//     Event.getByUserId(req.params.userId, function(err, event){
+//         if(err){
+//             console.log(err);
+//             res.json(err);
+//         }
+//         res.json(event);
+//     });
+// });
 
 router.post('/', function(req, res){
     var event = req.body;
@@ -58,9 +69,8 @@ router.put('/move', function(req, res){
     })
 });
 
-router.delete('/', function(req, res){
-    var event = req.body;
-    Event.delete(event, function(err, event){
+router.delete('/:_id', function(req, res){
+    Event.delete(req.params._id, function(err, event){
         if(err){
             console.log(err);
             res.json(err);
