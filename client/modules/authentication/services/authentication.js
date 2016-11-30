@@ -89,17 +89,17 @@ authenticationModule.service('AuthenticationService', function($rootScope, $http
 
 });
 
-authenticationModule.service('APIInterceptor', function($rootScope, AuthenticationService) {
-    var service = this;
-    service.request = function(config) {
-        var accessToken = AuthenticationService.getToken();
-        if (accessToken) {
-            config.headers.authorization = accessToken;
-        }
-        return config;
-    };
-    service.responseError = function(response) {
-        return response;
-    };
-});
+// authenticationModule.service('APIInterceptor', function($rootScope, AuthenticationService) {
+//     var service = this;
+//     service.request = function(config) {
+//         var accessToken = AuthenticationService.getToken();
+//         if (accessToken) {
+//             config.headers.authorization = accessToken;
+//         }
+//         return config;
+//     };
+//     service.responseError = function(response) {
+//         return response;
+//     };
+// });
 

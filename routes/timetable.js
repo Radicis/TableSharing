@@ -27,6 +27,11 @@ router.get('/:_id', function(req, res){
     });
 });
 
+router.all("/*", middleware.validToken, function(req, res, next) {
+    next(); // if the middleware allowed us to get here,
+            // just move on to the next route handler
+});
+
 // Update timetable by unique id
 // Ensure valid token and match user ID to owner ID before saving
 router.put('/:_id', function(req, res){

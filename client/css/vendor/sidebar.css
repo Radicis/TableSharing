@@ -293,6 +293,8 @@ html {
 body,
 html {
     background-color: #583e7e;
+    background: url("/images/bg2.png") no-repeat;
+    background-size: cover;
 }
 body h1,
 body h2,

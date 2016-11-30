@@ -21,7 +21,7 @@
 		  <ul class="nav sidebar-nav">
 			  <li class="sidebar-brand">
 				  <a href="#">
-					  <img src="images/logo.png" alt="TableShare" />
+					  <img src="images/logo3.png" alt="TableShare" />
 				  </a>
 			  </li>
 
@@ -31,17 +31,8 @@
 				  <a href="#"><i class="glyphicon glyphicon-dashboard"></i> Dashboard</a>
 			  </li>
 			  <li ng-if="isLoggedIn()">
-				  <a href="#" ng-click="addTable()"><i class="glyphicon glyphicon-dashboard"></i> Add Timetable</a>
-			  </li>
-			  <li ng-if="isLoggedIn()">
 				  <a href="" ng-click="addTable()"><i class="glyphicon glyphicon-plus"></i> Create Timetable</a>
 			  </li>
-			  <li>
-				  <a href="#/timetables"><i class="glyphicon glyphicon-search"></i> Browse Timetables</a>
-			  </li>
-
-			  <hr>
-
 
 			  <li ng-if="!isLoggedIn()">
 				  <a href="" ng-click="openLogin()"><i class="glyphicon glyphicon-user"></i> Login</a>

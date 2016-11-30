@@ -7,15 +7,13 @@ var tableShare = angular.module('TableShare', [
     'Authentication',
     'Users',
         'ngToast',
-        'ja.qr'
-]
-)
-//
-// .config(['$httpProvider', function($httpProvider) {
-//     $httpProvider.interceptors.push('APIInterceptor');
-// }])
+        'ja.qr',
+]);
 
-    ;
+
+tableShare.run(function ($http, AuthenticationService) {
+    $http.defaults.headers.post['x-access-token'] = AuthenticationService.getToken();
+});
 
 var routeForUnauthorizedAccess = "/unauthorised";
 
