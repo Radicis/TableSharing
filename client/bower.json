@@ -22,6 +22,8 @@
     "angular-bootstrap": "latest",
     "angular-animate": "latest",
     "angular-ui-calendar": "*",
-    "ngToast": "ngtoast#^2.0.0"
+    "ngToast": "ngtoast#^2.0.0",
+    "qrcode.js": "qrcode#^1.0.2",
+    "angular-qr": "latest"
   }
 }

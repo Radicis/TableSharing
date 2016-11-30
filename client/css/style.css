@@ -10,8 +10,17 @@ body{
     color:#fefefe;
 }
 
+body input, select{
+    color:#222;
+}
+
 input{
     color:#222;
+}
+
+.qrCdode{
+    text-align:center;
+    margin-bottom:20px;
 }
 
 /****** LOGIN MODAL ******/
@@ -20,7 +29,17 @@ input{
     width: 400px;
     margin: 30px auto;
     border-radius: 2px;
+    color:#666;
 }
+
+.modal-dialog a{
+    color: #999;
+}
+
+.modal-dialog a:hover{
+    color: #222;
+}
+
 .modal-body {
     padding: 0px;
     border-radius: 2px;
@@ -125,6 +144,12 @@ input{
 .fc-today {
     opacity: 0;
     border: none;
+}
+
+.fc-body{
+    -webkit-box-shadow: 2px 2px 2px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 2px 2px 2px 0px rgba(0,0,0,0.75);
+    box-shadow: 2px 2px 2px 0px rgba(0,0,0,0.75);
 }
 
 /* Styling for each event from Schedule */
@@ -262,4 +287,6 @@ input{
     left: auto;
     right: 100px;
 }
+
+
 

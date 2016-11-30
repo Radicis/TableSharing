@@ -9,6 +9,8 @@ timetableModule.controller('TimetableController', function($scope, ngToast, $uib
     $scope.eventSources = [];
     $scope.events = [];
 
+    $scope.codeUrl = "";
+
     $scope.days = [
         {name: 'Sunday', value: 0},
         {name: 'Monday', value: 1},
@@ -44,7 +46,6 @@ timetableModule.controller('TimetableController', function($scope, ngToast, $uib
 
     $scope.getTable = function(){
         var id = $routeParams._id;
-        console.log("Getting table by id in controller");
         TimetableService.getTableById(id).then(function(table){
             $scope.table = table;
             $scope.initTable();
@@ -168,7 +169,7 @@ timetableModule.controller('TimetableController', function($scope, ngToast, $uib
     };
 
     $scope.editEvent = function(event) {
-        EventService.editEventModal(event, $scope.events);
+        if($scope.isOwner()) EventService.editEventModal(event, $scope.events);
     };
 
     $scope.editTimetable = function(){
@@ -184,6 +185,8 @@ timetableModule.controller('TimetableController', function($scope, ngToast, $uib
 
     $scope.shareEvent = function(){
         if($rootScope.modalInstance) $rootScope.modalInstance.dismiss();
+
+        $scope.codeUrl = "http://www.tableshare.com/#/timetables/" + $scope.table._id;
 
         $rootScope.modalInstance = $uibModal.open({
             animation: true,

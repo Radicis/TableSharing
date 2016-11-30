@@ -21,7 +21,7 @@
 		  <ul class="nav sidebar-nav">
 			  <li class="sidebar-brand">
 				  <a href="#">
-					  TableShare
+					  <img src="images/logo.png" alt="TableShare" />
 				  </a>
 			  </li>
 
@@ -29,6 +29,9 @@
 
 			  <li ng-if="isLoggedIn()">
 				  <a href="#"><i class="glyphicon glyphicon-dashboard"></i> Dashboard</a>
+			  </li>
+			  <li ng-if="isLoggedIn()">
+				  <a href="#" ng-click="addTable()"><i class="glyphicon glyphicon-dashboard"></i> Add Timetable</a>
 			  </li>
 			  <li ng-if="isLoggedIn()">
 				  <a href="" ng-click="addTable()"><i class="glyphicon glyphicon-plus"></i> Create Timetable</a>
@@ -88,6 +91,8 @@
 <script type="text/javascript" src="bower_components/angular-ui-calendar/src/calendar.js"></script>
 <script type="text/javascript" src="bower_components/fullcalendar/dist/fullcalendar.js"></script>
 <script type="text/javascript" src="bower_components/fullcalendar/dist/gcal.js"></script>
+<script type="text/javascript" src="bower_components/qrcode/lib/qrcode.min.js"></script>
+<script type="text/javascript" src="bower_components/angular-qr/angular-qr.min.js"></script>
 
 
 <script src="/app.js"></script>

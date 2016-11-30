@@ -1,4 +1,4 @@
-authenticationModule.controller('AuthenticationController', function($scope, $window, $routeParams, TimetableService, AuthenticationService) {
+authenticationModule.controller('AuthenticationController', function($scope, $rootScope, $window, $routeParams, TimetableService, AuthenticationService) {
 
     $scope.openLogin = function () {
         AuthenticationService.openLogin();
@@ -14,15 +14,17 @@ authenticationModule.controller('AuthenticationController', function($scope, $wi
 
     $scope.login = function(){
 
+        if($rootScope.modalInstance) $rootScope.modalInstance.dismiss();
+
         var email = $scope.formEmail;
         var password = $scope.formPassword;
 
         AuthenticationService.login(email, password).then(function(response){
+            console.log(response);
             var token = response.token;
             var userID = response.userID;
             console.log("Got token: " + token + " and userID: " + userID);
             AuthenticationService.saveToken(token, userID);
-            $window.location.href = '/';
         });
     };
 
@@ -31,6 +33,8 @@ authenticationModule.controller('AuthenticationController', function($scope, $wi
     };
 
     $scope.register = function(){
+
+        if($rootScope.modalInstance) $rootScope.modalInstance.dismiss();
 
         var email = $scope.formEmail;
         var password = $scope.formPassword;

@@ -6,7 +6,8 @@ var tableShare = angular.module('TableShare', [
     'Timetables',
     'Authentication',
     'Users',
-        'ngToast'
+        'ngToast',
+        'ja.qr'
 ]
 )
 //
