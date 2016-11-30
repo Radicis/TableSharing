@@ -24,6 +24,7 @@
     "angular-ui-calendar": "*",
     "ngToast": "ngtoast#^2.0.0",
     "qrcode.js": "qrcode#^1.0.2",
-    "angular-qr": "latest"
+    "angular-qr": "latest",
+    "angular-cookies": "^1.5.9"
   }
 }

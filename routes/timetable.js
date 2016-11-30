@@ -51,6 +51,7 @@ router.post('/add', function(req, res){
             res.json(err);
         }
         else{
+            console.log(table);
             res.json(table);
         }
     })

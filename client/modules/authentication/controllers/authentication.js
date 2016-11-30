@@ -20,7 +20,6 @@ authenticationModule.controller('AuthenticationController', function($scope, $ro
         var password = $scope.formPassword;
 
         AuthenticationService.login(email, password).then(function(response){
-            console.log(response);
             var token = response.token;
             var userID = response.userID;
             console.log("Got token: " + token + " and userID: " + userID);

@@ -8,10 +8,12 @@ var tableShare = angular.module('TableShare', [
     'Users',
         'ngToast',
         'ja.qr',
+    'ngCookies'
 ]);
 
 
 tableShare.run(function ($http, AuthenticationService) {
+    console.log(AuthenticationService.getToken());
     $http.defaults.headers.post['x-access-token'] = AuthenticationService.getToken();
 });
 

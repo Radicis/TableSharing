@@ -1,4 +1,4 @@
-authenticationModule.service('AuthenticationService', function($rootScope, $http, $q, $window, $location, $uibModal) {
+authenticationModule.service('AuthenticationService', function($rootScope, $cookies, $http, $q, $window, $location, $uibModal) {
 
     this.openLogin = function () {
 
@@ -17,6 +17,8 @@ authenticationModule.service('AuthenticationService', function($rootScope, $http
     this.saveToken = function(token, userID) {
         $window.localStorage['jwtToken'] = token;
         $window.localStorage['userID'] = userID;
+        //$cookies.put('jwtToken', token, []);
+        //$cookies.put('userID', userID, []);
     };
 
 
