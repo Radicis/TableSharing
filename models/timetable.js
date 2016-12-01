@@ -68,3 +68,8 @@ module.exports.add = function(table, callback){
     console.log(table);
     Timetable.create(table, callback);
 };
+
+module.exports.delete = function(id, callback){
+    console.log("Deleting timetable: " + id);
+    Timetable.remove({_id: id}, callback);
+};

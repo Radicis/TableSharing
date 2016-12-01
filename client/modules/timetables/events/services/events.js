@@ -61,7 +61,6 @@ eventsModule.service('EventService', function($http, $q, $uibModal, $rootScope) 
         });
     };
 
-
     this.addEvent = function(event){
         var def = $q.defer();
         $http.post('/api/events', event).success(function (response) {
@@ -69,7 +68,7 @@ eventsModule.service('EventService', function($http, $q, $uibModal, $rootScope) 
             def.resolve(response);
         }).error(function (error) {
             // If the http request fails then log an error to the console
-            console.log("Error: " + error);
+            console.log("Error: " + error.mesage);
             // Reject the promise so it does not return incorrect data to the controller
             def.reject(null);
         });
@@ -89,7 +88,7 @@ eventsModule.service('EventService', function($http, $q, $uibModal, $rootScope) 
             def.resolve(response);
         }).error(function (error) {
             // If the http request fails then log an error to the console
-            console.log("Error: " + error);
+            console.log("Error: " + error.message);
             // Reject the promise so it does not return incorrect data to the controller
             def.reject(null);
         });
@@ -109,16 +108,16 @@ eventsModule.service('EventService', function($http, $q, $uibModal, $rootScope) 
             def.resolve(response);
         }).error(function (error) {
             // If the http request fails then log an error to the console
-            console.log("Error: " + error);
+            console.log("Error: " + error.message);
             // Reject the promise so it does not return incorrect data to the controller
             def.reject(null);
         });
         return def.promise;
     };
 
-    this.deleteEvent = function(eventId){
+    this.deleteEvent = function(eventID){
         var def = $q.defer();
-        $http.delete('/api/events/' + eventId).success(function (response) {
+        $http.delete('/api/events/delete/' + eventID).success(function (response) {
             // When this request succeeds resolve the promise
             def.resolve(response);
         }).error(function (error) {

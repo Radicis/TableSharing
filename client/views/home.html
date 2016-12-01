@@ -3,11 +3,12 @@
         <img src="images/logo3.png" alt="TableShare" />
         <h1>TableShare</h1>
         <p>Simple and effective timetable sharing!</p>
-        <a href="" class="btn" ng-click="openLogin()">Create Now</a>
+        <a ng-if="!isLoggedIn()"  href="" class="btn" ng-click="openLogin()">Create Now</a>
+        <a ng-if="isLoggedIn()"  href="" class="btn" ng-click="addTable()">Create Now</a>
     </div>
 
     <footer>
-        Adam Lloyd Web-Development CIT
+        Adam Lloyd - Applied Web Development - CIT
     </footer>
 
 </div>

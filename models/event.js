@@ -70,17 +70,17 @@ module.exports.add = function(event, callback){
 };
 
 module.exports.update = function(event, callback){
-    console.log("Updating event id: " + event._id);
+    console.log("Updating event details id: " + event._id);
     Event.findOneAndUpdate({_id:event._id}, {title:event.title, location:event.location}, { new: true }, callback);
 };
 
 module.exports.updateTime = function(event, callback){
-    console.log("Updating event id: " + event._id);
+    console.log("Updating event time id: " + event._id);
     console.log(event);
     Event.findOneAndUpdate({_id:event._id}, {start:event.start, end:event.end}, { new: true }, callback);
 };
 
-module.exports.delete = function(eventId, callback){
-    console.log("Deleting event..");
-    Event.findOneAndRemove({_id: eventId}, callback);
+module.exports.delete = function(id, callback){
+    console.log("Deleting event: " + id);
+    Event.remove({_id: id}, callback);
 };

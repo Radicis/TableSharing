@@ -56,8 +56,8 @@ router.put('/move', function(req, res){
     })
 });
 
-router.delete('/:_id', function(req, res){
-    Event.delete(req.params._id, function(err, event){
+router.delete('/delete/:id', function(req, res){
+    Event.delete(req.params.id, function(err, event){
         if(err){
             console.log(err);
             res.json(err);

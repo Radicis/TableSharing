@@ -178,12 +178,22 @@ timetableModule.controller('TimetableController', function($scope, ngToast, $uib
         $rootScope.modalInstance = $uibModal.open({
             animation: true,
             templateUrl: '/modules/timetables/views/timetable_edit.html',
-           scope: $scope,
+            scope: $scope,
             size: 100
         });
     };
 
-    $scope.shareEvent = function(){
+
+    $scope.delete = function(timetableID){
+        TimetableService.delete(timetableID).then(function(){
+            if($rootScope.modalInstance) $rootScope.modalInstance.dismiss();
+            $window.location.href = '/';
+            ngToast.create('Timetable deleted');
+        })
+    };
+
+
+    $scope.shareTable = function(){
         if($rootScope.modalInstance) $rootScope.modalInstance.dismiss();
 
         $scope.codeUrl = "http://www.tableshare.com/#/timetables/" + $scope.table._id;

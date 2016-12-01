@@ -40,9 +40,8 @@ eventsModule.controller('EventController', function($scope, EventService, event,
         });
     };
 
-    $scope.delete = function(){
-        console.log('Deleting event.');
-        EventService.deleteEvent($scope.event._id).then(function(){
+    $scope.delete = function(eventID){
+        EventService.deleteEvent(eventID).then(function(){
             if($rootScope.modalInstance) $rootScope.modalInstance.dismiss();
             $.each(events, function(i){
                 if(events[i]._id === event._id) {

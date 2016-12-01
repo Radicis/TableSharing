@@ -15,6 +15,8 @@ var tableShare = angular.module('TableShare', [
 tableShare.run(function ($http, AuthenticationService) {
     console.log(AuthenticationService.getToken());
     $http.defaults.headers.post['x-access-token'] = AuthenticationService.getToken();
+    $http.defaults.headers.put['x-access-token'] = AuthenticationService.getToken();
+    $http.defaults.headers.delete = { 'x-access-token' :AuthenticationService.getToken() };
 });
 
 var routeForUnauthorizedAccess = "/unauthorised";

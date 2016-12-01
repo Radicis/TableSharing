@@ -58,8 +58,14 @@ router.post('/add', function(req, res){
 });
 
 
-router.delete('/:_id', function(req, res){
-    // delete timetable
+router.delete('/delete/:id', function(req, res){
+    Timetable.delete(req.params.id, function(err, table){
+        if(err){
+            console.log(err);
+            res.json(err);
+        }
+        res.json(table);
+    })
 });
 
 module.exports = router;
