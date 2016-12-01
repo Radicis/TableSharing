@@ -1,4 +1,4 @@
-eventsModule.controller('EventController', function($scope, EventService, event, events, $rootScope, ngToast) {
+eventsModule.controller('EventController', function($scope,$rootScope, EventService, event, events, $rootScope, ngToast) {
 
     $scope.event = {};
 
@@ -20,7 +20,7 @@ eventsModule.controller('EventController', function($scope, EventService, event,
 
          EventService.addEvent($scope.event).then(function(event){
             if($rootScope.modalInstance) $rootScope.modalInstance.dismiss();
-            events.push(event);
+            $rootScope.events.push(event);
             ngToast.create(event.title + ' created');
         });
     };

@@ -1,4 +1,4 @@
-usersModule.service('UserService', function($http, $q, $uibModal, AuthenticationService) {
+usersModule.service('UserService', function($http, $q) {
 
     this.getProfileById = function(id){
         var def = $q.defer();

@@ -54,6 +54,20 @@ timetableModule.service('TimetableService', function($http, $rootScope, $q, $uib
         return def.promise;
     };
 
+    this.updateTimetable = function(timetable){
+        var def = $q.defer();
+        $http.put('/api/timetables/', timetable).success(function (response) {
+            // When this request succeeds resolve the promise
+            def.resolve(response);
+        }).error(function (error) {
+            // If the http request fails then log an error to the console
+            console.log("Error: " + error);
+            // Reject the promise so it does not return incorrect data to the controller
+            def.reject(null);
+        });
+        return def.promise;
+    };
+
 
     this.delete = function(timetableID){
         var def = $q.defer();

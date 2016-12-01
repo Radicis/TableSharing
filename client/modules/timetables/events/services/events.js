@@ -68,7 +68,7 @@ eventsModule.service('EventService', function($http, $q, $uibModal, $rootScope) 
             def.resolve(response);
         }).error(function (error) {
             // If the http request fails then log an error to the console
-            console.log("Error: " + error.mesage);
+            console.log("Error: " + error.message);
             // Reject the promise so it does not return incorrect data to the controller
             def.reject(null);
         });

@@ -7,7 +7,7 @@ timetableModule.controller('TimetableController', function($scope, ngToast, $uib
     $scope.table = {};
     $scope.newTable = {};
     $scope.eventSources = [];
-    $scope.events = [];
+    $rootScope.events = [];
 
     $scope.codeUrl = "";
 
@@ -92,8 +92,8 @@ timetableModule.controller('TimetableController', function($scope, ngToast, $uib
 
         EventService.getEventsByTableId($scope.table._id).then(function(events){
             console.log(events);
-            $scope.events = events;
-            $scope.eventSources.push($scope.events);
+            $rootScope.events = events;
+            $scope.eventSources.push($rootScope.events);
 
 
             // EventService.getPersonalEvents(AuthenticationService.getUserId()).then(function(events){
@@ -183,7 +183,6 @@ timetableModule.controller('TimetableController', function($scope, ngToast, $uib
         });
     };
 
-
     $scope.delete = function(timetableID){
         TimetableService.delete(timetableID).then(function(){
             if($rootScope.modalInstance) $rootScope.modalInstance.dismiss();
@@ -192,6 +191,19 @@ timetableModule.controller('TimetableController', function($scope, ngToast, $uib
         })
     };
 
+    $scope.update = function(){
+        TimetableService.updateTimetable($scope.table).then(function(){
+            if($rootScope.modalInstance) $rootScope.modalInstance.dismiss();
+            ngToast.create('Timetable updated');
+        })
+    };
+
+    $scope.subscribe = function(){
+        var userID = AuthenticationService.getUserId();
+        UserService.subscribeToTable(userID, $scope.table).then(function(){
+            ngToast.create('Subscribed to ' + $scope.table.title);
+        })
+    };
 
     $scope.shareTable = function(){
         if($rootScope.modalInstance) $rootScope.modalInstance.dismiss();

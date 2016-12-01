@@ -27,20 +27,20 @@ router.get('/:_id', function(req, res){
     });
 });
 
+
 router.all("/*", middleware.validToken, function(req, res, next) {
     next(); // if the middleware allowed us to get here,
             // just move on to the next route handler
 });
 
-// Update timetable by unique id
-// Ensure valid token and match user ID to owner ID before saving
-router.put('/:_id', function(req, res){
-    // Timetable.getById(req.params._id, function(err, table){
-    //     if(err){
-    //         throw err;
-    //     }
-    //     res.json(table);
-    // });
+router.get('/subscribed/:userID', function(req, res){
+    Timetable.getByUserId(req.params.userID, function(err, tables){
+        if(err){
+            console.log(err);
+            res.json(err);
+        }
+        res.json(tables);
+    });
 });
 
 router.post('/add', function(req, res){
@@ -54,6 +54,18 @@ router.post('/add', function(req, res){
             console.log(table);
             res.json(table);
         }
+    })
+});
+
+router.put('/', function(req, res){
+    var table = req.body;
+    table.updated = Date.now();
+    Timetable.update(table, function(err, table){
+        if(err){
+            console.log(err);
+            res.json(err);
+        }
+        res.json(table);
     })
 });
 

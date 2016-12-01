@@ -1,17 +1,14 @@
-authenticationModule.controller('AuthenticationController', function($scope, $rootScope, $window, $routeParams, TimetableService, AuthenticationService) {
+authenticationModule.controller('AuthenticationController', function($scope, $rootScope, $window, $routeParams, TimetableService, AuthenticationService, UserService) {
 
     $scope.openLogin = function () {
-        $scope.closeMenu();
         AuthenticationService.openLogin();
     };
 
     $scope.openRegister = function () {
-        $scope.closeMenu();
         AuthenticationService.openRegister();
     };
 
     $scope.addTable = function(){
-        $scope.closeMenu();
         TimetableService.addTimetableModal();
     };
 
@@ -29,12 +26,17 @@ authenticationModule.controller('AuthenticationController', function($scope, $ro
         });
     };
 
+    $scope.getUser = function(){
+        UserService.getProfileById(AuthenticationService.getUserId()).then(function(user){
+            $scope.user = user;
+        })
+    };
+
     $scope.logout = function(){
       AuthenticationService.clearToken();
     };
 
     $scope.register = function(){
-        $scope.closeMenu();
         if($rootScope.modalInstance) $rootScope.modalInstance.dismiss();
 
         var email = $scope.formEmail;

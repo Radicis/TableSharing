@@ -29,6 +29,9 @@ var TimetableSchema = mongoose.Schema({
         type:Date,
         default: Date.now
     },
+    updated:{
+        type: Date
+    },
     owner: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
@@ -67,6 +70,11 @@ module.exports.add = function(table, callback){
     console.log('Creating new timetable..');
     console.log(table);
     Timetable.create(table, callback);
+};
+
+module.exports.update = function(table, callback){
+    console.log("Updating table details id: " + table._id);
+    Timetable.findOneAndUpdate({_id:table._id}, {title:table.title, startDay: table.startDay, endDay: table.endDay, startHour: table.startHour, endHour: table.endHour, updated:table.updated}, { new: true }, callback);
 };
 
 module.exports.delete = function(id, callback){

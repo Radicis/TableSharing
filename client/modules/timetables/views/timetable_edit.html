@@ -1,7 +1,7 @@
 <div class="modal-body">
     <div class="loginmodal-container">
         <h1>Edit Timetable</h1><br>
-        <form ng-submit="updateTimetable()">
+        <form ng-submit="update()">
             <input type="text" name="formTitle" ng-model="table.title" placeholder="Title">
 
             <select ng-model="table.startDay">
@@ -36,7 +36,7 @@
                 </option>
             </select>
 
-            <input type="submit" name="login" class="login loginmodal-submit" value="Create">
+            <input type="submit" name="login" class="login loginmodal-submit" value="Save">
         </form>
 
         <div class="login-help deleteEvent">

@@ -1,8 +1,10 @@
 
-<h3>{{table.title}}</h3>
+<h3 class="tabletitle">{{table.title}}</h3>
 
         <div class="timetable" ng-init="getTable()">
             <div ui-calendar="uiConfig.calendar" class="span8 calendar" ng-model="eventSources"></div>
+            <small ng-if="table.updated" class="updated pull-right">Updated: {{table.updated |date: 'yyyy-MM-dd HH:mm:ss'}}</small>
+            <small ng-if="!table.updated" class="updated pull-right">Updated: {{table.created |date: 'yyyy-MM-dd HH:mm:ss'}}</small>
         </div>
 
 

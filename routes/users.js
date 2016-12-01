@@ -20,6 +20,17 @@ router.get('/', function(req, res) {
     });
 });
 
+router.get('/:userID', function(req, res) {
+    var id = req.params.userID;
+    User.getUserById(id, function(err, user){
+        if(err){
+            console.log(err);
+            res.json(err);
+        }
+        res.json(user);
+    });
+});
+
 
 router.post('/subscribe', function(req, res){
     // subscribe user id to table in body
