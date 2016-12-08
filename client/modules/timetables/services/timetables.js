@@ -1,5 +1,7 @@
 timetableModule.service('TimetableService', function($http, $rootScope, $q, $uibModal, AuthenticationService) {
 
+    // Gets all of the stored tables
+    // Indented for use with search and browser functionality when implemented
     this.getAll = function () {
         // Initialize the defferred promise variable
         var def = $q.defer();
@@ -18,6 +20,7 @@ timetableModule.service('TimetableService', function($http, $rootScope, $q, $uib
         return def.promise;
     };
 
+    // Gets the specific table by id
     this.getTableById = function (id) {
         var def = $q.defer();
         $http.get('/api/timetables/' + id).success(function (response) {
@@ -29,6 +32,7 @@ timetableModule.service('TimetableService', function($http, $rootScope, $q, $uib
         return def.promise;
     };
 
+    // Displays the add timetable modal
     this.addTimetableModal = function () {
         if($rootScope.modalInstance) $rootScope.modalInstance.dismiss();
 
@@ -68,7 +72,6 @@ timetableModule.service('TimetableService', function($http, $rootScope, $q, $uib
         return def.promise;
     };
 
-
     this.delete = function(timetableID){
         var def = $q.defer();
         $http.delete('/api/timetables/delete/' + timetableID).success(function (response) {
@@ -82,7 +85,5 @@ timetableModule.service('TimetableService', function($http, $rootScope, $q, $uib
         });
         return def.promise;
     };
-
-
 
 });

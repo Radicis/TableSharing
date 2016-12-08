@@ -2,9 +2,9 @@
     <div class="loginmodal-container">
         <h1>Edit Timetable</h1><br>
         <form ng-submit="update()">
-            <input type="text" name="formTitle" ng-model="table.title" placeholder="Title">
+            <input type="text" name="formTitle" ng-model="table.title" placeholder="Title" required>
 
-            <select ng-model="table.startDay">
+            <select ng-model="$rootScope.table.startDay">
                 <option value="">- Starting day -</option>
                 <option ng-repeat="day in days"
                         value="{{day.value}}">
@@ -12,7 +12,7 @@
                 </option>
             </select>
 
-            <select ng-model="table.endDay">
+            <select ng-model="$rootScope.table.endDay">
                 <option value="">- Ending day -</option>
                 <option ng-repeat="day in days"
                         value="{{day.value}}">

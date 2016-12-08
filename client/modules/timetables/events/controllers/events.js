@@ -1,4 +1,4 @@
-eventsModule.controller('EventController', function($scope,$rootScope, EventService, event, events,ngToast) {
+eventsModule.controller('EventController', function($scope,$rootScope, $route, EventService, event, events,ngToast) {
 
     $scope.event = {};
 
@@ -20,9 +20,11 @@ eventsModule.controller('EventController', function($scope,$rootScope, EventServ
 
     $scope.createEvent = function(){
 
-         EventService.addEvent($scope.event).then(function(event){
+        EventService.addEvent($scope.event).then(function(event){
+            // Dismiss any active modals
             if($rootScope.modalInstance) $rootScope.modalInstance.dismiss();
             $rootScope.events.push(event);
+            $route.reload();
             ngToast.create(event.title + ' created');
         });
     };
@@ -30,13 +32,15 @@ eventsModule.controller('EventController', function($scope,$rootScope, EventServ
     $scope.update = function(){
 
         EventService.editEvent($scope.event).then(function(event){
+            // Dismiss any active modals
             if($rootScope.modalInstance) $rootScope.modalInstance.dismiss();
+            // Iterate through all events, remove the edited event and then add it to the list again to refresh
             $.each($rootScope.events, function(i){
                 if($rootScope.events[i]._id === $scope.event._id) {
                     $rootScope.events.splice(i,1);
                     $rootScope.events.push(event);
                     ngToast.create(event.title + ' updated');
-                    return false;
+                    $route.reload();
                 }
             });
         });
@@ -45,10 +49,10 @@ eventsModule.controller('EventController', function($scope,$rootScope, EventServ
     $scope.delete = function(eventID){
         EventService.deleteEvent(eventID).then(function(){
             if($rootScope.modalInstance) $rootScope.modalInstance.dismiss();
+            // Remove delete event from list
             $.each(events, function(i){
                 if(events[i]._id === event._id) {
                     events.splice(i,1);
-                    return false;
                 }
             });
             ngToast.create(event.title + ' deleted');

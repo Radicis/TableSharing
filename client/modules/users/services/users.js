@@ -21,7 +21,18 @@ usersModule.service('UserService', function($http, $q) {
             def.reject(null);
         });
         return def.promise;
-    }
+    };
 
+    this.unSubscribeToTable = function(userID, tableID){
+
+        var def = $q.defer();
+        $http.post('/api/users/unsubscribe', {'userID': userID, 'tableID':tableID}).success(function (response) {
+            def.resolve(response._id);
+        }).error(function (error) {
+            console.log("Error: " + error);
+            def.reject(null);
+        });
+        return def.promise;
+    };
 
 });

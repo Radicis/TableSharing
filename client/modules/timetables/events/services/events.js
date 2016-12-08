@@ -1,15 +1,9 @@
 eventsModule.service('EventService', function($http, $q, $uibModal, $rootScope) {
 
-    var date = new Date();
-    var d = date.getDate();
-    var m = date.getMonth();
-    var y = date.getFullYear();
-
+    // Gets all the events with the matching tableId
     this.getEventsByTableId = function (tableId) {
 
         var def = $q.defer();
-
-        console.log("Getting events for tableId: " + tableId);
 
         $http.get('/api/events/' + tableId).success(function (response) {
             def.resolve(response);
@@ -22,6 +16,7 @@ eventsModule.service('EventService', function($http, $q, $uibModal, $rootScope) 
     };
 
 
+    // Displays the edit event modal
     this.editEventModal = function (event, events) {
 
         if($rootScope.modalInstance) $rootScope.modalInstance.dismiss();
@@ -42,6 +37,7 @@ eventsModule.service('EventService', function($http, $q, $uibModal, $rootScope) 
         });
     };
 
+    // Displays the add event modal
     this.addEventModal = function (event, events) {
         if($rootScope.modalInstance) $rootScope.modalInstance.dismiss();
 

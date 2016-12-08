@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var User   = require('../models/user');
+var Event = require('../models/event');
 var Timetable = require('../models/timetable');
 var middleware = require('../middleware/helpers');
 
@@ -20,8 +20,7 @@ router.get('/', function(req, res) {
 router.get('/:_id', function(req, res){
     Timetable.getById(req.params._id, function(err, table){
         if(err){
-            console.log(err);
-            res.json(err);
+            res.status(err.status || 404);
         }
         res.json(table);
     });
@@ -37,7 +36,7 @@ router.get('/subscribed/:userID', function(req, res){
     Timetable.getByUserId(req.params.userID, function(err, tables){
         if(err){
             console.log(err);
-            res.json(err);
+            res.status(err.status || 404);
         }
         res.json(tables);
     });
@@ -48,7 +47,7 @@ router.post('/add', function(req, res){
     Timetable.add(timetable, function(err, table){
         if(err){
             console.log(err);
-            res.json(err);
+            res.status(err.status || 404);
         }
         else{
             console.log(table);
@@ -63,7 +62,7 @@ router.put('/', function(req, res){
     Timetable.update(table, function(err, table){
         if(err){
             console.log(err);
-            res.json(err);
+            res.status(err.status || 404);
         }
         res.json(table);
     })
@@ -74,9 +73,16 @@ router.delete('/delete/:id', function(req, res){
     Timetable.delete(req.params.id, function(err, table){
         if(err){
             console.log(err);
-            res.json(err);
+            res.status(err.status || 404);
         }
-        res.json(table);
+        console.log("Deleting associated events");
+        Event.deleteByTableID(req.params.id, function(err){
+            if(err){
+                console.log(err);
+                res.status(err.status || 404);
+            }
+            res.json(table);
+        });
     })
 });
 

@@ -1,4 +1,4 @@
-authenticationModule.controller('AuthenticationController', function($scope, $rootScope, $window, $routeParams, TimetableService, AuthenticationService, UserService) {
+authenticationModule.controller('AuthenticationController', function($scope, $rootScope, $route, $window, $routeParams, TimetableService, AuthenticationService, UserService) {
 
     $scope.openLogin = function () {
         AuthenticationService.openLogin();
@@ -13,15 +13,22 @@ authenticationModule.controller('AuthenticationController', function($scope, $ro
     };
 
     $scope.login = function(){
+        // Close any modal instances that may be open
         if($rootScope.modalInstance) $rootScope.modalInstance.dismiss();
 
         var email = $scope.formEmail;
         var password = $scope.formPassword;
 
         AuthenticationService.login(email, password).then(function(response){
-            var token = response.token;
-            var userID = response.userID;
-            AuthenticationService.saveToken(token, userID);
+            if(response.success) {
+                var token = response.token;
+                var userID = response.userID;
+                AuthenticationService.saveToken(token, userID);
+                $route.reload();
+            }
+            else{
+                alert("Invalid Login");
+            }
         });
     };
 
@@ -32,10 +39,12 @@ authenticationModule.controller('AuthenticationController', function($scope, $ro
     };
 
     $scope.logout = function(){
-      AuthenticationService.clearToken();
+        AuthenticationService.clearToken();
+        $route.reload();
     };
 
     $scope.register = function(){
+        // Close any modal instances that may be open
         if($rootScope.modalInstance) $rootScope.modalInstance.dismiss();
 
         var email = $scope.formEmail;
@@ -56,6 +65,8 @@ authenticationModule.controller('AuthenticationController', function($scope, $ro
     $scope.isLoggedIn = function(){
         return AuthenticationService.isLoggedIn();
     };
+
+    // Boostrap side menu controls
 
     var trigger = $('.hamburger'),
         overlay = $('.overlay'),
@@ -89,8 +100,5 @@ authenticationModule.controller('AuthenticationController', function($scope, $ro
     $('[data-toggle="offcanvas"]').click(function () {
         $('#wrapper').toggleClass('toggled');
     });
-
-
-
 
 });

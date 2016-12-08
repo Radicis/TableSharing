@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var Timetable = require('../models/timetable');
+var bcrypt = require('bcryptjs');
 
 var UserSchema = mongoose.Schema({
     email: {
@@ -31,7 +32,6 @@ var UserSchema = mongoose.Schema({
 
 var User = module.exports = mongoose.model('User', UserSchema);
 
-
 module.exports.getUsers = function(callback, limit){
     User.find(callback).limit(limit);
 };
@@ -45,10 +45,20 @@ module.exports.getUserById = function(id, callback){
 
 module.exports.addUser = function(user, callback){
     console.log('Creating new user..');
-    User.create(user, callback);
+    bcrypt.genSalt(10, function(err, salt) {
+        bcrypt.hash(user.password, salt, function(err, hash) {
+            user.password = hash;
+            User.create(user, callback);
+        });
+    });
 };
 
 module.exports.subscribeToTable = function(userID, table, callback){
     console.log('Subscribing user to table..');
     User.findByIdAndUpdate(userID,{$addToSet: {"subscribed": table}}, callback);
+};
+
+module.exports.unSubscribeToTable = function(userID, table, callback){
+    console.log('UnSubscribing user from table..');
+    User.findByIdAndUpdate(userID,{$pull: {"subscribed": table}}, callback);
 };

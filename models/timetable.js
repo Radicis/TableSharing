@@ -50,7 +50,6 @@ var TimetableSchema = mongoose.Schema({
 
 var Timetable = module.exports = mongoose.model('Timetable', TimetableSchema);
 
-
 module.exports.getAll = function(callback, limit){
     console.log("Getting all tables");
     Timetable.find().limit(limit)

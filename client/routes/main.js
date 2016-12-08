@@ -5,7 +5,7 @@ tableShare
             templateUrl: 'views/home.html'
         })
             .when('/unauthorised', {
-            controller: 'HomeController',
-            templateUrl: 'views/unAuth.html'
-        });
+                controller: 'HomeController',
+                templateUrl: 'views/unAuth.html'
+            });
     });

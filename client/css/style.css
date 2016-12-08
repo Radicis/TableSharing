@@ -161,13 +161,13 @@ input{
     opacity: .65;
     left: 3% !important;
     color: #fefefe;
-    -webkit-box-shadow: 0px 0px 0px 0px rgba(0,0,0,0.75);
-    -moz-box-shadow: 0px 0px 0px 0px rgba(0,0,0,0.75);
-    box-shadow: 0px 0px 0px 0px rgba(0,0,0,0.75);
-    box-shadow: inset 0px 0px 10px 0px #ABABAB,5px 5px 5px 1px #DDDDDD;
-    -webkit-box-shadow: inset 0px 0px 10px 0px #ABABAB,5px 5px 5px 1px #DDDDDD;
-    -moz-box-shadow: inset 0px 0px 10px 0px #ABABAB,5px 5px 5px 1px #DDDDDD;
-    -o-box-shadow: inset 0px 0px 10px 0px #ABABAB,5px 5px 5px 1px #DDDDDD;
+    -webkit-box-shadow: 0px 0px 0px 0px rgba(0,0,0,0.55);
+    -moz-box-shadow: 0px 0px 0px 0px rgba(0,0,0,0.55);
+    box-shadow: 0px 0px 0px 0px rgba(0,0,0,0.55);
+    box-shadow: inset 0px 0px 5px 0px #ABABAB,5px 5px 5px 1px #DDDDDD;
+    -webkit-box-shadow: inset 0px 0px 5px 0px #ABABAB,5px 5px 5px 1px #DDDDDD;
+    -moz-box-shadow: inset 0px 0px 5px 0px #ABABAB,5px 5px 5px 1px #DDDDDD;
+    -o-box-shadow: inset 0px 0px 5px 0px #ABABAB,5px 5px 5px 1px #DDDDDD;
 }
 
 .fc-time-grid-event.fc-v-event.fc-event:hover{

@@ -2,8 +2,8 @@
     <div class="loginmodal-container">
         <h1>Login to Create</h1><br>
         <form ng-submit="login()">
-            <input type="email" name="formEmail" ng-model="formEmail" placeholder="Email">
-            <input type="password" name="formPassword" ng-model="formPassword" placeholder="Password">
+            <input type="email" name="formEmail" ng-model="formEmail" placeholder="Email" required>
+            <input type="password" name="formPassword" ng-model="formPassword" placeholder="Password" required>
 
             <input type="submit" name="login" class="login loginmodal-submit" value="Login">
         </form>
@@ -12,4 +12,5 @@
             Don't have an account? <a href='' ng-click="openRegister()">Register</a>
         </div>
     </div>
+
 </div>

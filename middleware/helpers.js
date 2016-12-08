@@ -27,7 +27,8 @@ module.exports.validToken = function(req, res, next) {
             };
         });
 
-    } else {
+    }
+    else {
 
         // if there is no token
         // return an error

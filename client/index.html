@@ -1,82 +1,82 @@
 <html>
 
 <head>
-    <title>TableShare</title>
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
-    <link href="css/vendor/sidebar.css" rel="stylesheet">
+	<title>TableShare</title>
+	<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+	<link href="css/vendor/sidebar.css" rel="stylesheet">
 	<link rel="stylesheet" href="bower_components/angular-bootstrap/ui-bootstrap-csp.css" />
 	<link rel="stylesheet" href="css/vendor/jquery-ui.theme.min.css" />
 	<link rel="stylesheet" href="bower_components/fullcalendar/dist/fullcalendar.css"/>
 	<link rel="stylesheet" href="bower_components/ngToast/dist/ngToast.min.css"/>
-    <link rel="stylesheet" href="css/style.css" />
+	<link rel="stylesheet" href="css/style.css" />
 </head>
 
 <body ng-app="TableShare" ng-controller="AuthenticationController">
 
-  <div id="wrapper">
-	  <div class="overlay"></div>
+<div id="wrapper">
+	<div class="overlay"></div>
 
-	  <!-- Sidebar -->
-	  <nav class="navbar navbar-inverse navbar-fixed-top" id="sidebar-wrapper" role="navigation">
-		  <ul class="nav sidebar-nav">
-			  <li class="sidebar-brand">
-				  <a href="/">
-					  <img src="images/logo3.png" alt="TableShare" />
-				  </a>
-			  </li>
+	<!-- Sidebar -->
+	<nav class="navbar navbar-inverse navbar-fixed-top" id="sidebar-wrapper" role="navigation">
+		<ul class="nav sidebar-nav">
+			<li class="sidebar-brand">
+				<a href="/">
+					<img src="images/logo3.png" alt="TableShare" />
+				</a>
+			</li>
 
-			  <hr class="faded">
+			<hr class="faded">
 
-			  <li ng-if="isLoggedIn()">
-				  <a href="" ng-click="addTable()"><i class="glyphicon glyphicon-plus"></i> Create Timetable</a>
-			  </li>
+			<li ng-if="isLoggedIn()">
+				<a href="" ng-click="addTable()"><i class="glyphicon glyphicon-plus"></i> Create Timetable</a>
+			</li>
 
-			  <hr class="faded" ng-if="isLoggedIn()">
+			<hr class="faded" ng-if="isLoggedIn()">
 
-			  <div class="tableList" ng-if="isLoggedIn()" ng-init="getUser()">
-				  <ul class="nav">
-					  <li class="tableListHeader">Subscribed Tables<br></li>
-					  <li ng-repeat="table in user.subscribed">
-						  <a href="/#/timetables/{{table._id}}">{{table.title}}</a>
-					  </li>
-				  </ul>
-			  </div>
+			<div class="tableList" ng-if="isLoggedIn()" ng-init="getUser()">
+				<ul class="nav">
+					<li class="tableListHeader">Subscribed Tables<br></li>
+					<li ng-repeat="table in user.subscribed">
+						<a href="/#/timetables/{{table._id}}">
+							{{ table.title | limitTo: 20 }}{{table.title.length > 20 ? '...' : ''}}</a>
+					</li>
+				</ul>
+			</div>
 
-			  <hr class="faded" ng-if="isLoggedIn()">
+			<hr class="faded" ng-if="isLoggedIn()">
 
+			<li ng-if="!isLoggedIn()">
+				<a href="" ng-click="openLogin()"><i class="glyphicon glyphicon-user"></i> Login</a>
+			</li>
 
-			  <li ng-if="!isLoggedIn()">
-				  <a href="" ng-click="openLogin()"><i class="glyphicon glyphicon-user"></i> Login</a>
-			  </li>
+			<li ng-if="isLoggedIn()">
+				<a href="" ng-click="logout()"><i class="glyphicon glyphicon-user"></i> Logout</a>
+			</li>
 
-			  <li ng-if="isLoggedIn()">
-				  {{user.email}}<a href="" ng-click="logout()"><i class="glyphicon glyphicon-user"></i> Logout</a>
-			  </li>
+		</ul>
+	</nav>
+	<!-- /#sidebar-wrapper -->
 
-		  </ul>
-	  </nav>
-	  <!-- /#sidebar-wrapper -->
+	<!-- Page Content -->
+	<div id="page-content-wrapper">
+		<button type="button" class="hamburger is-closed animated fadeInLeft" data-toggle="offcanvas">
+			<span class="hamb-top"></span>
+			<span class="hamb-middle"></span>
+			<span class="hamb-bottom"></span>
+		</button>
+		<div class="container">
+			<toast></toast>
+			<div class="row">
+				<div class="col-lg-12">
+					<div ng-view></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /#page-content-wrapper -->
 
-	  <!-- Page Content -->
-	  <div id="page-content-wrapper">
-		  <button type="button" class="hamburger is-closed animated fadeInLeft" data-toggle="offcanvas">
-			  <span class="hamb-top"></span>
-			  <span class="hamb-middle"></span>
-			  <span class="hamb-bottom"></span>
-		  </button>
-		  <div class="container">
-			  <toast></toast>
-			  <div class="row">
-				  <div class="col-lg-12">
-					  <div ng-view></div>
-				  </div>
-			  </div>
-		  </div>
-	  </div>
-	  <!-- /#page-content-wrapper -->
-
-  </div>
-  <!-- /#wrapper -->
+</div>
+<!-- /#wrapper -->
 
 
 
@@ -95,7 +95,7 @@
 <script type="text/javascript" src="bower_components/fullcalendar/dist/gcal.js"></script>
 <script type="text/javascript" src="bower_components/qrcode/lib/qrcode.min.js"></script>
 <script type="text/javascript" src="bower_components/angular-qr/angular-qr.min.js"></script>
-  <script type="text/javascript" src="bower_components/angular-cookies/angular-cookies.min.js"></script>
+<script type="text/javascript" src="bower_components/angular-cookies/angular-cookies.min.js"></script>
 
 
 <script src="/app.js"></script>

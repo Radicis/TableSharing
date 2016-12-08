@@ -2,7 +2,7 @@
     <div class="loginmodal-container">
         <h1>Crate new Timetable</h1><br>
         <form ng-submit="createTimetable()">
-            <input type="text" name="formTitle" ng-model="newTable.title" placeholder="Title">
+            <input type="text" name="formTitle" ng-model="newTable.title" placeholder="Title" required>
 
             <select ng-model="newTable.startDay">
                 <option value="">- Starting day -</option>

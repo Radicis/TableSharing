@@ -1,7 +1,8 @@
 authenticationModule.service('AuthenticationService', function($rootScope, $cookies, $http, $q, $window, $location, $uibModal) {
 
+    // Displays the login modal
     this.openLogin = function () {
-
+        // Close any modal instances that may be open
         if($rootScope.modalInstance) $rootScope.modalInstance.dismiss();
 
         $rootScope.modalInstance = $uibModal.open({
@@ -17,8 +18,6 @@ authenticationModule.service('AuthenticationService', function($rootScope, $cook
     this.saveToken = function(token, userID) {
         $window.localStorage['jwtToken'] = token;
         $window.localStorage['userID'] = userID;
-        //$cookies.put('jwtToken', token, []);
-        //$cookies.put('userID', userID, []);
     };
 
 
@@ -38,12 +37,15 @@ authenticationModule.service('AuthenticationService', function($rootScope, $cook
         return $window.localStorage['userID'];
     };
 
+    // Removes the saved token
     this.clearToken = function(){
         $window.localStorage.clear();
     };
 
+    // Opens the register modal
     this.openRegister = function () {
-        $rootScope.modalInstance.dismiss();
+        // Close any modal instances that may be open
+        if($rootScope.modalInstance) $rootScope.modalInstance.dismiss();
 
         $rootScope.modalInstance = $uibModal.open({
             animation: true,
@@ -53,8 +55,8 @@ authenticationModule.service('AuthenticationService', function($rootScope, $cook
         });
     };
 
+
     this.register = function(email, password){
-        console.log("Registering user...");
         var def = $q.defer();
         $http.post('/api/auth/register', {'email': email, 'password':password}).success(function (response) {
             def.resolve(response);
@@ -76,14 +78,7 @@ authenticationModule.service('AuthenticationService', function($rootScope, $cook
         return def.promise;
     };
 
-    // Middleware to check users permissions on a route
-    this.checkPermissions = function(){
-        if(this.getToken()){
-            return true;
-        }
-        $location.path(routeForUnauthorizedAccess);
-    };
-
+    // Determines if the user is logged in by checking for a token
     this.isLoggedIn = function(){
         return this.getToken();
     };

@@ -1,27 +1,33 @@
 
 <h3 class="tabletitle">{{table.title}}</h3>
 
-        <div class="timetable" ng-init="getTable()">
-            <div ui-calendar="uiConfig.calendar" class="span8 calendar" ng-model="eventSources"></div>
-            <small ng-if="table.updated" class="updated pull-right">Updated: {{table.updated |date: 'yyyy-MM-dd HH:mm:ss'}}</small>
-            <small ng-if="!table.updated" class="updated pull-right">Updated: {{table.created |date: 'yyyy-MM-dd HH:mm:ss'}}</small>
-        </div>
+<div class="timetable" ng-init="getTable()">
+    <div ng-if="table.title">
+        <div ui-calendar="uiConfig.calendar" class="span8 calendar" ng-model="eventSources"></div>
+        <small ng-if="table.updated" class="updated pull-right">Updated: {{table.updated |date: 'yyyy-MM-dd HH:mm:ss'}}</small>
+        <small ng-if="!table.updated" class="updated pull-right">Updated: {{table.created |date: 'yyyy-MM-dd HH:mm:ss'}}</small>
+    </div>
+</div>
 
+<ul ng-if="table.title" class="floatingContainer">
+    <li title="Add Event" ng-show="isOwner()" class="floatingButton" ng-click="addEvent()">
+        <i class="glyphicon glyphicon-plus"></i>
+    </li>
+    <li title="Share" class="floatingButton"  ng-click="shareTable()">
+        <i class="glyphicon glyphicon-retweet"></i>
+    </li>
+    <li ng-if="isLoggedIn() && !isSubscribed()" title="Subscribe" class="floatingButton" ng-click="subscribe()">
+        <i class="glyphicon glyphicon-heart"></i>
+    </li>
+    <li ng-if="isLoggedIn() && isSubscribed() " title="Unsubscribe" class="floatingButton" ng-click="unSubscribe()">
+        <i class="glyphicon glyphicon-eye-close"></i>
+    </li>
+    <li title="Edit Timetable" ng-show="isOwner()" class="floatingButton" ng-click="editTimetable()">
+        <i class="glyphicon glyphicon-pencil"></i>
+    </li>
+    <li ng-if="!isLoggedIn()" title="Login" class="floatingButton" ng-click="openLogin()">
+        <i class="glyphicon glyphicon-user"></i>
+    </li>
+</ul>
 
-        <ul class="floatingContainer">
-            <li title="Add Event" ng-show="isOwner()" class="floatingButton" ng-click="addEvent()">
-                <i class="glyphicon glyphicon-plus"></i>
-            </li>
-            <li title="Share" class="floatingButton"  ng-click="shareTable()">
-                <i class="glyphicon glyphicon-retweet"></i>
-            </li>
-            <li ng-if="isLoggedIn()" title="Subscribe" class="floatingButton" ng-click="subscribe()">
-                <i class="glyphicon glyphicon-heart"></i>
-            </li>
-            <li title="Edit Timetable" ng-show="isOwner()" class="floatingButton" ng-click="editTimetable()">
-                <i class="glyphicon glyphicon-pencil"></i>
-            </li>
-            <li ng-if="!isLoggedIn()" title="Login" class="floatingButton" ng-click="openLogin()">
-                <i class="glyphicon glyphicon-user"></i>
-            </li>
-        </ul>
+<h1 ng-if="!table.title">No matching table found</h1>
