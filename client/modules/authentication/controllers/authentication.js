@@ -13,8 +13,6 @@ authenticationModule.controller('AuthenticationController', function($scope, $ro
     };
 
     $scope.login = function(){
-        // Close any modal instances that may be open
-        if($rootScope.modalInstance) $rootScope.modalInstance.dismiss();
 
         var email = $scope.formEmail;
         var password = $scope.formPassword;
@@ -24,6 +22,8 @@ authenticationModule.controller('AuthenticationController', function($scope, $ro
                 var token = response.token;
                 var userID = response.userID;
                 AuthenticationService.saveToken(token, userID);
+                // Close any modal instances that may be open
+                if($rootScope.modalInstance) $rootScope.modalInstance.dismiss();
                 $route.reload();
             }
             else{
@@ -56,7 +56,6 @@ authenticationModule.controller('AuthenticationController', function($scope, $ro
                 var token = authResponse.token;
                 var userID = authResponse.userID;
                 AuthenticationService.saveToken(token, userID);
-                console.log(AuthenticationService.getToken());
                 $window.location.href = '/';
             });
         });
@@ -66,39 +65,5 @@ authenticationModule.controller('AuthenticationController', function($scope, $ro
         return AuthenticationService.isLoggedIn();
     };
 
-    // Boostrap side menu controls
-
-    var trigger = $('.hamburger'),
-        overlay = $('.overlay'),
-        isClosed = false;
-
-    trigger.click(function () {
-        hamburger_cross();
-    });
-
-    $scope.closeMenu = function(){
-        if(isClosed) {
-            overlay.hide();
-            trigger.removeClass('is-open');
-            trigger.addClass('is-closed');
-            isClosed = false;
-        }
-    };
-
-    function hamburger_cross() {
-
-        if (isClosed == true) {
-            $scope.closeMenu();
-        } else {
-            overlay.show();
-            trigger.removeClass('is-closed');
-            trigger.addClass('is-open');
-            isClosed = true;
-        }
-    }
-
-    $('[data-toggle="offcanvas"]').click(function () {
-        $('#wrapper').toggleClass('toggled');
-    });
 
 });

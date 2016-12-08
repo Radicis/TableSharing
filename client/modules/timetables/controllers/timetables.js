@@ -1,4 +1,4 @@
-timetableModule.controller('TimetableController', function ($scope, ngToast, $uibModal, $rootScope, $window, $routeParams, TimetableService, EventService, AuthenticationService, UserService) {
+timetableModule.controller('TimetableController', function ($scope, ngToast, $route, $uibModal, $rootScope, $window, $routeParams, TimetableService, EventService, AuthenticationService, UserService) {
 
     // Initialise variables
     $rootScope.table = {};
@@ -65,13 +65,14 @@ timetableModule.controller('TimetableController', function ($scope, ngToast, $ui
 
     $scope.createTimetable = function () {
 
+        // Dismiss any active modals
+        if ($rootScope.modalInstance) $rootScope.modalInstance.dismiss();
+
         $scope.newTable.hiddenDays = calculateHiddenDays($scope.newTable.startDay, $scope.newTable.endDay);
 
         TimetableService.createTimetable($scope.newTable).then(function (table) {
             var userID = AuthenticationService.getUserId();
             UserService.subscribeToTable(userID, table).then(function () {
-                // Dismiss any active modals
-                if ($rootScope.modalInstance) $rootScope.modalInstance.dismiss();
                 // Redirect to newly created table view
                 $window.location.href = '/#/timetables/' + table._id;
                 ngToast.create('Timetable Created');
@@ -135,11 +136,10 @@ timetableModule.controller('TimetableController', function ($scope, ngToast, $ui
 
     };
 
-
     $scope.addEvent = function () {
 
         // Calculate a displayed day/time and place the new event
-        var day = moment().startOf('week').add('days', $rootScope.table.startDay + 2).add($rootScope.table.startHour+1, 'hours');
+        var day = moment().startOf('week').add('days', $rootScope.table.startDay).add($rootScope.table.startHour, 'hours');
 
         var event = {
             title: 'New Event',
@@ -179,8 +179,10 @@ timetableModule.controller('TimetableController', function ($scope, ngToast, $ui
     };
 
     $scope.update = function () {
-        TimetableService.updateTimetable($scope.table).then(function () {
+        $rootScope.table.hiddenDays = calculateHiddenDays($rootScope.table.startDay, $rootScope.table.endDay);
+        TimetableService.updateTimetable($rootScope.table).then(function () {
             if ($rootScope.modalInstance) $rootScope.modalInstance.dismiss();
+            $route.reload();
             ngToast.create('Timetable updated');
         })
     };
@@ -188,6 +190,7 @@ timetableModule.controller('TimetableController', function ($scope, ngToast, $ui
     $scope.subscribe = function () {
         var userID = AuthenticationService.getUserId();
         UserService.subscribeToTable(userID, $scope.table).then(function () {
+            $route.reload();
             ngToast.create('Subscribed to ' + $rootScope.table.title);
         })
     };
@@ -195,6 +198,7 @@ timetableModule.controller('TimetableController', function ($scope, ngToast, $ui
     $scope.unSubscribe = function () {
         var userID = AuthenticationService.getUserId();
         UserService.unSubscribeToTable(userID, $rootScope.table._id).then(function () {
+            $route.reload();
             ngToast.create('UnSubscribed to ' + $rootScope.table.title);
         })
     };

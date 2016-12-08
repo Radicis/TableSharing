@@ -4,7 +4,7 @@
         <form ng-submit="update()">
             <input type="text" name="formTitle" ng-model="table.title" placeholder="Title" required>
 
-            <select ng-model="$rootScope.table.startDay">
+            <select ng-model="table.startDay">
                 <option value="">- Starting day -</option>
                 <option ng-repeat="day in days"
                         value="{{day.value}}">
@@ -12,7 +12,7 @@
                 </option>
             </select>
 
-            <select ng-model="$rootScope.table.endDay">
+            <select ng-model="table.endDay">
                 <option value="">- Ending day -</option>
                 <option ng-repeat="day in days"
                         value="{{day.value}}">
@@ -20,7 +20,7 @@
                 </option>
             </select>
 
-            <select ng-model="$rootScope.table.startHour">
+            <select ng-model="table.startHour">
                 <option value="">- Starting Hour -</option>
                 <option ng-repeat="hour in hours"
                         value="{{hour.value}}">
@@ -28,7 +28,7 @@
                 </option>
             </select>
 
-            <select ng-model="$rootScope.table.endHour">
+            <select ng-model="table.endHour">
                 <option value="">- Ending Hour -</option>
                 <option ng-repeat="hour in hours"
                         value="{{hour.value}}">

@@ -73,7 +73,8 @@ module.exports.add = function(table, callback){
 
 module.exports.update = function(table, callback){
     console.log("Updating table details id: " + table._id);
-    Timetable.findOneAndUpdate({_id:table._id}, {title:table.title, startDay: table.startDay, endDay: table.endDay, startHour: table.startHour, endHour: table.endHour, updated:table.updated}, { new: true }, callback);
+    console.log(table);
+    Timetable.findOneAndUpdate({_id:table._id}, {title:table.title, startDay: table.startDay, endDay: table.endDay, startHour: table.startHour, endHour: table.endHour, updated:table.updated, hiddenDays:table.hiddenDays}, { new: true }, callback);
 };
 
 module.exports.delete = function(id, callback){
