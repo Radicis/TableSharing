@@ -21,7 +21,6 @@ authenticationModule.controller('AuthenticationController', function($scope, $ro
         AuthenticationService.login(email, password).then(function(response){
             var token = response.token;
             var userID = response.userID;
-            console.log("Got token: " + token + " and userID: " + userID);
             AuthenticationService.saveToken(token, userID);
         });
     };
@@ -43,7 +42,12 @@ authenticationModule.controller('AuthenticationController', function($scope, $ro
         var password = $scope.formPassword;
 
         AuthenticationService.register(email, password).then(function(response){
-            AuthenticationService.login(response.email, response.password).then(function(){
+            console.log(response);
+            AuthenticationService.login(response.email, response.password).then(function(authResponse){
+                var token = authResponse.token;
+                var userID = authResponse.userID;
+                AuthenticationService.saveToken(token, userID);
+                console.log(AuthenticationService.getToken());
                 $window.location.href = '/';
             });
         });

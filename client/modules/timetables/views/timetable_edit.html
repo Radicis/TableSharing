@@ -20,7 +20,7 @@
                 </option>
             </select>
 
-            <select ng-model="table.startHour">
+            <select ng-model="$rootScope.table.startHour">
                 <option value="">- Starting Hour -</option>
                 <option ng-repeat="hour in hours"
                         value="{{hour.value}}">
@@ -28,7 +28,7 @@
                 </option>
             </select>
 
-            <select ng-model="table.endHour">
+            <select ng-model="$rootScope.table.endHour">
                 <option value="">- Ending Hour -</option>
                 <option ng-repeat="hour in hours"
                         value="{{hour.value}}">

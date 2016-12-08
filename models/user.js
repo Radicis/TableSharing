@@ -18,10 +18,6 @@ var UserSchema = mongoose.Schema({
         type: Boolean,
         default: true
     },
-    profilePic: {
-      type: String,
-      default: false
-    },
     subscribed:[{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Timetable',
@@ -54,8 +50,5 @@ module.exports.addUser = function(user, callback){
 
 module.exports.subscribeToTable = function(userID, table, callback){
     console.log('Subscribing user to table..');
-    // Add userID to subscribed suers for this table
-    //Timetable.findByIdAndUpdate(table._id, {$push: {'subscribed': userID}});
-    // Add table to users subscried tables
-    User.findByIdAndUpdate(userID,{$push: {"subscribed": table}}, callback);
+    User.findByIdAndUpdate(userID,{$addToSet: {"subscribed": table}}, callback);
 };

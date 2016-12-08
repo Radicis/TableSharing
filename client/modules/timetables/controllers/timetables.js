@@ -4,14 +4,14 @@ timetableModule.controller('TimetableController', function($scope, ngToast, $uib
     var m = date.getMonth();
     var y = date.getFullYear();
 
-    $scope.table = {};
+    $rootScope.table = {};
     $scope.newTable = {};
     $scope.eventSources = [];
     $rootScope.events = [];
 
     $scope.codeUrl = "";
 
-    $scope.days = [
+    $rootScope.days = [
         {name: 'Sunday', value: 0},
         {name: 'Monday', value: 1},
         {name: 'Tuesday', value:2},
@@ -21,7 +21,7 @@ timetableModule.controller('TimetableController', function($scope, ngToast, $uib
         {name: 'Saturday', value: 6}
     ];
 
-    $scope.hours = [
+    $rootScope.hours = [
         {name: '7am', value: 7},
         {name: '8am', value: 8},
         {name: '9am', value: 9},
@@ -47,7 +47,7 @@ timetableModule.controller('TimetableController', function($scope, ngToast, $uib
     $scope.getTable = function(){
         var id = $routeParams._id;
         TimetableService.getTableById(id).then(function(table){
-            $scope.table = table;
+            $rootScope.table = table;
             $scope.initTable();
         });
     };
@@ -83,14 +83,14 @@ timetableModule.controller('TimetableController', function($scope, ngToast, $uib
     };
 
     $scope.isOwner = function(){
-        if($scope.table.owner) return AuthenticationService.getUserId() === $scope.table.owner._id;
+        if($rootScope.table.owner) return AuthenticationService.getUserId() === $rootScope.table.owner._id;
     };
 
 
     $scope.initTable = function(){
 
 
-        EventService.getEventsByTableId($scope.table._id).then(function(events){
+        EventService.getEventsByTableId($rootScope.table._id).then(function(events){
             console.log(events);
             $rootScope.events = events;
             $scope.eventSources.push($rootScope.events);
@@ -116,12 +116,12 @@ timetableModule.controller('TimetableController', function($scope, ngToast, $uib
                         defaultView: "agendaWeek",
                         nowIndicator: true,
                         allDaySlot: false,
-                        minTime: $scope.table.startHour + ':00:00',
-                        maxTime: $scope.table.endHour + ':00:00',
-                        scrollTime: $scope.table.startHour + ':00:00',
-                        firstDay: $scope.table.startDay,
+                        minTime: $rootScope.table.startHour + ':00:00',
+                        maxTime: $rootScope.table.endHour + ':00:00',
+                        scrollTime: $rootScope.table.startHour + ':00:00',
+                        firstDay: $rootScope.table.startDay,
                         allDayText: '',
-                        hiddenDays: $scope.table.hiddenDays,
+                        hiddenDays: $rootScope.table.hiddenDays,
                         // header:{
                         //     left: 'agendaWeek, month',
                         //     center: 'tite',
@@ -156,16 +156,19 @@ timetableModule.controller('TimetableController', function($scope, ngToast, $uib
 
     $scope.addEvent = function() {
 
+        var day = moment().startOf('week').add('days', $rootScope.table.startDay +2);
+
+        console.log(day);
+
         var event = {
                 title: 'New Event',
-                start:   new Date(y, m, d, $scope.table.startHour + 1, 0),
-                parentTable: $scope.table._id,
-                end: new Date(y, m, d, $scope.table.startHour + 2, 0),
+                start:   day,
+                parentTable: $rootScope.table._id,
+                end: day,
                 location: 'Room 1'
         };
 
         EventService.addEventModal(event, $scope.events);
-
     };
 
     $scope.editEvent = function(event) {

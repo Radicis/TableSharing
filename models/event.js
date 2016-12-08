@@ -25,13 +25,13 @@ var EventSchema = mongoose.Schema({
         type: Boolean,
         default:false
     },
+    colour: {
+        type: String,
+        default: 'blue'
+    },
     parentTable: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Table',
-        required: false
-    },
-    hiddenDays: {
-        type :[Number],
         required: false
     },
     repeat:{
@@ -71,7 +71,7 @@ module.exports.add = function(event, callback){
 
 module.exports.update = function(event, callback){
     console.log("Updating event details id: " + event._id);
-    Event.findOneAndUpdate({_id:event._id}, {title:event.title, location:event.location}, { new: true }, callback);
+    Event.findOneAndUpdate({_id:event._id}, {title:event.title, location:event.location, colour:event.colour}, { new: true }, callback);
 };
 
 module.exports.updateTime = function(event, callback){

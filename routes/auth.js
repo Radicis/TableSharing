@@ -9,7 +9,7 @@ var config = require('../config/config');
 router.post('/authenticate', function(req, res){
     // find the user
     User.findOne({
-        name: req.body.username
+        email: req.body.email
     }, function(err, user) {
 
         if (err){

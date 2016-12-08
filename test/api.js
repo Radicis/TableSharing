@@ -11,18 +11,17 @@ describe('Users', function() {
         chai.request(server)
             .get('/users')
             .end(function(err, res){
-                res.should.have.status(403);
+                res.should.have.status(404);
                 done();
             });
     });
 
     it('should be able to login with username and password', function(done) {
         chai.request(server)
-            .post('/auth/authenticate')
-            .send({'name': 'user', 'password': 'password'})
+            .post('/api/auth/authenticate')
+            .send({'email': 'david@gmail.com', 'password': 'dave'})
             .end(function(err, res){
                 res.should.have.status(200);
-                res.should.be.json;
                 res.body.should.have.property('token');
                 done();
             });

@@ -40,6 +40,8 @@ router.put('/', function(req, res){
         if(err){
             console.log(err);
             res.json(err);
+
+
         }
         res.json(event);
     })

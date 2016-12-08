@@ -378,4 +378,20 @@ hr.faded{
     margin-left:10px;
 }
 
+.event-colour-blue{
+    background-color: #337ab7 !important;
+}
+
+.event-colour-red{
+    background-color: #630101 !important;
+}
+
+.event-colour-yellow{
+    background-color: #596301 !important;
+}
+
+.event-colour-green{
+    background-color: #005e37 !important;
+}
+
 

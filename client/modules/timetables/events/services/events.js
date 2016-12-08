@@ -99,7 +99,8 @@ eventsModule.service('EventService', function($http, $q, $uibModal, $rootScope) 
         var modifyEvent = {
             _id: event._id,
             title: event.title,
-            location: event.location
+            location: event.location,
+            colour: event.colour
         };
 
         var def = $q.defer();

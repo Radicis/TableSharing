@@ -1,4 +1,4 @@
-eventsModule.controller('EventController', function($scope,$rootScope, EventService, event, events, $rootScope, ngToast) {
+eventsModule.controller('EventController', function($scope,$rootScope, EventService, event, events,ngToast) {
 
     $scope.event = {};
 
@@ -8,12 +8,14 @@ eventsModule.controller('EventController', function($scope,$rootScope, EventServ
     $scope.event.end = event.end;
     $scope.event._id = event._id;
     $scope.event.parentTable=  event.parentTable;
+    $scope.event.colour = event.colour;
+
 
     $scope.colours = [
-        {name: "Red", value: "#982F2F"},
-        {name: "Blue", value: "#337ab7"},
-        {name: "Green", value: "#B6D37E"},
-        {name: "Yellow", value: "#FFFF9A"}
+        {name: "Red", value: "red"},
+        {name: "Blue", value: "blue"},
+        {name: "Green", value: "green"},
+        {name: "Yellow", value: "yellow"}
     ];
 
     $scope.createEvent = function(){
@@ -29,14 +31,14 @@ eventsModule.controller('EventController', function($scope,$rootScope, EventServ
 
         EventService.editEvent($scope.event).then(function(event){
             if($rootScope.modalInstance) $rootScope.modalInstance.dismiss();
-            $.each(events, function(i){
-                if(events[i]._id === event._id) {
-                    events.splice(i,1);
+            $.each($rootScope.events, function(i){
+                if($rootScope.events[i]._id === $scope.event._id) {
+                    $rootScope.events.splice(i,1);
+                    $rootScope.events.push(event);
+                    ngToast.create(event.title + ' updated');
                     return false;
                 }
             });
-            events.push(event);
-            ngToast.create(event.title + ' updated');
         });
     };
 
@@ -51,8 +53,7 @@ eventsModule.controller('EventController', function($scope,$rootScope, EventServ
             });
             ngToast.create(event.title + ' deleted');
         })
-    }
-
+    };
 
 });
   
