@@ -286,7 +286,7 @@ input{
 
 .ng-toast.ng-toast--right .ng-toast__list {
     left: auto;
-    right: 100px;
+    right: 200px;
 }
 
 .jumbotron {

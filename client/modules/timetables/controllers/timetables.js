@@ -125,7 +125,6 @@ timetableModule.controller('TimetableController', function ($scope, ngToast, $ro
         EventService.editEventTime(event).then(function (event) {
             ngToast.create(event.title + ' updated');
         });
-
     };
 
     // Event resize action
@@ -133,7 +132,6 @@ timetableModule.controller('TimetableController', function ($scope, ngToast, $ro
         EventService.editEventTime(event).then(function (event) {
             ngToast.create(event.title + ' updated');
         });
-
     };
 
     $scope.addEvent = function () {
@@ -155,7 +153,7 @@ timetableModule.controller('TimetableController', function ($scope, ngToast, $ro
 
     $scope.editEvent = function (event) {
         // Establish of logged in user is the event owner then display edit modal
-        if ($scope.isOwner()) EventService.editEventModal(event, $scope.events);
+        if ($scope.isOwner()) EventService.editEventModal(event, $rootScope.events);
     };
 
     $scope.editTimetable = function () {
@@ -189,7 +187,7 @@ timetableModule.controller('TimetableController', function ($scope, ngToast, $ro
 
     $scope.subscribe = function () {
         var userID = AuthenticationService.getUserId();
-        UserService.subscribeToTable(userID, $scope.table).then(function () {
+        UserService.subscribeToTable(userID, $rootScope.table).then(function () {
             $route.reload();
             ngToast.create('Subscribed to ' + $rootScope.table.title);
         })
@@ -219,7 +217,7 @@ timetableModule.controller('TimetableController', function ($scope, ngToast, $ro
     $scope.shareTable = function () {
         if ($rootScope.modalInstance) $rootScope.modalInstance.dismiss();
 
-        $scope.codeUrl = "http://www.tableshare.com/#/timetables/" + $scope.table._id;
+        $scope.codeUrl = "http://www.tableshare.com/#/timetables/" + $rootScope.table._id;
 
         $rootScope.modalInstance = $uibModal.open({
             animation: true,

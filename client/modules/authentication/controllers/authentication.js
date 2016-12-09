@@ -51,13 +51,7 @@ authenticationModule.controller('AuthenticationController', function($scope, $ro
         var password = $scope.formPassword;
 
         AuthenticationService.register(email, password).then(function(response){
-            console.log(response);
-            AuthenticationService.login(response.email, response.password).then(function(authResponse){
-                var token = authResponse.token;
-                var userID = authResponse.userID;
-                AuthenticationService.saveToken(token, userID);
-                $window.location.href = '/';
-            });
+            AuthenticationService.openLogin();
         });
     };
 

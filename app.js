@@ -5,7 +5,7 @@ var bodyParser = require('body-parser');
 
 var config = require('./config/config');
 
-//Connect to MongoDb
+// Connect to MongoDb
 var mongoose = require('mongoose');
 
 mongoose.connect(config.database, function(err) {

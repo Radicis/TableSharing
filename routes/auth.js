@@ -45,7 +45,6 @@ router.post('/authenticate', function(req, res){
                         token: token
                     });
             }});
-
         }
     });
 });

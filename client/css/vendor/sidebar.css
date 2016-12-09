@@ -295,6 +295,7 @@ html {
     background-color: #583e7e;
     background: url("/images/bg4.png") no-repeat;
     background-size: cover;
+    background-attachment: fixed;
 }
 body h1,
 body h2,
