@@ -34,9 +34,9 @@ var EventSchema = mongoose.Schema({
         ref: 'Table',
         required: false
     },
-    repeat:{
-        type: Boolean,
-        default: true
+    dow:{
+        type: [Number],
+        default:[1]
     },
     owner: {
         type: mongoose.Schema.Types.ObjectId,
@@ -76,7 +76,7 @@ module.exports.update = function(event, callback){
 
 module.exports.updateTime = function(event, callback){
     console.log("Updating event time id: " + event._id);
-    Event.findOneAndUpdate({_id:event._id}, {start:event.start, end:event.end}, { new: true }, callback);
+    Event.findOneAndUpdate({_id:event._id}, {start:event.start, end:event.end, dow: event.dow}, { new: true }, callback);
 };
 
 module.exports.delete = function(id, callback){

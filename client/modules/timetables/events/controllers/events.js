@@ -9,6 +9,7 @@ eventsModule.controller('EventController', function($scope,$rootScope, $route, E
     $scope.event._id = event._id;
     $scope.event.parentTable=  event.parentTable;
     $scope.event.colour = event.colour;
+    $scope.event.dow = event.dow;
 
 
     $scope.colours = [
@@ -19,7 +20,6 @@ eventsModule.controller('EventController', function($scope,$rootScope, $route, E
     ];
 
     $scope.createEvent = function(){
-
         EventService.addEvent($scope.event).then(function(event){
             // Dismiss any active modals
             if($rootScope.modalInstance) $rootScope.modalInstance.dismiss();

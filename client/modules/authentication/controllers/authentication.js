@@ -1,5 +1,7 @@
 authenticationModule.controller('AuthenticationController', function($scope, $rootScope, $route, $window, $routeParams, TimetableService, AuthenticationService, UserService) {
 
+    $rootScope.user = {};
+
     $scope.openLogin = function () {
         AuthenticationService.openLogin();
     };
@@ -32,9 +34,9 @@ authenticationModule.controller('AuthenticationController', function($scope, $ro
         });
     };
 
-    $scope.getUser = function(){
+    $rootScope.getUser = function(){
         UserService.getProfileById(AuthenticationService.getUserId()).then(function(user){
-            $scope.user = user;
+            $rootScope.user = user;
         })
     };
 
@@ -50,7 +52,7 @@ authenticationModule.controller('AuthenticationController', function($scope, $ro
         var email = $scope.formEmail;
         var password = $scope.formPassword;
 
-        AuthenticationService.register(email, password).then(function(response){
+        AuthenticationService.register(email, password).then(function(){
             AuthenticationService.openLogin();
         });
     };

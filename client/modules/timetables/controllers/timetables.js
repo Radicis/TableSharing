@@ -75,6 +75,8 @@ timetableModule.controller('TimetableController', function ($scope, ngToast, $ro
             UserService.subscribeToTable(userID, table).then(function () {
                 // Redirect to newly created table view
                 $window.location.href = '/#/timetables/' + table._id;
+                // update the user object to refresh the subscribed timetables in the view
+                $rootScope.getUser();
                 ngToast.create('Timetable Created');
             })
         });
@@ -122,6 +124,7 @@ timetableModule.controller('TimetableController', function ($scope, ngToast, $ro
 
     // Event move action
     $scope.move = function (event) {
+        event.dow = [event.start._d.getDay()];
         EventService.editEventTime(event).then(function (event) {
             ngToast.create(event.title + ' updated');
         });
@@ -144,9 +147,9 @@ timetableModule.controller('TimetableController', function ($scope, ngToast, $ro
             start: day,
             parentTable: $rootScope.table._id,
             end: day,
-            location: 'Room 1'
+            location: 'Room 1',
+            dow: $rootScope.table.startDay
         };
-
         EventService.addEventModal(event, $scope.events);
     };
 
@@ -159,6 +162,7 @@ timetableModule.controller('TimetableController', function ($scope, ngToast, $ro
     $scope.editTimetable = function () {
         // Close any modal instances that may be open
         if($rootScope.modalInstance) $rootScope.modalInstance.dismiss();
+
 
         $rootScope.modalInstance = $uibModal.open({
             animation: true,
@@ -189,6 +193,7 @@ timetableModule.controller('TimetableController', function ($scope, ngToast, $ro
         var userID = AuthenticationService.getUserId();
         UserService.subscribeToTable(userID, $rootScope.table).then(function () {
             $route.reload();
+            $rootScope.getUser();
             ngToast.create('Subscribed to ' + $rootScope.table.title);
         })
     };
@@ -197,6 +202,7 @@ timetableModule.controller('TimetableController', function ($scope, ngToast, $ro
         var userID = AuthenticationService.getUserId();
         UserService.unSubscribeToTable(userID, $rootScope.table._id).then(function () {
             $route.reload();
+            $rootScope.getUser();
             ngToast.create('UnSubscribed to ' + $rootScope.table.title);
         })
     };
