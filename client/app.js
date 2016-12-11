@@ -6,8 +6,8 @@ var tableShare = angular.module('TableShare', [
     'Timetables',
     'Authentication',
     'Users',
-        'ngToast',
-        'ja.qr',
+    'ngToast',
+    'ja.qr',
     'ngCookies'
 ]);
 
@@ -20,7 +20,6 @@ tableShare.run(function ($http, AuthenticationService) {
     $http.defaults.headers.get = { 'x-access-token' :AuthenticationService.getToken() };
 });
 
-var routeForUnauthorizedAccess = "/unauthorised";
 
 
 

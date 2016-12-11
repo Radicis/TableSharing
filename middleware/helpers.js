@@ -1,13 +1,6 @@
 var jwt    = require('jsonwebtoken'); // used to create, sign, and verify tokens
 var config = require('../config/config');
 
-
-module.exports.ParseIp = function(ipString) {
-    ipString = ipString.split(":");
-    var clientIp = ipString[ipString.length - 1];
-    return clientIp === "1" ? 'Localhost' : clientIp;
-};
-
 // Checks is a token was passed and if it is valid
 module.exports.validToken = function(req, res, next) {
     // check header or url parameters or post parameters for token
@@ -24,7 +17,7 @@ module.exports.validToken = function(req, res, next) {
                 // if everything is good, save to request for use in other routes
                 req.decoded = decoded;
                 next();
-            };
+            }
         });
 
     }
@@ -36,5 +29,5 @@ module.exports.validToken = function(req, res, next) {
             success: false,
             message: 'No token provided.'
         });
-    };
+    }
 };
