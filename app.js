@@ -2,6 +2,7 @@ var express = require('express');
 var path = require('path');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
+var cors = require('cors');
 
 var config = require('./config/config');
 
@@ -14,6 +15,7 @@ mongoose.connect(config.database, function(err) {
 });
 
 var app = express();
+app.user(cors());
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
