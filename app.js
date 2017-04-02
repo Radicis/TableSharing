@@ -15,7 +15,7 @@ mongoose.connect(config.database, function(err) {
 });
 
 var app = express();
-app.user(cors());
+app.use(cors());
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
