@@ -4,8 +4,6 @@ var User   = require('../models/user');
 var jwt    = require('jsonwebtoken'); // used to create, sign, and verify tokens
 var config = require('../config/config');
 var bcrypt = require('bcryptjs');
-var salt = bcrypt.genSaltSync(10);
-var hash = bcrypt.hashSync(config.secret, salt);
 
 // Authenticates a user based on a username and password
 // Returns a signed token to the user as json
