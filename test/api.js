@@ -5,16 +5,10 @@ var should = chai.should();
 
 chai.use(chaiHttp);
 
-describe('Users', function() {
 
-    it('should NOT be able to list ALL users on /users GET', function(done) {
-        chai.request(server)
-            .get('/users')
-            .end(function(err, res){
-                res.should.have.status(404);
-                done();
-            });
-    });
+// TODO: Write some useful tests!
+
+describe('Users', function() {
 
     it('should be able to login with username and password', function(done) {
         chai.request(server)

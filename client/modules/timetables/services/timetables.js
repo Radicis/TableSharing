@@ -1,3 +1,5 @@
+'use strict';
+
 timetableModule.service('TimetableService', function($http, $rootScope, $q, $uibModal, AuthenticationService) {
 
     // Gets all of the stored tables

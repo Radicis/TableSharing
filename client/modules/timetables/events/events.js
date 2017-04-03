@@ -1,3 +1,3 @@
-var eventsModule = angular.module('Events', [
+'use strict';
 
-]);
+var eventsModule = angular.module('Events', []);

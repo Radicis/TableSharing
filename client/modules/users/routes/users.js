@@ -1,4 +1,0 @@
-usersModule
-    .config(function($routeProvider){
-
-    });

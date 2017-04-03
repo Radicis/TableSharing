@@ -1,3 +1,5 @@
+'use strict';
+
 authenticationModule.controller('AuthenticationController', function($scope, $rootScope, $route, $window, $routeParams, TimetableService, AuthenticationService, UserService) {
 
     $rootScope.user = {};

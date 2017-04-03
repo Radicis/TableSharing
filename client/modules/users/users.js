@@ -1,3 +1,3 @@
-var usersModule = angular.module('Users', [
-    'ngRoute'
-]);
+'use strict';
+
+var usersModule = angular.module('Users', []);

@@ -1,3 +1,5 @@
+'use strict';
+
 authenticationModule.service('AuthenticationService', function($rootScope, $cookies, $http, $q, $window, $location, $uibModal) {
 
     // Displays the login modal

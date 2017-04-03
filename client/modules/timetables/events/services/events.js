@@ -1,3 +1,5 @@
+'use strict';
+
 eventsModule.service('EventService', function($http, $q, $uibModal, $rootScope) {
 
     // Gets all the events with the matching tableId

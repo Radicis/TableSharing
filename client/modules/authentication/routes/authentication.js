@@ -1,3 +1,5 @@
+'use strict';
+
 authenticationModule
     .config(function($routeProvider){
         $routeProvider.when('/login', {

@@ -1,3 +1,5 @@
+'use strict';
+
 var tableShare = angular.module('TableShare', [
     'ngRoute',
     'ui.bootstrap',

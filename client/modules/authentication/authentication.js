@@ -1,5 +1,3 @@
-var authenticationModule = angular.module('Authentication', [
+'use strict';
 
-    ]
-
-);
+var authenticationModule = angular.module('Authentication', []);

@@ -1,3 +1,5 @@
+'use strict';
+
 eventsModule.controller('EventController', function($scope,$rootScope, $route, EventService, event, events,ngToast) {
 
     $scope.event = {};

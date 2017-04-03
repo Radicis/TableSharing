@@ -1,3 +1,5 @@
+'use strict';
+
 timetableModule
     .config(function($routeProvider){
         $routeProvider.when('/timetables', {
