@@ -11,6 +11,8 @@ Angular client with route security and responsive design.
 
 ## Run
 
+With a local MongoDB instance running
+
 *npm start or nodemon
 
 ## Release History
