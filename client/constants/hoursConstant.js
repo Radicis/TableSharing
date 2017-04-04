@@ -1,5 +1,8 @@
 'use strict';
 
+/**
+ * Constant to store the possible hours to display when configuring timetables
+ */
 timetableModule.constant('HOURS', [
 
     {name: '7am', value: 7},

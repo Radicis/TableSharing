@@ -1,8 +1,12 @@
 'use strict';
 
+/**
+ * Handles authentication actions
+ */
 authenticationModule.controller('AuthenticationController', function($scope, $rootScope, $route, $window, $routeParams, TimetableService, AuthenticationService, UserService) {
 
     $rootScope.user = {};
+
 
     $scope.openLogin = function () {
         AuthenticationService.openLogin();

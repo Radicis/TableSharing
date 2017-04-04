@@ -2,6 +2,7 @@
 
 usersModule.service('UserService', function($http, $q) {
 
+    // Returns the users profile
     this.getProfileById = function(id){
         var def = $q.defer();
         $http.get('/api/users/' + id).success(function (user) {
@@ -13,6 +14,7 @@ usersModule.service('UserService', function($http, $q) {
         return def.promise;
     };
 
+    // Adds a table to the users subscriptions
     this.subscribeToTable = function(userID, table){
 
         var def = $q.defer();
@@ -25,6 +27,7 @@ usersModule.service('UserService', function($http, $q) {
         return def.promise;
     };
 
+    // Removed a table from the users subscriptions
     this.unSubscribeToTable = function(userID, tableID){
 
         var def = $q.defer();

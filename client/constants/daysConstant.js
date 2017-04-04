@@ -1,5 +1,8 @@
 'use strict';
 
+/**
+ * Constant to store the possible days to display when configuring timetables
+ */
 timetableModule.constant('DAYS', [
 
     {name: 'Sunday', value: 0},

@@ -1,6 +1,6 @@
 'use strict';
 
-eventsModule.controller('EventController', function($scope,$rootScope, $route, EventService, event, events,ngToast) {
+eventsModule.controller('EventController', function($scope,$rootScope, $route, EventService, event, events,ngToast, COLOURS) {
 
     $scope.event = {};
 
@@ -13,13 +13,7 @@ eventsModule.controller('EventController', function($scope,$rootScope, $route, E
     $scope.event.colour = event.colour;
     $scope.event.dow = event.dow;
 
-
-    $scope.colours = [
-        {name: "Red", value: "red"},
-        {name: "Blue", value: "blue"},
-        {name: "Green", value: "green"},
-        {name: "Yellow", value: "yellow"}
-    ];
+    $scope.colours = COLOURS;
 
     $scope.createEvent = function(){
         EventService.addEvent($scope.event).then(function(event){

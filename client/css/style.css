@@ -80,7 +80,6 @@ input{
     background: #fff;
     border: 1px solid #d9d9d9;
     border-top: 1px solid #c0c0c0;
-    /* border-radius: 2px; */
     padding: 0 8px;
     box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -101,28 +100,21 @@ input{
     font-weight: 700;
     height: 36px;
     padding: 0 8px;
-    /* border-radius: 3px; */
-    /* -webkit-user-select: none;
-      user-select: none; */
 }
 
 .loginmodal-submit {
-    /* border: 1px solid #3079ed; */
     border: 0px;
     color: #fff;
     text-shadow: 0 1px rgba(0,0,0,0.1);
     background-color: #583e7e;
     padding: 17px 0px;
     font-size: 14px;
-    /* background-image: -webkit-gradient(linear, 0 0, 0 100%,   from(#4d90fe), to(#4787ed)); */
 }
 
 .loginmodal-submit:hover {
-    /* border: 1px solid #2f5bb7; */
     border: 0px;
     text-shadow: 0 1px rgba(0,0,0,0.3);
     background-color: #5C6A0F;
-    /* background-image: -webkit-gradient(linear, 0 0, 0 100%,   from(#4d90fe), to(#357ae8)); */
 }
 
 .loginmodal-container a {
@@ -154,6 +146,7 @@ input{
 }
 
 /* Styling for each event from Schedule */
+
 .fc-time-grid-event.fc-v-event.fc-event {
     border-radius: 4px;
     border: 1px solid #333 !important;
@@ -161,19 +154,16 @@ input{
     opacity: .65;
     left: 3% !important;
     color: #fefefe;
-    -webkit-box-shadow: 0px 0px 0px 0px rgba(0,0,0,0.55);
-    -moz-box-shadow: 0px 0px 0px 0px rgba(0,0,0,0.55);
-    box-shadow: 0px 0px 0px 0px rgba(0,0,0,0.55);
-    box-shadow: inset 0px 0px 5px 0px #ABABAB,5px 5px 5px 1px #DDDDDD;
-    -webkit-box-shadow: inset 0px 0px 5px 0px #ABABAB,5px 5px 5px 1px #DDDDDD;
-    -moz-box-shadow: inset 0px 0px 5px 0px #ABABAB,5px 5px 5px 1px #DDDDDD;
-    -o-box-shadow: inset 0px 0px 5px 0px #ABABAB,5px 5px 5px 1px #DDDDDD;
+    box-shadow: inset 0 0 5px 0 #ABABAB,5px 5px 5px 1px #DDDDDD;
+    -webkit-box-shadow: inset 0 0 5px 0 #ABABAB,5px 5px 5px 1px #DDDDDD;
+    -moz-box-shadow: inset 0 0 5px 0 #ABABAB,5px 5px 5px 1px #DDDDDD;
+    -o-box-shadow: inset 0 0 5px 0 #ABABAB,5px 5px 5px 1px #DDDDDD;
 }
 
 .fc-time-grid-event.fc-v-event.fc-event:hover{
-    -webkit-box-shadow: 2px 2px 2px 0px rgba(0,0,0,0.75);
-    -moz-box-shadow: 2px 2px 2px 0px rgba(0,0,0,0.75);
-    box-shadow: 2px 2px 2px 0px rgba(0,0,0,0.75);
+    -webkit-box-shadow: 2px 2px 2px 0 rgba(0,0,0,0.75);
+    -moz-box-shadow: 2px 2px 2px 0 rgba(0,0,0,0.75);
+    box-shadow: 2px 2px 2px 0 rgba(0,0,0,0.75);
 }
 
 /* Bolds the name of the event and inherits the font size */
@@ -262,9 +252,6 @@ input{
 }
 
 .floatingButton:hover{
-    -webkit-box-shadow: 0px 0px 0px 0px rgba(0,0,0,0.75);
-    -moz-box-shadow: 0px 0px 0px 0px rgba(0,0,0,0.75);
-    box-shadow: 0px 0px 0px 0px rgba(0,0,0,0.75);
     box-shadow: inset 0px 0px 10px 0px #ABABAB,5px 5px 5px 1px #333;
     -webkit-box-shadow: inset 0px 0px 10px 0px #ABABAB,5px 5px 5px 1px #333;
     -moz-box-shadow: inset 0px 0px 10px 0px #ABABAB,5px 5px 5px 1px #333;
